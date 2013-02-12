@@ -1,0 +1,6 @@
+= Banalize
+
+Describe your project here
+
+:include:Banalize.rdoc
+

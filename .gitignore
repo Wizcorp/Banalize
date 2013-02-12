@@ -1,0 +1,9 @@
+*.gem
+*.swp
+*~
+.DS_Store
+.yardoc
+config/db.rb
+doc
+pkg
+tmp
