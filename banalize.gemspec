@@ -7,14 +7,14 @@ spec = Gem::Specification.new do |s|
   s.email = 'dmytro.kovalov@gmail.com'
   s.homepage = 'http://wizcorp.jp'
   s.platform = Gem::Platform::RUBY
-  s.summary = 'Statc syntax analyzer for Bash'
-# Add your other files here if you make them
-#   s.files = %w(
-# bin/banalize
-# lib/banalize/version.rb
-# lib/banalize.rb
-#   )
-  s.files = %w{ bin/banalize } + Dir.glob("./lib/**/*.rb")
+  s.summary = 'Static syntax analyzer for Bash'
+  s.description = "Run policies tests on bash scripts and libraries with specified policies and severity"
+
+  s.files = ( %w{ bin/banalize } + 
+              Dir.glob("./lib/**/*.rb") + 
+              Dir.glob("./lib/policies/**/*")
+             ).uniq
+
   s.require_paths << 'lib'
   s.has_rdoc = true
   s.extra_rdoc_files = ['README.rdoc','Banalize.rdoc']
