@@ -5,11 +5,13 @@ ARG=${1:-unset}
 case $ARG in 
     config)
         cat <<EOF
--
-name $(basename $0)
-policy bug
-severity 5
-description Runs bash syntax check using 'bash -n' option
+---
+:name: $(basename $0)
+:policy: 
+  - :bug
+  - :test
+:severity: 5
+:description: Runs bash syntax check using 'bash -n' option
 
 EOF
         exit 0;;

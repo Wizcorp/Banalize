@@ -4,8 +4,5 @@ require 'gli'
 
 require 'banalize/version'
 require 'banalize/policy'
+require 'banalize/files'
 
-include GLI::App
-Dir.glob("#{File.dirname(__FILE__)}/commands/*.rb").each do |f|
-  require f
-end

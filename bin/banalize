@@ -11,6 +11,7 @@
 #require_relative File.dirname(File.dirname(__FILE__))
 
 include GLI::App
+commands_from "commands"
 
 program_desc <<-EOF 
 
@@ -27,6 +28,16 @@ version Banalize::VERSION
 
 # desc 'Describe some switch here'
 # switch [:s,:switch]
+
+
+desc 'Severity level'
+default_value 1
+flag [:severity, :s]
+
+
+desc 'Include policy groups'
+default_value 'core'
+flag [:policy, :p]
 
 # desc 'Describe some flag here'
 # default_value 'the default'
