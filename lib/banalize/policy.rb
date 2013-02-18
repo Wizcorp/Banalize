@@ -1,12 +1,29 @@
 module Banalize
 
   require 'active_support/inflector'
-
+  require 'singleton'
   ##
   # Class defining use of Banalize policies DSL. Sets some sane
   # default values.
   #
   class Policy
+
+
+    def initialize file
+      abort "File does not exist: #{file}" unless File.exists? file
+      @lines = File.readlines file
+      @file = file
+    end
+
+    def run
+      raise "You must override #run method"
+    end
+
+    attr_accessor :lines, :file
+
+###
+###  Sandboxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+###
 
     ##
     # Descripton of the policy. If no description is provided then set
@@ -56,9 +73,11 @@ module Banalize
         name:        policy_name,
         policy:      policy,
         severity:    severity,
-        description: description
+        description: description,
+        klass:       name
       }
     end
+      
 
 
   end

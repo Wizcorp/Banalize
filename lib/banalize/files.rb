@@ -14,7 +14,7 @@ module Banalize
     ##
     # Get list of all policy files installed in banalize.
     #
-    def files
+    def self.files
       all  = Dir.glob("#{File.dirname(File.dirname(__FILE__))}/policies/*")
       ruby = all.dup.keep_if { |x| x=~ /\.rb$/}
 
@@ -29,21 +29,19 @@ module Banalize
     # Load and populate policies list with configuration of each
     # policy.
     #
-    def policies
-      policies = []
-      files[:other].each do |f|
-        policies << YAML.load(%x{ #{f} config })
-      end
+    # For Ruby policies it requries each file and then calls #config
+    # method for it.
+    def self.policies
       
-      files[:ruby].each do |f|
+      @policies ||= (files[:other].map { |f| 
+                       YAML.load(%x{ #{f} config }).merge({ path: f })
+                     }) + 
+
+       files[:ruby].map do |f| 
         require f
-        policies << File.basename(f, ".rb").camelize.constantize.config
+        File.basename(f, ".rb").camelize.constantize.config
       end
-      policies
     end
 
-# GET config
-# File.basename(Banalize::Policy.files[:ruby].first, ".rb").camelize.constantize
-# 
   end
 end

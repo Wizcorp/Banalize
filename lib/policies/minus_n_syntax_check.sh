@@ -17,9 +17,10 @@ EOF
         exit 0;;
 esac
 
-[ -z "$ARG" ] || { echo "File name must be provided"; exit 64; }
+
+[ -z "$ARG" ] && { echo "File name must be provided"; exit 64; }
 [ -f "$ARG" ] || { echo "File must exist"; exit 64; }
 
 
-bash -n $ARG
+\bash -n $ARG > /dev/null 2>&1 
 exit $?
