@@ -10,7 +10,7 @@ module Banalize
 
 
     def initialize file
-      abort "File does not exist: #{file}" unless File.exists? file
+      raise Error, "File does not exist: #{file}" unless File.exists? file
       @lines = File.readlines file
       @file = file
     end
