@@ -36,7 +36,7 @@ module Banalize
     # @block [Block]
     def self.define  myname, &block
 
-      klass  = myname.gsub(/\W/, '_').camelize
+      klass  = myname.to_s.gsub(/\W/, '_').camelize
 
       c = Object.const_set klass, Class.new(self , &block)
       c.description myname
@@ -69,7 +69,7 @@ module Banalize
     # description methid in the block for define method.
     #
     def self.description desc=nil
-      @description ||= desc
+      @description ||= desc.to_s.humanize
     end
 
     def self.help hlp=nil

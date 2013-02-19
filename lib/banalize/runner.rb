@@ -1,6 +1,8 @@
 module Banalize
   
   ##
+  # Run policy check and return result of it.
+  #
   # @param [String] bash Bash file for analisys
   # @param [String] policy Name of a policy to check against
   #
@@ -12,7 +14,19 @@ module Banalize
     end
   end
 
+  
   class Runner
+
+    ##
+    # Create new instance of policy check runner and execute
+    # it. Result of the check is returned in @result attribute.
+    #
+    # @param [String] bash
+    #
+    # @param [Hash] policy Policy configuration hash, key :klass
+    #     contains name of the class for Ruby policy. If Hash does not
+    #     have :klass key, it's not a Ruby, execute it as shell
+    #     policy.
 
     def initialize bash,policy
       @bash, @policy, @result = bash, policy, nil

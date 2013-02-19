@@ -6,13 +6,11 @@ case $ARG in
     config)
         cat <<EOF
 ---
-:policy: 
-  - :bug
-  - :test
+:policy: :bug
 :severity: 5
 :description: Bash syntax check 
 :help: |
-  This policy runs sysntax check using 'bash -n' option
+  This policy runs syntax check using 'bash -n' option
 
 EOF
         exit 0;;
