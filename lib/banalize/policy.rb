@@ -2,37 +2,81 @@ module Banalize
 
   require 'active_support/inflector'
   require 'singleton'
+  require 'debugger'
   ##
   # Class defining use of Banalize policies DSL. Sets some sane
   # default values.
   #
   class Policy
 
+    # Define new policy from loading Ruby file with policy.
+    # 
+    # ## Example
+    #
+    #         policy "Check that format of shebang is #!/usr/bin/env bash" do
+    #        
+    #           severity    5 
+    #
+    #           description "Can provide alternative description here"
+    #
+    #           # All method calls are optional. Only required things
+    #           # are policy description and definition of method
+    #           # `run`. Method `run` must be overwritten, otherwise
+    #           # it simply raises execption.
+    #           #
+    #           # Run method must return something that evaluates into
+    #           # `true` (policy check successful) or `false`.
+    #           #
+    #           def run 
+    #             lines.first =~ %r{^\#!/usr/bin/env\s+bash}
+    #           end
+    #         end
+    #
+    # @param [String] myname description of the policy
+    # @block [Block]
+    def self.define  myname, &block
 
+      klass  = myname.gsub(/\W/, '_').camelize
+
+      c = Object.const_set klass, Class.new(self , &block)
+      c.description myname
+      c
+    end
+
+    ##
+    # Creates new instance of policy check.
+    #
+    # @param [String] bash UNIX PATH to Bash script 
+    #
     def initialize bash
       raise RuntimeError, "File does not exist: #{bash}" unless File.exists? bash
       @lines = File.readlines bash
       @bash = bash
     end
-
+    
+    ##
+    # This method must be overwritten in children classes.
     def run
-      raise ArgumentError, "You must override #run method"
+      raise ArgumentError, "You must override #run method in class ''#{self.class.policy_name}'"
     end
 
     attr_accessor :lines, :bash
 
-###
-###  Sandboxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-###
 
     ##
-    # Descripton of the policy. If no description is provided then set
-    # default.
+    # Descripton of the policy. Description comes from the parameter
+    # to self.define method, but can be overwwritten by calling
+    # description methid in the block for define method.
+    #
     def self.description desc=nil
-      if desc
-        @description = desc
+      @description ||= desc
+    end
+
+    def self.help hlp=nil
+      if hlp
+        @help = hlp
       else
-        @description ||= "No description for #{self.name}"
+        @help ||= "No help available for #{self.name}"
       end
     end
 
@@ -65,7 +109,7 @@ module Banalize
     end
 
     ##
-    # Same as config parameter of other buinary checks: return
+    # Same as config parameter of other binary checks: return
     # configuration.
     #
     def self.config
@@ -74,7 +118,8 @@ module Banalize
         policy:      policy,
         severity:    severity,
         description: description,
-        klass:       name
+        klass:       name,
+        help:        help
       }
     end
       

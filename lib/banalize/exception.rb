@@ -1,10 +1,8 @@
 module Banalize
-  class BanalizeError < StandardError
-  end
+  class BanalizeError < StandardError; end
 
   class Runner
-    class Error < BanalizeError
-    end
+    class Error < BanalizeError; end
   end
 
   class Policy
@@ -12,6 +10,4 @@ module Banalize
     class RuntimeError       < BanalizeError; end
     class ArgumentError      < BanalizeError; end
   end
-
-  
 end

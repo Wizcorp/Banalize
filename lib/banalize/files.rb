@@ -33,14 +33,18 @@ module Banalize
     # method for it.
     def self.policies
       
+      files[:ruby].each { |f| require f }
+      
       @policies ||= (files[:other].map { |f| 
-                       YAML.load(%x{ #{f} config }).merge({ path: f })
+                       YAML.load(%x{ #{f} config }).merge({ path: f,
+                                                            name: File.basename(f)
+                                                          })
                      }) + 
+        Banalize.policies.map(&:config)
+        
+        
+        #File.basename(f, ".rb").camelize.constantize.config
 
-       files[:ruby].map do |f| 
-        require f
-        File.basename(f, ".rb").camelize.constantize.config
-      end
     end
 
   end
