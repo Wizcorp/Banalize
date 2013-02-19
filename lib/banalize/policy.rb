@@ -9,17 +9,17 @@ module Banalize
   class Policy
 
 
-    def initialize file
-      raise Error, "File does not exist: #{file}" unless File.exists? file
-      @lines = File.readlines file
-      @file = file
+    def initialize bash
+      raise RuntimeError, "File does not exist: #{bash}" unless File.exists? bash
+      @lines = File.readlines bash
+      @bash = bash
     end
 
     def run
-      raise "You must override #run method"
+      raise ArgumentError, "You must override #run method"
     end
 
-    attr_accessor :lines, :file
+    attr_accessor :lines, :bash
 
 ###
 ###  Sandboxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx

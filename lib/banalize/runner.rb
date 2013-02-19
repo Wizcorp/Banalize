@@ -17,7 +17,6 @@ module Banalize
     def initialize bash,policy
       @bash, @policy, @result = bash, policy, nil
 
-
       if @policy.has_key? :klass
         ruby
       else 

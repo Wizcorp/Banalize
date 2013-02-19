@@ -8,8 +8,9 @@ module Banalize
   end
 
   class Policy
-    class Error < BanalizeError
-    end
+    class Error              < BanalizeError; end
+    class RuntimeError       < BanalizeError; end
+    class ArgumentError      < BanalizeError; end
   end
 
   
