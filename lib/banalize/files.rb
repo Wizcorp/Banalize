@@ -35,17 +35,23 @@ module Banalize
       
       files[:ruby].each { |f| require f }
       
-      @policies ||= (files[:other].map { |f| 
-                       YAML.load(%x{ #{f} config }).merge({ path: f,
-                                                            name: File.basename(f)
-                                                          })
-                     }) + 
-        Banalize.policies.map(&:config)
-        
-        
-        #File.basename(f, ".rb").camelize.constantize.config
-
+      @policies ||= (files[:other].map { |f| shell_config f }) +
+                     Banalize.policies.map(&:config)
     end
 
+    ##
+    # Read configuration from Bash shell policy and return it as Hash
+    #
+    # @param [String] bash PATH to bash policy file
+    #
+    def self.shell_config bash
+      hash = YAML.load( %x{ #{bash} config }).merge({ 
+                                                      path: bash,
+                                                      name: File.basename(bash).to_sym
+                                                    })
+
+      Policy::DEFAULT.merge Hash[hash.map{ |k,v| [k.to_sym, k == v] }]
+
+    end
   end
 end

@@ -9,15 +9,32 @@ module Banalize
   #
   class Policy
 
+    ##
+    # Default settings for policies
+    #
+    DEFAULT = { 
+      policy: :bug,
+      severity: 1,
+      description: 'No description'
+    }
+
     # Define new policy from loading Ruby file with policy.
     # 
     # ## Example
     #
+    #         # First argument to the `policy` method call defines
+    #         # policy name and description. So both `description` and
+    #         # `policy_name` methods are optional in the block.
+    #
     #         policy "Check that format of shebang is #!/usr/bin/env bash" do
     #        
-    #           severity    5 
+    #           severity    5 # Default is 1
     #
     #           description "Can provide alternative description here"
+    #           
+    #           policy 'bug'
+    #
+    #           policy_name "Don't need to specify policy name,it is defined from argument to `policy` method"
     #
     #           # All method calls are optional. Only required things
     #           # are policy description and definition of method
@@ -34,7 +51,7 @@ module Banalize
     #
     # @param [String] myname description of the policy
     # @block [Block]
-    def self.define  myname, &block
+    def self.register  myname, &block
 
       klass  = myname.to_s.gsub(/\W/, '_').camelize
 
@@ -83,14 +100,14 @@ module Banalize
     ##
     # Default policy is 'bug'
     #
-    def self.policy p='bug'
+    def self.policy p=DEFAULT[:policy]
       @policy ||= p
     end
     
     ##
     # Use lowest severity by default
     #
-    def self.severity sev=1
+    def self.severity sev=DEFAULT[:severity]
       @severity ||= sev
     end
 
@@ -102,9 +119,9 @@ module Banalize
     # name, but `config` reports this with key `name`.
     def self.policy_name name=nil
       if name
-        @name = name 
+        @name = name.to_sym
       else
-        @name ||= self.name.underscore
+        @name ||= self.name.underscore.to_sym
       end
     end
 

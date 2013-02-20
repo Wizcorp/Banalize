@@ -1,0 +1,5 @@
+bin/*
+lib/**/*.rb
+--markup markdown
+-
+README.md

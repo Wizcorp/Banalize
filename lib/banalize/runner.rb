@@ -1,3 +1,4 @@
+# @markup markdown
 module Banalize
   
   ##
@@ -8,7 +9,7 @@ module Banalize
   #
   def self.check bash, search
     run_list = case search
-               when String
+               when Symbol, String
                  [ Files.policies.find { |x| x[:name] == search } ]
                when Hash
                  res = Files.policies
@@ -18,7 +19,7 @@ module Banalize
                  res
                else
                  raise Banalize::Runner::ArgumentError, "Unknown search criteria: #{search.inspect}"
-               end
+               end.compact
     
     if run_list.empty?
       raise Banalize::Runner::Error, "No policy satisfying criteria: #{search.inspect}"     
@@ -29,7 +30,21 @@ module Banalize
     end
   end
 
-  
+  ##
+  # Executing policy checks against bash file(s). Class instance is
+  # single bach file to check and single policy. Result of the check
+  # is returned in `@result` instance variable (and attr_accessor).
+  #
+  # Instance attributes
+  # ----------------------
+  # - `@bash` - PATH to bash file
+  #
+  # - `@policy` - [Hash] Policy configuration hash, key :klass contains
+  #           name of the class for Ruby policy. If Hash does not have
+  #           :klass key, it's not a Ruby, execute it as shell policy.
+  #
+  # - `@result` - Currenty returns only Boolean (true - check OK/false
+  #    check fail). This can change later.
   class Runner
 
     ##
@@ -37,12 +52,10 @@ module Banalize
     # it. Result of the check is returned in @result attribute.
     #
     # @param [String] bash
+    # @param [Hash] policy Policy configuration hash.
     #
-    # @param [Hash] policy Policy configuration hash, key :klass
-    #     contains name of the class for Ruby policy. If Hash does not
-    #     have :klass key, it's not a Ruby, execute it as shell
-    #     policy.
-
+    # @see Runner
+    #
     def initialize bash,policy
       @bash, @policy, @result = bash, policy, nil
 

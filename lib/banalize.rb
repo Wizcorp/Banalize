@@ -11,11 +11,18 @@ require 'banalize/policy'
 require 'banalize/files'
 require 'banalize/runner'
 
+##
+# This is shamelessly stolen form Rspec::DSL. Inject method `policy`
+# into the top level namespace, so the we can use in policy definition
+# without need to define class inheritance.
+#
+# Registerd policies are listed in `@@policies` array.
+#
 module Banalize
   module DSL
     @@policies = []
     def policy my_name, &block
-      klass = Banalize::Policy.define(my_name, &block)
+      klass = Banalize::Policy.register(my_name, &block)
       @@policies  << klass
       klass
     end
