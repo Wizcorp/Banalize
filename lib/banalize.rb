@@ -22,7 +22,7 @@ require 'banalize/runner'
 module Banalize
   module DSL
     @@policies = []
-    def define my_name, &block
+    def describe my_name, &block
       klass = Banalize::Registry.register(my_name, &block)
       @@policies  << klass
       klass

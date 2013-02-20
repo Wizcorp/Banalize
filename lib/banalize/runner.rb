@@ -5,22 +5,18 @@ module Banalize
   # Run policy check and return result of it.
   #
   # @param [String] bash Bash file for analisys
-  # @param [String, Hash] policy Name of a policy to check against
+  #
+  # @param [String, Hash] policy Name of a policy to check against or
+  #     hash having :severity and/or :policy keys
+  #
+  # @see Policy.search
+  #
+  # @return [Array of Hashes] each element of array is { :name => result }
   #
   def self.check bash, search
-    run_list = case search
-               when Symbol, String
-                 [ Files.policies.find { |x| x[:name] == search } ]
-               when Hash
-                 res = Files.policies
-                 [:policy, :severity].each do |key|
-                    res = res.select{ |x| x[key] == search[key] } if search.has_key? key
-                  end
-                 res
-               else
-                 raise Banalize::Runner::ArgumentError, "Unknown search criteria: #{search.inspect}"
-               end.compact
-    
+
+    run_list = Policy.search search
+
     if run_list.empty?
       raise Banalize::Runner::Error, "No policy satisfying criteria: #{search.inspect}"     
     end

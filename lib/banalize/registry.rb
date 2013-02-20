@@ -22,11 +22,11 @@ module Banalize
     # 
     # ## Example
     #
-    #         # First argument to the `policy` method call defines
+    #         # First argument to the `describe` method call defines
     #         # policy name and description. So both `description` and
     #         # `policy_name` methods are optional in the block.
     #
-    #         policy "Check that format of shebang is #!/usr/bin/env bash" do
+    #         describe "Check that format of shebang is #!/usr/bin/env bash" do
     #        
     #           severity    5 # Default is 1
     #
@@ -34,7 +34,7 @@ module Banalize
     #           
     #           policy 'bug'
     #
-    #           policy_name "Don't need to specify policy name,it is defined from argument to `policy` method"
+    #           policy_name "Don't need to specify policy name,it is defined from argument to `describe` method"
     #
     #           # All method calls are optional. Only required things
     #           # are policy description and definition of method
