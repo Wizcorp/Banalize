@@ -7,15 +7,15 @@ command :list do |c|
   c.switch [:short, :s]
   c.default_value true
 
-  c.action do |global_options,options,args|
+  c.action do |global,options,args|
 
     print case 
 
           when options[:short]
-            Banalize::Files.policies.map { |x| {x[:name] => [x[:policy], x[:severity]]} }
+            $policies.map { |x| {x[:name] => [x[:policy], x[:severity]]} }
 
           else
-            Banalize::Files.policies.map { |x|
+            $policies.map { |x|
         { 
           name: x[:name],
           description: x[:description],

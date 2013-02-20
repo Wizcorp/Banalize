@@ -8,10 +8,12 @@ command :describe do |c|
     p.desc 'Policy name'
     p.arg_name 'policy_name'
     p.flag [:policy, :p]
+
     p.action do |global_options,options,args|
       print "Name: #{options[:policy]}\n\n"
       print Banalize::Policy.help(options[:policy].to_sym) + "\n\n"
     end
+
   end
   
 

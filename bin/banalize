@@ -29,24 +29,32 @@ version Banalize::VERSION
 
 
 desc 'Use only policies included in specified group'
-default_value 'core'
+# default_value 'core'
 flag [:group, :g]
 
 
-desc 'Apply checks of specified severity and above'
-default_value 5
+desc 'Policies of specified severity and above'
 flag [:severity, :s]
 
-desc 'Use single policy only'
+desc 'Single policy only by name'
 flag [:policy, :p]
 
 
 pre do |global,command,options,args|
-  # Pre logic here
+  
+  search = { } 
+
+  if global[:policy]
+    search = global[:policy]
+
+  else
+    search.merge!({ :policy   => global[:group]         }) if global[:group]
+    search.merge!({ :severity => global[:severity].to_i }) if global[:severity]
+  end
+
+  $policies = Banalize::Policy.search search 
+
   # Return true to proceed; false to abort and not call the
-  # chosen command
-  # Use skips_pre before a command to skip this block
-  # on that command only
   true
 end
 
