@@ -24,26 +24,54 @@ module Banalize
 
     attr_reader :config
 
-    # Find policy or list of policies by searsh criteria. Search can
-    # be policy name (Symbol or String) or Hash with :policy and/or
-    # :severity keys.
+    # Find policy or list of policies by search criteria. 
+    #
+    # Search can be policy name (Symbol or String), Hash with
+    # :policy and/or :severity keys or nil.
+    #
+    # - `nil` -  no filtering. Simply list of all policies returned.
+    #
+    # - `:severity` searched for policies with severity value same as
+    #   search or higher.
+    #
+    # - `:policy` - can be Symbol or Array of symbols. If it's :core
+    #   or includes :core, all policies returned.
+    #
     #
     # @param [String, Symbol, Hash] policy Name of a policy to check
-    #     against or hash having :severity and/or :policy keys
+    #     against or hash having :severity and/or :policy keys.
     #
     # @return [Hash] 
     #
-    def self.search search 
+    def self.search search=nil
       case search
+
+      when nil # If nothing given return all
+        Files.policies
         
       when Symbol, String
         [ Files.policies.find { |x| x[:name] == search.to_sym } ]
         
       when Hash
         res = Files.policies
-        [:policy, :severity].each do |key|
-          res = res.select{ |x| x[key] == search[key] } if search.has_key? key
+        #
+        # `core` - includes everything, so find policies as specified or core
+        #
+        if search.has_key? :policy
+
+          search[:policy] = [search[:policy]].flatten
+
+          res = if search[:policy].include?(:core)
+                  res
+                else 
+                  res.select{ |x| search[:policy].include? x[:policy] }
+                end
         end
+        #
+        # Find policies with severity this or higher
+        #
+        res = res.select{ |x| x[:severity] >= search[:severity] } if search.has_key? :severity
+
         res
 
       else
