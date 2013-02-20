@@ -1,6 +1,7 @@
 module Banalize
   ##
-  # Class defining use of Banalize policies.
+  # Class defining use of Banalize policies. Mainly for accessing
+  # attributes created by Banalize::Files class methods.
   #
   class Policy
 
@@ -14,8 +15,11 @@ module Banalize
     }
 
     def initialize policy
-      @config = Files.policies.find { |x| x[:name] == policy.to_sym }
-     raise RuntimeError, "Policy ''#{policy}' not found" unless @config
+
+      @config = 
+        Files.policies.find { |x| x[:name] == policy.to_sym } ||
+        raise(RuntimeError, "Policy ''#{policy}' not found")
+
     end
 
     attr_reader :config
