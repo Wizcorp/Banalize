@@ -1,4 +1,4 @@
-policy :shebang_format do
+define :shebang_format do
   
   help 'Format of shebang should be #!/usr/bin/env bash'
   severity    5

@@ -26,25 +26,20 @@ EOF
 
 version Banalize::VERSION
 
-# desc 'Describe some switch here'
-# switch [:s,:switch]
 
 
-desc 'Severity level'
-default_value 1
+desc 'Use only policies included in specified group'
+default_value 'core'
+flag [:group, :g]
+
+
+desc 'Apply checks of specified severity and above'
+default_value 5
 flag [:severity, :s]
 
-
-desc 'Include policy groups'
-default_value 'core'
+desc 'Use single policy only'
 flag [:policy, :p]
 
-# desc 'Describe some flag here'
-# default_value 'the default'
-# arg_name 'The name of the argument'
-# flag [:f,:flagname]
-
-# require 'commands'
 
 pre do |global,command,options,args|
   # Pre logic here

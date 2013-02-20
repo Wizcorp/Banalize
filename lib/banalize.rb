@@ -7,6 +7,7 @@ require 'systemu'
 
 require 'banalize/version'
 require 'banalize/exception'
+require 'banalize/registry'
 require 'banalize/policy'
 require 'banalize/files'
 require 'banalize/runner'
@@ -21,8 +22,8 @@ require 'banalize/runner'
 module Banalize
   module DSL
     @@policies = []
-    def policy my_name, &block
-      klass = Banalize::Policy.register(my_name, &block)
+    def define my_name, &block
+      klass = Banalize::Registry.register(my_name, &block)
       @@policies  << klass
       klass
     end

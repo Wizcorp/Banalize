@@ -1,4 +1,4 @@
-source :rubygems
+source 'https://rubygems.org'
 gemspec
 
 gem 'active_support'
@@ -8,3 +8,4 @@ gem 'debugger'
 gem 'rspec-core'
 gem 'rspec-mocks'
 gem 'rspec-expectations'
+gem 'systemu'

@@ -3,11 +3,23 @@ arg_name 'Describe arguments to analyze here'
 command :describe do |c|
 
 
+  c.desc 'Print help for the specified policy'
+  c.command :policy do |p|
+    p.desc 'Policy name'
+    p.arg_name 'policy_name'
+    p.flag [:policy, :p]
+    p.action do |global_options,options,args|
+      print "Name: #{options[:policy]}\n\n"
+      print Banalize::Policy.help(options[:policy].to_sym) + "\n\n"
+    end
+  end
+  
+
   ##
   # Policies
   #
-  c.desc 'List and describe available policies'
-  c.command :policy do |p|
+  c.desc 'List and describe available policy groups'
+  c.command :policies do |p|
     p.action do
       puts <<-EOP
 Theme        Description
@@ -46,7 +58,4 @@ EOF
     end
   end
 
-#   c.action do |global_options,options,args|
-#     puts "analyze command ran"
-#   end
 end
