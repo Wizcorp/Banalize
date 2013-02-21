@@ -13,17 +13,19 @@ module Banalize
   #
   # @return [Array of Hashes] each element of array is { :name => result }
   #
-  def self.check bash, search
+  def self.run bash, search
 
     run_list = Policy.search search
 
     if run_list.empty?
       raise Banalize::Runner::Error, "No policy satisfying criteria: #{search.inspect}"     
     end
-
-    run_list.map do |item|
-      { item[:name] => Banalize::Runner.new(bash, item).result }
+    
+    res = { }
+    run_list.each do |item|
+      res[item[:name]] = Banalize::Runner.new(bash, item).result
     end
+    res
   end
 
   ##

@@ -52,16 +52,44 @@ pre do |global,command,options,args|
     search.merge!({ :severity => global[:severity].to_i }) if global[:severity]
   end
 
+  $search   = search
   $policies = Banalize::Policy.search search 
 
+  $res, $status = { }, true
   # Return true to proceed; false to abort and not call the
   true
 end
 
 post do |global,command,options,args|
-  # Post logic here
-  # Use skips_post before a command to skip this
-  # block on that command only
+
+  # output results of the check
+  unless $res.empty?
+
+    if options[:d]
+      out = ''
+      $res.each do |file,res|
+        res.each do |k,v|
+          out << (v ? '.' : "F")
+          $status &&= v
+        end
+      end
+      puts out
+
+    else
+      out = { }
+      $res.each do |file,res|
+        failure = res.select { |k,v| !v }
+        status &&= ! failure.empty?
+        
+        out[file] = { "Fail" => failure }
+        out[file].merge!({ "Success" => res.select { |k,v| v } }) if options[:all]
+      end
+
+      print out.to_yaml
+    end
+  end
+
+  $status
 end
 
 on_error do |exception|
@@ -70,4 +98,4 @@ on_error do |exception|
   true
 end
 
-exit run(ARGV)
+exit run(ARGV) && $status

@@ -55,14 +55,12 @@ module Banalize
       when Hash
         res = Files.policies
         #
-        # `core` - includes everything, so find policies as specified or core
-        #
         if search.has_key? :policy
 
           search[:policy] = [search[:policy]].flatten
 
           res = if search[:policy].include?(:core)
-                  res
+                  res           # `core` - includes everything
                 else 
                   res.select{ |x| search[:policy].include? x[:policy] }
                 end
