@@ -1,6 +1,6 @@
 desc 'Give a description of terms used here'
 arg_name 'Describe arguments to analyze here'
-command :describe do |c|
+command [:describe,:desc] do |c|
 
 
   c.desc 'Print help for the specified policy'

@@ -17,8 +17,8 @@ spec = Gem::Specification.new do |s|
 
   s.require_paths << 'lib'
   s.has_rdoc = true
-  s.extra_rdoc_files = ['README.rdoc','Banalize.rdoc']
-  s.rdoc_options << '--title' << 'Banalize' << '--main' << 'README.rdoc' << '-ri'
+  s.extra_rdoc_files = Dir.glob("*.(rdoc|md)")
+  s.rdoc_options << '--title' << 'Banalize' << '--main' << 'README.md' << '-ri'
   s.bindir = 'bin'
   s.executables << 'banalize'
   s.add_development_dependency('rake')

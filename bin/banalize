@@ -55,8 +55,10 @@ pre do |global,command,options,args|
   $search   = search
   $policies = Banalize::Policy.search search 
 
-  $res, $status = { }, true
-  # Return true to proceed; false to abort and not call the
+  # - results of checks
+  # - count of failed checks
+  # - total count of checks
+  $res, $status, $total = { }, 0, 0
   true
 end
 
@@ -68,9 +70,10 @@ post do |global,command,options,args|
     if options[:d]
       out = ''
       $res.each do |file,res|
+        $total += res.count
         res.each do |k,v|
           out << (v ? '.' : "F")
-          $status &&= v
+          $status += 1 unless v
         end
       end
       puts out
@@ -79,7 +82,8 @@ post do |global,command,options,args|
       out = { }
       $res.each do |file,res|
         failure = res.select { |k,v| !v }
-        status &&= ! failure.empty?
+        $status += failure.count
+        $total += res.count
         
         out[file] = { "Fail" => failure }
         out[file].merge!({ "Success" => res.select { |k,v| v } }) if options[:all]
@@ -87,6 +91,8 @@ post do |global,command,options,args|
 
       print out.to_yaml
     end
+    
+    puts "\n#{$res.count} files, #{$total.to_s} checks, #{$status.to_s} failed"
   end
 
   $status
@@ -98,4 +104,4 @@ on_error do |exception|
   true
 end
 
-exit run(ARGV) && $status
+exit run(ARGV) && $status == 0

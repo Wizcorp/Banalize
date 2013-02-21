@@ -1,7 +1,6 @@
 desc 'List available policies'
 
-arg_name ''
-command :list do |c|
+command [:list,:ls] do |c|
 
   c.desc 'Only names of policies without description'
   c.switch [:short, :s]
