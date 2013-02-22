@@ -63,33 +63,38 @@ pre do |global,command,options,args|
 end
 
 post do |global,command,options,args|
-
+  #
   # output results of the check
+  #
   unless $res.empty?
 
-    if options[:d]
-      out = ''
+    if options[:dots]
+      dots = ''
       $res.each do |file,res|
         $total += res.count
         res.each do |k,v|
-          out << (v ? '.' : "F")
-          $status += 1 unless v
+          dots << (v[:status] ? '.' : "F")
+          $status += 1 unless v[:status]
         end
       end
-      puts out
+      puts dots
 
     else
       out = { }
       $res.each do |file,res|
-        failure = res.select { |k,v| !v }
-        $status += failure.count
-        $total += res.count
-        
+
+        failure = res.select { |k,v| !v[:status] }
+        failure.map { |k,v| failure[k] = v[:messages] } # Ignore all other keys, only bring messages up
+
         out[file] = { "Fail" => failure }
-        out[file].merge!({ "Success" => res.select { |k,v| v } }) if options[:all]
+
+        out[file].merge!({ "Success" => res.keys.select { |k| res[k][:status] } }) if options[:all]
+
+        $total  += res.count
+        $status += failure.count
       end
 
-      print out.to_yaml
+      print out.to_yaml.to_s.gsub(%r{^/}, "\n\n/")
     end
     
     puts "\n#{$res.count} files, #{$total.to_s} checks, #{$status.to_s} failed"

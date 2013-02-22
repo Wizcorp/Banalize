@@ -20,5 +20,5 @@ esac
 [ -f "$ARG" ] || { echo "File must exist"; exit 64; }
 
 
-\bash -n $ARG > /dev/null 2>&1 
+\bash -n $ARG 2>&1
 exit $?

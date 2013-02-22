@@ -22,8 +22,8 @@ module Banalize
     end
     
     res = { }
-    run_list.each do |item|
-      res[item[:name]] = Banalize::Runner.new(bash, item).result
+    run_list.each do |policy|
+      res[policy[:name]] = Banalize::Runner.new(bash, policy).result
     end
     res
   end
@@ -70,16 +70,34 @@ module Banalize
     # Execute ruby check
     #
     def ruby
-      @result = policy[:klass].constantize.new(bash).run ? true : false
+      object = policy[:klass].constantize.new(bash)
+      res = object.run
+      @result = { 
+        :status => res ? true : false,
+        :messages => Errors.to_s(object.errors.messages)
+      }
     end
     
     ##
     # Execute shell check
     #
     def shell
-      %x{ #{policy[:path]} #{bash} }
-      @result = ($?.exitstatus == 0)
+      err = %x{ #{policy[:path]} #{bash} }
+      @result = {
+        :status => ($?.exitstatus == 0),
+        :messages => err
+      }
     end
+
+    # systemu is very slow
+    def shell_
+      stat, out, err = systemu  "#{policy[:path]} #{bash} "
+      @result = {
+        :status => ($?.exitstatus == 0),
+        :messages => err
+      }
+    end
+
   end
 
 

@@ -69,8 +69,11 @@ module Banalize
       raise RuntimeError, "File does not exist: #{bash}" unless File.exists? bash
       @lines = File.readlines bash
       @bash = bash
+      @errors = Errors.new self
     end
     
+    attr_accessor :errors
+
     ##
     # This method must be overwritten in children classes.
     def run
