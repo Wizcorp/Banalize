@@ -1,4 +1,4 @@
-describe "do_nothing" do 
+banalizer "do_nothing" do 
   
   policy :test
   severity 3
