@@ -2,8 +2,6 @@ $: << File.dirname(__FILE__)
 
 require 'gli'
 require 'active_support/inflector'
-require 'systemu'
-
 
 require 'banalize/version'
 require 'banalize/exception'

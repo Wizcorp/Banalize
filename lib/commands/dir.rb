@@ -17,6 +17,10 @@ command [:directory, :dir] do |c|
   c.default_value "*"
   c.flag [:wildcard, :w]
 
+  c.desc "With 'no-' do not show errors, only name of failed check"
+  c.default_value true
+  c.switch [:errors, :err, :e]
+
   c.action do |global, options, args|
     args.each { |dir| 
       dir = File.expand_path dir

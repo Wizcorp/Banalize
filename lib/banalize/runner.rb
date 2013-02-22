@@ -90,13 +90,13 @@ module Banalize
     end
 
     # systemu is very slow
-    def shell_
-      stat, out, err = systemu  "#{policy[:path]} #{bash} "
-      @result = {
-        :status => ($?.exitstatus == 0),
-        :messages => err
-      }
-    end
+#     def shell_
+#       stat, out, err = systemu  "#{policy[:path]} #{bash} "
+#       @result = {
+#         :status => ($?.exitstatus == 0),
+#         :messages => err
+#       }
+#     end
 
   end
 
