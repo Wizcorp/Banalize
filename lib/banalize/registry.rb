@@ -111,7 +111,7 @@ module Banalize
     # Use lowest severity by default
     #
     def self.severity sev=DEFAULT[:severity]
-      @severity ||= sev
+      @severity ||= Banalize::Policy::Severity.to_i(sev)
     end
 
     ##

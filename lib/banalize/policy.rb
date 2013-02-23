@@ -9,8 +9,8 @@ module Banalize
     # Default settings for policies
     #
     DEFAULT = { 
-      policy: :bug,
-      severity: 1,
+      policy: :core,
+      severity: Severity.default,
       description: 'No description'
     }
 

@@ -46,17 +46,11 @@ EOP
   c.desc 'Print out names of severity levels and their numeric value'
   c.command :severity do |a|
     a.action do 
-      puts <<-EOF
+      puts "Name                Value"
+      puts "------              ------"
+      print Banalize::Policy::Severity.to_s
 
-Name          Value
-------        -------------
-Gentle        (5) - default
-Stern         (4)
-Harsh         (3)
-Cruel         (2)
-Brutal        (1)
-
-EOF
+      puts "\n\nDefault policy: " << Banalize::Policy::Severity.default.to_s
     end
   end
 
