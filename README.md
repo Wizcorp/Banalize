@@ -4,10 +4,12 @@ Name
 
 Banalize - static code analyzer for Bash
 
+![banalize](images/banalize.png)
+
 Description
 ===========
 
-Banalizer is syntax analyzer for bash scripts. It is modelled after ideas of `Perl::Critic` project - analyzer for Perl scripts. Most of the Banalizer is written in Ruby. Exception is policy files which are language agnostic, and can be written in any language: scripting or compiled.
+Banalizer is syntax analyzer for bash scripts. It is modelled after ideas of [`Perl::Critic`](http://en.wikipedia.org/wiki/Perl::Critic) static analyzer for Perl. Most of the Banalizer is written in Ruby. Exception is policy files which are language agnostic, and can be written in any language: scripting or compiled.
 
 Banalizer consists of main binary file, banalyzer libraries, command line interface (CLI) and policies. 
 

@@ -1,5 +1,6 @@
 bin/*
 lib/**/*.rb
 --markup markdown
+--asset images:images
 -
 README.md
