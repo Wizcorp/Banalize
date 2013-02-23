@@ -1,4 +1,3 @@
-# @title Banalize README
 
 Name
 ===========
@@ -8,11 +7,11 @@ Banalize - static code analyzer for Bash
 Description
 ===========
 
-Banalizer is sysnatx analizer for bash scripts. It is modelled after ideas of `Perl::Critic` project - analyzer for Perl scripts. Most of the Banalizer is written in Ruby. Exception is policy files which are language agnostic, and can be written in any language: scripting or compiled.
+Banalizer is syntax analyzer for bash scripts. It is modelled after ideas of `Perl::Critic` project - analyzer for Perl scripts. Most of the Banalizer is written in Ruby. Exception is policy files which are language agnostic, and can be written in any language: scripting or compiled.
 
 Banalizer consists of main binary file, banalyzer libraries, command line interface (CLI) and policies. 
 
-Policy is requirement for bash script/file. For example: each script must have 'shebang' as fisrt line.
+Policy is requirement for bash script/file. For example: each script must have 'shebang' as first line.
 
 Each policy is implemented as Ruby or other programming/scripting language file able to perform single check on single bash script file. Rest - aggregating checks, reporting, filtering etc - is handled by Banalizer.
 
@@ -38,7 +37,7 @@ Policies
 
 ### Non-ruby policies (i.e. others)
 
-Every 'other; policy should comform to few rules:
+Every 'other; policy should conform to few rules:
 - it must return information about itself when called with parameter `config`
   - Output of the `config` command is YAML formatted text
   - Attributes of the YAML structure are
