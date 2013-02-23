@@ -1,5 +1,0 @@
-= Banalize
-
-Generate this with
-    Banalize rdoc
-After you have described your command line interface

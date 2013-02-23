@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII" />
+<title>
+  File: README
+  
+    &mdash; Documentation by YARD 0.8.3
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '';
+  framesUrl = "frames.html#!" + escape(window.location.href);
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
+  
+    <a href="_index.html">Index</a> &raquo; 
+    <span class="title">File: README</span>
+  
+
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+      Class List
+    </a>
+  
+    <a class="full_list_link" id="method_list_link"
+        href="method_list.html">
+      Method List
+    </a>
+  
+    <a class="full_list_link" id="file_list_link"
+        href="file_list.html">
+      File List
+    </a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+
+    <iframe id="search_frame"></iframe>
+
+    <div id="content"><div id='filecontents'><h1>Name</h1>
+
+<p>Banalize - static code analyzer for Bash</p>
+
+<h1>Description</h1>
+
+<p>Banalizer is syntax analyzer for bash scripts. It is modelled after ideas of <code>Perl::Critic</code> project - analyzer for Perl scripts. Most of the Banalizer is written in Ruby. Exception is policy files which are language agnostic, and can be written in any language: scripting or compiled.</p>
+
+<p>Banalizer consists of main binary file, banalyzer libraries, command line interface (CLI) and policies. </p>
+
+<p>Policy is requirement for bash script/file. For example: each script must have &#39;shebang&#39; as first line.</p>
+
+<p>Each policy is implemented as Ruby or other programming/scripting language file able to perform single check on single bash script file. Rest - aggregating checks, reporting, filtering etc - is handled by Banalizer.</p>
+
+<h3>Severity</h3>
+
+<h3>Policy group</h3>
+
+<h1>Conventions</h1>
+
+<h2>Policies</h2>
+
+<ul>
+<li>All policies (policy files) installed in <code>./lib/policies</code> directory. 
+Note: There could be other policy directories added in the future, like for example <code>~/.banalizer</code> or similar</li>
+<li>There are two classes of policies recognized by Banalizer: ruby and &#39;other&#39;</li>
+<li>Ruby policy files detected by <code>.rb</code> extension. Files without <code>.rb</code> extension are considered to be &#39;others&#39;</li>
+<li>Policy name is detected from
+
+<ul>
+<li>file name of &#39;other&#39; policy</li>
+<li>first argument for <code>banalizer</code> method for Ruby policy</li>
+</ul></li>
+<li>all names should be unique, or they will be overwritten</li>
+</ul>
+
+<h3>Non-ruby policies (i.e. others)</h3>
+
+<p>Every &#39;other; policy should conform to few rules:
+- it must return information about itself when called with parameter <code>config</code>
+  - Output of the <code>config</code> command is YAML formatted text
+  - Attributes of the YAML structure are
+      - severity
+      - policy
+      - name
+      - description
+      - help
+  - All attributes are optional. 
+    They are either set to default values if missing, or detected from other meta-data (like, for example, name of a policy is <code>$(basename file)</code> of policy file.
+- it must be able to perform single check on bash script file and
+  - return non-zero status if check fails or 0 if succeeds
+  - return (optional) error massages on STDOUT
+  <strong>Note</strong>: Only STDOUT is honored by Banalizer. If your check command returns errors on STDERR and STDOUT is not important, you need to redirect shell streams correspondingly.</p>
+
+<h3>policy name</h3>
+
+<ul>
+<li>Must correspond to file name.
+
+<ul>
+<li>non-ruby policies get their name from <code>$(basename $0)</code></li>
+<li>Ruby policy must define class with the camelized name of ruby-plugin file:
+
+<ul>
+<li>file: <code>shebang_format.rb</code></li>
+<li>class: <code>ShebangFormat</code></li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h3>Config section</h3>
+
+<p>Each policy produces self-help in YAML</p>
+
+<pre class="code yaml"><code>    ---
+    :name: $(basename $0)
+    :policy: 
+      - :bug
+      - :test
+    :severity: 5
+    :description: Runs bash syntax check using 'bash -n' option
+</code></pre>
+
+<ul>
+<li>YAML keys are Ruby symbols (i.e. have leading colon &#39;:&#39;)</li>
+<li>Policy can be Symbol or Array of Symbols</li>
+</ul>
+
+<h3>DSL</h3>
+
+<p>DSL provides methods with the same names as keys in YAML config section:</p>
+
+<pre class="code ruby"><code>  <span class='id identifier rubyid_description'>description</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Check format of shebang</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_severity'>severity</span>    <span class='int'>5</span>
+</code></pre>
+
+<p>Each Ruby policy inherits from <span class='object_link'><a href="Banalize/Policy.html" title="Banalize::Policy (class)">Banalize::Policy</a></span></p>
+</div></div>
+
+    <div id="footer">
+  Generated on Sat Feb 23 11:41:37 2013 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.8.3 (ruby-1.9.3).
+</div>
+
+  </body>
+</html>
