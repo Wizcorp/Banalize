@@ -20,7 +20,37 @@ Each policy is implemented as Ruby or other programming/scripting language file 
 
 ### Severity
 
+From [`Perl::Critic`](http://perlcritic.tigris.org/) page:
+
+> severity is the level of importance you wish to assign to the Policy. All Policy modules are defined with a default severity value ranging from 1 (least severe) to 5 (most severe). However, you may disagree with the default severity and choose to give it a higher or lower severity, based on your own coding philosophy. You can set the severity to an integer from 1 to 5, or use one of the equivalent names:
+>
+>      SEVERITY NAME ...is equivalent to... SEVERITY NUMBER
+>      ----------------------------------------------------
+>      gentle                                             5
+>      stern                                              4
+>      harsh                                              3
+>      cruel                                              2
+>      brutal                                             1
+>
+
 ### Policy style
+
+Banalizer's policy style more or less correspond to `Perl::Critic`'s policy theme with exclusion of Perl specific themes. Again quote from `Perl::Critic`:
+
+
+>        THEME             DESCRIPTION
+>        --------------------------------------------------------------------------
+>        core              All policies that ship with Perl::Critic
+>        pbp               Policies that come directly from "Perl Best Practices"
+>        bugs              Policies that that prevent or reveal bugs
+>        maintenance       Policies that affect the long-term health of the code
+>        cosmetic          Policies that only have a superficial effect
+>        complexity        Policies that specificaly relate to code complexity
+>        security          Policies that relate to security issues
+>        tests             Policies that are specific to test scripts
+>   
+
+See http://perlcritic.tigris.org/#THE%20POLICIES
 
 Conventions
 ===========
@@ -29,6 +59,7 @@ Policies
 -----------
 
 - All policies (policy files) installed in `./lib/policies` directory. 
+
   Note: There could be other (additionally) policy directories added in the future, like for example `~/.banalizer` or similar
 - There are two classes of policies recognized by Banalizer: Ruby and _'other'_
 - Ruby policy files detected by `.rb` extension. Files without `.rb` extension are considered to be 'others'
@@ -41,7 +72,7 @@ Policies
 
 All policies have these attributes:
 
-- name
+- policy (i.e. name)
 - synopsis
 - description
 - severity
@@ -82,14 +113,14 @@ Policy should conform to few rules:
 ### Ruby policy
 
 1. Ruby policy has two required items: 
-   - name  
+   - name  (_Note_: to avoid clashes with Ruby standard `name` method we use `policy` DSL method)
    - must define method called `run`
 1. Policy is defined in top-level namespace's method called `banalizer`
    - name is string or Ruby symbol parameter to `banalizer` method
    - additional (optional) attributes are defined as DSL methods calls inside block given to `banalizer` method
    - run method is defined in the same block
 1. DSL methods names correspond to policy attributes :
-   - policy_name ( to avoid clashes with Ruby standard `name` method)
+   - policy (i.e. policy name)
    - synopsis
    - description
    - style
