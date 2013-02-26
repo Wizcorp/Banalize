@@ -47,7 +47,7 @@ module Banalize
     def self.shell_config bash
       hash = YAML.load(%x{ #{bash} config }).merge({
                                                       path: bash,
-                                                      name: File.basename(bash).to_sym
+                                                      policy: File.basename(bash).to_sym
                                                     })
 
       Policy::DEFAULT.merge Hash[hash.map { |k, v| [k.to_sym, v] }]

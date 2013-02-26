@@ -23,7 +23,7 @@ module Banalize
 
     res = { }
     run_list.each do |policy|
-      res[policy[:name]] = Banalize::Runner.new(bash, policy).result
+      res[policy[:policy]] = Banalize::Runner.new(bash, policy).result
     end
     res
   end

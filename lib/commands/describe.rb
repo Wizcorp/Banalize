@@ -7,11 +7,12 @@ command [:describe,:desc] do |c|
   c.command [:policy, :pol, :p] do |p|
     p.desc 'Policy name'
     p.arg_name 'policy_name'
-    # p.flag [:policy, :p]
 
-    p.action do |global_options,options,args|
-      print "Name: #{options[:policy]}\n\n"
-      print Banalize::Policy.description(args.first.to_sym) + "\n\n"
+    p.action do |global_options, options, args|
+      raise "Need a policy name to see description" if args.empty?
+      p = args.first.to_sym
+      print "\n#{p}: #{Banalize::Policy.synopsis(p)}\n\n"
+      print Banalize::Policy.description(p) + "\n\n"
     end
 
   end

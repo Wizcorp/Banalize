@@ -5,7 +5,8 @@ module Banalize
   require 'debugger'
   ##
   # Class defining use of Banalize policies DSL. Sets some sane
-  # default values.
+  # default values for each of the DSL methods and registers new
+  # policy in the list of policies.
   #
   class Registry
 
@@ -74,6 +75,17 @@ module Banalize
 
     attr_accessor :lines, :bash
 
+    ##
+    # Name of this policy.
+    #
+    def self.policy name=nil
+      if name
+        @policy = name.to_sym
+      else
+        @policy ||= self.name.underscore.to_sym
+      end
+    end
+
 
     ##
     # Short summary of the policy. Synopsis comes from the name of the
@@ -97,7 +109,7 @@ module Banalize
     # Default style is 'bug'
     #
     def self.style p=Policy::DEFAULT[:style]
-      @policy ||= p
+      @style ||= p
     end
 
     ##
@@ -107,19 +119,6 @@ module Banalize
       @severity ||= Banalize::Policy::Severity.to_i(sev)
     end
 
-    ##
-    # Name of this policy.
-    #
-    # Note: `policy_name` corresponds to `name` in configuration of
-    # non-ruby policies. Since `name` is method in ruby, use diffent
-    # name, but `config` reports this with key `name`.
-    def self.policy_name name=nil
-      if name
-        @name = name.to_sym
-      else
-        @name ||= self.name.underscore.to_sym
-      end
-    end
 
     ##
     # Same as config parameter of other binary checks: return
@@ -127,7 +126,7 @@ module Banalize
     #
     def self.config
       {
-        name:        policy_name,
+        policy:      policy,
         synopsis:    synopsis,
         style:       style,
         severity:    severity,

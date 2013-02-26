@@ -17,8 +17,8 @@ module Banalize
     def initialize policy
 
       @config =
-        Files.policies.find { |x| x[:name] == policy.to_sym } ||
-        raise(RuntimeError, "Policy ''#{policy}' not found")
+        Files.policies.find { |x| x[:policy] == policy.to_sym } ||
+        raise(RuntimeError, "Policy ''#{policy}' not found among policy files")
 
     end
 
@@ -50,7 +50,7 @@ module Banalize
         Files.policies
 
       when Symbol, String
-        [Files.policies.find { |x| x[:name] == search.to_sym }]
+        [Files.policies.find { |x| x[:policy] == search.to_sym }]
 
       when Hash
         res = Files.policies

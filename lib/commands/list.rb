@@ -11,15 +11,12 @@ command [:list, :ls] do |c|
     print case
 
           when options[:short]
-            $policies.map { |x| { x[:name] => [x[:style], x[:severity]] } }
+            $policies.map { |x| { x[:policy] => [x[:style], x[:severity]] } }
 
           else
             $policies.map { |x|
         {
-          name: x[:name],
-          synopsis: x[:synopsis],
-          style: x[:style],
-          severity: x[:severity],
+          x[:policy] => [x[:synopsis], x[:style], x[:severity]],
         }
       }
 
