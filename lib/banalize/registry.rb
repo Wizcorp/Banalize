@@ -9,15 +9,6 @@ module Banalize
   #
   class Registry
 
-    ##
-    # Default settings for policies
-    #
-    DEFAULT = { 
-      policy: :bug,
-      severity: 1,
-      description: 'No description'
-    }
-
     # Define new policy from loading Ruby file with policy.
     # 
     # ## Example
@@ -101,16 +92,16 @@ module Banalize
     end
 
     ##
-    # Default policy is 'bug'
+    # Default style is 'bug'
     #
-    def self.policy p=DEFAULT[:policy]
+    def self.style p=Policy::DEFAULT[:style]
       @policy ||= p
     end
     
     ##
     # Use lowest severity by default
     #
-    def self.severity sev=DEFAULT[:severity]
+    def self.severity sev=Policy::DEFAULT[:severity]
       @severity ||= Banalize::Policy::Severity.to_i(sev)
     end
 
@@ -135,7 +126,7 @@ module Banalize
     def self.config
       { 
         name:        policy_name,
-        policy:      policy,
+        style:       style,
         severity:    severity,
         description: description,
         klass:       name,

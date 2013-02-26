@@ -9,7 +9,7 @@ module Banalize
     # Default settings for policies
     #
     DEFAULT = { 
-      policy: :core,
+      style: :core,
       severity: Severity.default,
       description: 'No description'
     }
@@ -34,7 +34,7 @@ module Banalize
     # - `:severity` searched for policies with severity value same as
     #   search or higher.
     #
-    # - `:policy` - can be Symbol or Array of symbols. If it's :core
+    # - `:style` - can be Symbol or Array of symbols. If it's :core
     #   or includes :core, all policies returned.
     #
     #
@@ -55,14 +55,14 @@ module Banalize
       when Hash
         res = Files.policies
         #
-        if search.has_key? :policy
+        if search.has_key? :style
 
-          search[:policy] = [search[:policy]].flatten
+          search[:style] = [search[:style]].flatten
 
-          res = if search[:policy].include?(:core)
+          res = if search[:style].include?(:core)
                   res           # `core` - includes everything
                 else 
-                  res.select{ |x| search[:policy].include? x[:policy] }
+                  res.select{ |x| search[:style].include? x[:style] }
                 end
         end
         #

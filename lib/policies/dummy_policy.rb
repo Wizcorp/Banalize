@@ -1,6 +1,6 @@
 banalizer "do_nothing" do 
   
-  policy :test
+  style    :test
   severity 3
 
   def run 

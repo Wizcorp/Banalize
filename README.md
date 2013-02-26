@@ -1,3 +1,4 @@
+[![Wizcorp](images/wizcorp-logo.png)](http://wizcorp.jp)
 
 Name
 ===========
@@ -28,72 +29,94 @@ Policies
 -----------
 
 - All policies (policy files) installed in `./lib/policies` directory. 
-  Note: There could be other policy directories added in the future, like for example `~/.banalizer` or similar
-- There are two classes of policies recognized by Banalizer: ruby and 'other'
+  Note: There could be other (additionally) policy directories added in the future, like for example `~/.banalizer` or similar
+- There are two classes of policies recognized by Banalizer: Ruby and _'other'_
 - Ruby policy files detected by `.rb` extension. Files without `.rb` extension are considered to be 'others'
 - Policy name is detected from
   - file name of 'other' policy
   - first argument for `banalizer` method for Ruby policy
 - all names should be unique, or they will be overwritten
 
+### Attributes
+
+All policies have these attributes:
+
+- name
+- description
+- severity
+- style
+- help
+
+Depending on the type of policy some of the attributes are required, some optional or can be set to reasonable default.
 
 ### Non-ruby policies (i.e. others)
 
-Every 'other; policy should conform to few rules:
-- it must return information about itself when called with parameter `config`
+Policy should conform to few rules:
+
+1. it must return information about itself when called with parameter `config`
   - Output of the `config` command is YAML formatted text
-  - Attributes of the YAML structure are
-      - severity
-      - policy
-      - name
-      - description
-      - help
-  - All attributes are optional. 
-    They are either set to default values if missing, or detected from other meta-data (like, for example, name of a policy is `$(basename file)` of policy file.
-- it must be able to perform single check on bash script file and
+    - Command returns attributes names and values of the policy
+    - All attributes in case of 'other' policy are optional
+
+      They are either set to default values if missing, or detected from other meta-data (like, for example, name of a policy is `$(basename file)` of policy file.
+2. Policy script must be able to perform single (syntax/semantic/format) check on bash script file and:
   - return non-zero status if check fails or 0 if succeeds
   - return (optional) error massages on STDOUT
-  **Note**: Only STDOUT is honored by Banalizer. If your check command returns errors on STDERR and STDOUT is not important, you need to redirect shell streams correspondingly.
 
-
-
-
-
-### policy name
-
-- Must correspond to file name.
-  - non-ruby policies get their name from `$(basename $0)`
-  - Ruby policy must define class with the camelized name of ruby-plugin file:
-      - file: `shebang_format.rb`
-      - class: `ShebangFormat`
+    **Note**: Only STDOUT is honored by Banalizer. 
     
+    If your check command, for example, prints to STDERR but not to STDOUT, you'd need to redirect shell streams accordingly.
 
-### Config section
-
-Each policy produces self-help in YAML
+#### Example config section
 
 ```yaml
     ---
-    :name: $(basename $0)
-    :policy: 
+    name: $(basename $0)
+    style: 
       - :bug
       - :test
-    :severity: 5
-    :description: Runs bash syntax check using 'bash -n' option
+    severity: 5
+    description: Runs bash syntax check using 'bash -n' option
 ```
 
-* YAML keys are Ruby symbols (i.e. have leading colon ':')
-* Policy can be Symbol or Array of Symbols
+### Ruby policy
 
-### DSL
+1. Ruby policy has two required items: 
+   - name  
+   - must define method called `run`
+1. Policy is defined in top-level namespace's method called `banalizer`
+   - name is string or Ruby symbol parameter to `banalizer` method
+   - additional (optional) attributes are defined as DSL methods calls inside block given to `banalizer` method
+   - run method is defined in the same block
+1. DSL methods names correspond to policy attributes :
+   - description
+   - help
+   - style
+   - severity
+   - policy_name ( to avoid clashes with Ruby standard `name` method)
+1. `run` method should:
+   - return value evaluated into true or false
 
-DSL provides methods with the same names as keys in YAML config section:
+#### Example 
 
-```ruby
-  description "Check format of shebang"
+This is full working example of Ruby DSL policy:
+
+````ruby
+banalizer :shebang_format do
+  
+  help        'Format of shebang should be #!/usr/bin/env bash'
   severity    5
-```
 
-Each Ruby policy inherits from {Banalize::Policy}
+  def run
+    unless lines.first =~ %r{^\#!/usr/bin/env\s+bash}
 
+      errors.add "First line is not in the format #!/usr/bin/env bash", 1
+      return false
+    end
+  end
 
+end
+````
+
+<!--  LocalWords:  banalize
+ -->
