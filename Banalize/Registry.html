@@ -104,7 +104,8 @@
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
     <p>Class defining use of Banalize policies DSL. Sets some sane
-default values.</p>
+default values for each of the DSL methods and registers new
+policy in the list of policies.</p>
 
 
   </div>
@@ -122,32 +123,6 @@ default values.</p>
     
   
 </p>
-
-  <h2>Constant Summary</h2>
-  
-    <dl class="constants">
-      
-        <dt id="DEFAULT-constant" class="">DEFAULT =
-          <div class="docstring">
-  <div class="discussion">
-    <p>Default settings for policies</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div>
-        </dt>
-        <dd><pre class="code"><span class='lbrace'>{</span> 
-  <span class='label'>policy:</span> <span class='symbol'>:bug</span><span class='comma'>,</span>
-  <span class='label'>severity:</span> <span class='int'>1</span><span class='comma'>,</span>
-  <span class='label'>description:</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>No description</span><span class='tstring_end'>'</span></span>
-<span class='rbrace'>}</span></pre></dd>
-      
-    </dl>
-  
 
 
 
@@ -273,30 +248,7 @@ configuration.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#description-class_method" title="description (class method)">+ (Object) <strong>description</strong>(desc = nil) </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'><p>Descripton of the policy.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#help-class_method" title="help (class method)">+ (Object) <strong>help</strong>(hlp = nil) </a>
+      <a href="#description-class_method" title="description (class method)">+ (Object) <strong>description</strong>(hlp = nil) </a>
     
 
     
@@ -318,30 +270,7 @@ configuration.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#policy-class_method" title="policy (class method)">+ (Object) <strong>policy</strong>(p = DEFAULT[:policy]) </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'><p>Default policy is &#39;bug&#39;.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#policy_name-class_method" title="policy_name (class method)">+ (Object) <strong>policy_name</strong>(name = nil) </a>
+      <a href="#policy-class_method" title="policy (class method)">+ (Object) <strong>policy</strong>(name = nil) </a>
     
 
     
@@ -387,7 +316,7 @@ configuration.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#severity-class_method" title="severity (class method)">+ (Object) <strong>severity</strong>(sev = DEFAULT[:severity]) </a>
+      <a href="#severity-class_method" title="severity (class method)">+ (Object) <strong>severity</strong>(sev = Policy::DEFAULT[:severity]) </a>
     
 
     
@@ -402,6 +331,52 @@ configuration.</p>
 
   
     <span class="summary_desc"><div class='inline'><p>Use lowest severity by default.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#style-class_method" title="style (class method)">+ (Object) <strong>style</strong>(p = Policy::DEFAULT[:style]) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Default style is &#39;bug&#39;.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#synopsis-class_method" title="synopsis (class method)">+ (Object) <strong>synopsis</strong>(desc = nil) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Short summary of the policy.</p>
 </div></span>
   
 </li>
@@ -527,15 +502,15 @@ configuration.</p>
       <pre class="lines">
 
 
-68
-69
-70
-71
-72
-73</pre>
+61
+62
+63
+64
+65
+66</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/banalize/registry.rb', line 68</span>
+      <pre class="code"><span class="info file"># File 'lib/banalize/registry.rb', line 61</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span> <span class='id identifier rubyid_bash'>bash</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='const'>RuntimeError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>File does not exist: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_bash'>bash</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_exists?'>exists?</span> <span class='id identifier rubyid_bash'>bash</span>
@@ -580,12 +555,12 @@ configuration.</p>
       <pre class="lines">
 
 
-83
-84
-85</pre>
+76
+77
+78</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/banalize/registry.rb', line 83</span>
+      <pre class="code"><span class="info file"># File 'lib/banalize/registry.rb', line 76</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bash'>bash</span>
   <span class='ivar'>@bash</span>
@@ -622,12 +597,12 @@ configuration.</p>
       <pre class="lines">
 
 
-75
-76
-77</pre>
+68
+69
+70</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/banalize/registry.rb', line 75</span>
+      <pre class="code"><span class="info file"># File 'lib/banalize/registry.rb', line 68</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_errors'>errors</span>
   <span class='ivar'>@errors</span>
@@ -664,12 +639,12 @@ configuration.</p>
       <pre class="lines">
 
 
-83
-84
-85</pre>
+76
+77
+78</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/banalize/registry.rb', line 83</span>
+      <pre class="code"><span class="info file"># File 'lib/banalize/registry.rb', line 76</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_lines'>lines</span>
   <span class='ivar'>@lines</span>
@@ -712,28 +687,28 @@ configuration.</p>
       <pre class="lines">
 
 
+127
+128
+129
+130
+131
+132
+133
+134
 135
-136
-137
-138
-139
-140
-141
-142
-143
-144</pre>
+136</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/banalize/registry.rb', line 135</span>
+      <pre class="code"><span class="info file"># File 'lib/banalize/registry.rb', line 127</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_config'>config</span>
-  <span class='lbrace'>{</span> 
-    <span class='label'>name:</span>        <span class='id identifier rubyid_policy_name'>policy_name</span><span class='comma'>,</span>
+  <span class='lbrace'>{</span>
     <span class='label'>policy:</span>      <span class='id identifier rubyid_policy'>policy</span><span class='comma'>,</span>
+    <span class='label'>synopsis:</span>    <span class='id identifier rubyid_synopsis'>synopsis</span><span class='comma'>,</span>
+    <span class='label'>style:</span>       <span class='id identifier rubyid_style'>style</span><span class='comma'>,</span>
     <span class='label'>severity:</span>    <span class='id identifier rubyid_severity'>severity</span><span class='comma'>,</span>
     <span class='label'>description:</span> <span class='id identifier rubyid_description'>description</span><span class='comma'>,</span>
-    <span class='label'>klass:</span>       <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span>
-    <span class='label'>help:</span>        <span class='id identifier rubyid_help'>help</span>
+    <span class='label'>klass:</span>       <span class='id identifier rubyid_name'>name</span>
   <span class='rbrace'>}</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -744,49 +719,7 @@ configuration.</p>
       <div class="method_details ">
   <h3 class="signature " id="description-class_method">
   
-    + (<tt>Object</tt>) <strong>description</strong>(desc = nil) 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    <p>Descripton of the policy. Description comes from the parameter
-to self.define method, but can be overwwritten by calling
-description methid in the block for define method.</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-91
-92
-93</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/banalize/registry.rb', line 91</span>
-
-<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_description'>description</span> <span class='id identifier rubyid_desc'>desc</span><span class='op'>=</span><span class='kw'>nil</span>
-  <span class='ivar'>@description</span> <span class='op'>||=</span> <span class='id identifier rubyid_desc'>desc</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_humanize'>humanize</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="help-class_method">
-  
-    + (<tt>Object</tt>) <strong>help</strong>(hlp = nil) 
+    + (<tt>Object</tt>) <strong>description</strong>(hlp = nil) 
   
 
   
@@ -798,22 +731,22 @@ description methid in the block for define method.</p>
       <pre class="lines">
 
 
-95
-96
-97
-98
-99
 100
-101</pre>
+101
+102
+103
+104
+105
+106</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/banalize/registry.rb', line 95</span>
+      <pre class="code"><span class="info file"># File 'lib/banalize/registry.rb', line 100</span>
 
-<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_help'>help</span> <span class='id identifier rubyid_hlp'>hlp</span><span class='op'>=</span><span class='kw'>nil</span>
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_description'>description</span> <span class='id identifier rubyid_hlp'>hlp</span><span class='op'>=</span><span class='kw'>nil</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_hlp'>hlp</span>
-    <span class='ivar'>@help</span> <span class='op'>=</span> <span class='id identifier rubyid_hlp'>hlp</span>
+    <span class='ivar'>@description</span> <span class='op'>=</span> <span class='id identifier rubyid_hlp'>hlp</span>
   <span class='kw'>else</span>
-    <span class='ivar'>@help</span> <span class='op'>||=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>No help available for </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span>
+    <span class='ivar'>@description</span> <span class='op'>||=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>No description available for </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -824,7 +757,7 @@ description methid in the block for define method.</p>
       <div class="method_details ">
   <h3 class="signature " id="policy-class_method">
   
-    + (<tt>Object</tt>) <strong>policy</strong>(p = DEFAULT[:policy]) 
+    + (<tt>Object</tt>) <strong>policy</strong>(name = nil) 
   
 
   
@@ -832,7 +765,7 @@ description methid in the block for define method.</p>
   
 </h3><div class="docstring">
   <div class="discussion">
-    <p>Default policy is &#39;bug&#39;</p>
+    <p>Name of this policy.</p>
 
 
   </div>
@@ -846,66 +779,22 @@ description methid in the block for define method.</p>
       <pre class="lines">
 
 
-106
-107
-108</pre>
+81
+82
+83
+84
+85
+86
+87</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/banalize/registry.rb', line 106</span>
+      <pre class="code"><span class="info file"># File 'lib/banalize/registry.rb', line 81</span>
 
-<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_policy'>policy</span> <span class='id identifier rubyid_p'>p</span><span class='op'>=</span><span class='const'>DEFAULT</span><span class='lbracket'>[</span><span class='symbol'>:policy</span><span class='rbracket'>]</span>
-  <span class='ivar'>@policy</span> <span class='op'>||=</span> <span class='id identifier rubyid_p'>p</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="policy_name-class_method">
-  
-    + (<tt>Object</tt>) <strong>policy_name</strong>(name = nil) 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    <p>Name of this policy. </p>
-
-<p>Note: <code>policy_name</code> corresponds to <code>name</code> in configuration of
-non-ruby policies. Since <code>name</code> is method in ruby, use diffent
-name, but <code>config</code> reports this with key <code>name</code>.</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-123
-124
-125
-126
-127
-128
-129</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/banalize/registry.rb', line 123</span>
-
-<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_policy_name'>policy_name</span> <span class='id identifier rubyid_name'>name</span><span class='op'>=</span><span class='kw'>nil</span>
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_policy'>policy</span> <span class='id identifier rubyid_name'>name</span><span class='op'>=</span><span class='kw'>nil</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_name'>name</span>
-    <span class='ivar'>@name</span> <span class='op'>=</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
+    <span class='ivar'>@policy</span> <span class='op'>=</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
   <span class='kw'>else</span>
-    <span class='ivar'>@name</span> <span class='op'>||=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_underscore'>underscore</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
+    <span class='ivar'>@policy</span> <span class='op'>||=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_underscore'>underscore</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -928,17 +817,18 @@ name, but <code>config</code> reports this with key <code>name</code>.</p>
 
 <h2>Example</h2>
 
-<pre class="code ruby"><code>    <span class='comment'># First argument to the `describe` method call defines
-</span>    <span class='comment'># policy name and description. So both `description` and
-</span>    <span class='comment'># `policy_name` methods are optional in the block.
+<pre class="code ruby"><code>    <span class='comment'># First argument to the `banalizer` method call defines
+</span>    <span class='comment'># policy name and short description (AKA synopsis).
+</span>    <span class='comment'># Both `description` and `policy_name` methods are
+</span>    <span class='comment'># optional in the block.
 </span>
-    <span class='id identifier rubyid_describe'>describe</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Check that format of shebang is #!/usr/bin/env bash</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_banalizer'>banalizer</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Check that format of shebang is #!/usr/bin/env bash</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>do</span>
 
       <span class='id identifier rubyid_severity'>severity</span>    <span class='int'>5</span> <span class='comment'># Default is 1
 </span>
-      <span class='id identifier rubyid_description'>description</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Can provide alternative description here</span><span class='tstring_end'>&quot;</span></span>
+      <span class='id identifier rubyid_synopsis'>synopsis</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Can provide alternative description here</span><span class='tstring_end'>&quot;</span></span>
 
-      <span class='id identifier rubyid_policy'>policy</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>bug</span><span class='tstring_end'>'</span></span>
+      <span class='id identifier rubyid_style'>style</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>bug</span><span class='tstring_end'>'</span></span>
 
       <span class='id identifier rubyid_policy_name'>policy_name</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Don't need to specify policy name,it is defined from argument to `describe` method</span><span class='tstring_end'>&quot;</span></span>
 
@@ -950,7 +840,7 @@ name, but <code>config</code> reports this with key <code>name</code>.</p>
 </span>      <span class='comment'># Run method must return something that evaluates into
 </span>      <span class='comment'># `true` (policy check successful) or `false`.
 </span>      <span class='comment'>#
-</span>      <span class='kw'>def</span> <span class='id identifier rubyid_run'>run</span> 
+</span>      <span class='kw'>def</span> <span class='id identifier rubyid_run'>run</span>
         <span class='id identifier rubyid_lines'>lines</span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span> <span class='op'>=~</span> <span class='tstring'><span class='regexp_beg'>%r{</span><span class='tstring_content'>^\#!/usr/bin/env\s+bash</span><span class='regexp_end'>}</span></span>
       <span class='kw'>end</span>
     <span class='kw'>end</span>
@@ -973,7 +863,7 @@ name, but <code>config</code> reports this with key <code>name</code>.</p>
       
       
         &mdash;
-        <div class='inline'><p>description of the policy</p>
+        <div class='inline'><p>name for the policy</p>
 </div>
       
     </li>
@@ -987,24 +877,24 @@ name, but <code>config</code> reports this with key <code>name</code>.</p>
       <pre class="lines">
 
 
-54
-55
-56
-57
-58
-59
-60
-61</pre>
+47
+48
+49
+50
+51
+52
+53
+54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/banalize/registry.rb', line 54</span>
+      <pre class="code"><span class="info file"># File 'lib/banalize/registry.rb', line 47</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_register'>register</span>  <span class='id identifier rubyid_myname'>myname</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span>
 
   <span class='id identifier rubyid_klass'>klass</span>  <span class='op'>=</span> <span class='id identifier rubyid_myname'>myname</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\W</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>_</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_camelize'>camelize</span>
 
   <span class='id identifier rubyid_c'>c</span> <span class='op'>=</span> <span class='const'>Object</span><span class='period'>.</span><span class='id identifier rubyid_const_set'>const_set</span> <span class='id identifier rubyid_klass'>klass</span><span class='comma'>,</span> <span class='const'>Class</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span> <span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_description'>description</span> <span class='id identifier rubyid_myname'>myname</span>
+  <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_synopsis'>synopsis</span> <span class='id identifier rubyid_myname'>myname</span>
   <span class='id identifier rubyid_c'>c</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1015,7 +905,7 @@ name, but <code>config</code> reports this with key <code>name</code>.</p>
       <div class="method_details ">
   <h3 class="signature " id="severity-class_method">
   
-    + (<tt>Object</tt>) <strong>severity</strong>(sev = DEFAULT[:severity]) 
+    + (<tt>Object</tt>) <strong>severity</strong>(sev = Policy::DEFAULT[:severity]) 
   
 
   
@@ -1037,15 +927,98 @@ name, but <code>config</code> reports this with key <code>name</code>.</p>
       <pre class="lines">
 
 
-113
-114
-115</pre>
+118
+119
+120</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/banalize/registry.rb', line 113</span>
+      <pre class="code"><span class="info file"># File 'lib/banalize/registry.rb', line 118</span>
 
-<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_severity'>severity</span> <span class='id identifier rubyid_sev'>sev</span><span class='op'>=</span><span class='const'>DEFAULT</span><span class='lbracket'>[</span><span class='symbol'>:severity</span><span class='rbracket'>]</span>
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_severity'>severity</span> <span class='id identifier rubyid_sev'>sev</span><span class='op'>=</span><span class='const'>Policy</span><span class='op'>::</span><span class='const'>DEFAULT</span><span class='lbracket'>[</span><span class='symbol'>:severity</span><span class='rbracket'>]</span>
   <span class='ivar'>@severity</span> <span class='op'>||=</span> <span class='const'>Banalize</span><span class='op'>::</span><span class='const'>Policy</span><span class='op'>::</span><span class='const'>Severity</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='lparen'>(</span><span class='id identifier rubyid_sev'>sev</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="style-class_method">
+  
+    + (<tt>Object</tt>) <strong>style</strong>(p = Policy::DEFAULT[:style]) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Default style is &#39;bug&#39;</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+111
+112
+113</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/banalize/registry.rb', line 111</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_style'>style</span> <span class='id identifier rubyid_p'>p</span><span class='op'>=</span><span class='const'>Policy</span><span class='op'>::</span><span class='const'>DEFAULT</span><span class='lbracket'>[</span><span class='symbol'>:style</span><span class='rbracket'>]</span>
+  <span class='ivar'>@style</span> <span class='op'>||=</span> <span class='id identifier rubyid_p'>p</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="synopsis-class_method">
+  
+    + (<tt>Object</tt>) <strong>synopsis</strong>(desc = nil) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Short summary of the policy. Synopsis comes from the name of the
+policy which is first parameter to the <code>banalizer</code> method, but
+can be overwwritten by calling systemu DSL method in the block
+for the <code>banalizer</code> method.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+96
+97
+98</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/banalize/registry.rb', line 96</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_synopsis'>synopsis</span> <span class='id identifier rubyid_desc'>desc</span><span class='op'>=</span><span class='kw'>nil</span>
+  <span class='ivar'>@synopsis</span> <span class='op'>||=</span> <span class='id identifier rubyid_desc'>desc</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_humanize'>humanize</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1096,12 +1069,12 @@ name, but <code>config</code> reports this with key <code>name</code>.</p>
       <pre class="lines">
 
 
-79
-80
-81</pre>
+72
+73
+74</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/banalize/registry.rb', line 79</span>
+      <pre class="code"><span class="info file"># File 'lib/banalize/registry.rb', line 72</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_run'>run</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>You must override #run method in class ''</span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_policy_name'>policy_name</span><span class='rbrace'>}</span><span class='tstring_content'>'</span><span class='tstring_end'>&quot;</span></span>
@@ -1116,7 +1089,7 @@ name, but <code>config</code> reports this with key <code>name</code>.</p>
 </div>
 
     <div id="footer">
-  Generated on Sat Feb 23 12:18:30 2013 by
+  Generated on Tue Feb 26 19:04:49 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.3 (ruby-1.9.3).
 </div>

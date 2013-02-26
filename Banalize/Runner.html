@@ -391,7 +391,7 @@ it. Result of the check is returned in @result attribute.</p>
 
   <span class='kw'>if</span> <span class='ivar'>@policy</span><span class='period'>.</span><span class='id identifier rubyid_has_key?'>has_key?</span> <span class='symbol'>:klass</span>
     <span class='id identifier rubyid_ruby'>ruby</span>
-  <span class='kw'>else</span> 
+  <span class='kw'>else</span>
     <span class='id identifier rubyid_shell'>shell</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
@@ -578,7 +578,7 @@ it. Result of the check is returned in @result attribute.</p>
 <span class='kw'>def</span> <span class='id identifier rubyid_ruby'>ruby</span>
   <span class='id identifier rubyid_object'>object</span> <span class='op'>=</span> <span class='id identifier rubyid_policy'>policy</span><span class='lbracket'>[</span><span class='symbol'>:klass</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_constantize'>constantize</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_bash'>bash</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_res'>res</span> <span class='op'>=</span> <span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_run'>run</span>
-  <span class='ivar'>@result</span> <span class='op'>=</span> <span class='lbrace'>{</span> 
+  <span class='ivar'>@result</span> <span class='op'>=</span> <span class='lbrace'>{</span>
     <span class='symbol'>:status</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_res'>res</span> <span class='op'>?</span> <span class='kw'>true</span> <span class='op'>:</span> <span class='kw'>false</span><span class='comma'>,</span>
     <span class='symbol'>:messages</span> <span class='op'>=&gt;</span> <span class='const'>Errors</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_messages'>messages</span><span class='rparen'>)</span>
   <span class='rbrace'>}</span>
@@ -641,7 +641,7 @@ it. Result of the check is returned in @result attribute.</p>
 </div>
 
     <div id="footer">
-  Generated on Sat Feb 23 12:18:30 2013 by
+  Generated on Tue Feb 26 19:04:49 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.3 (ruby-1.9.3).
 </div>
