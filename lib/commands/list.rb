@@ -1,29 +1,29 @@
 desc 'List available policies'
 
-command [:list,:ls] do |c|
+command [:list, :ls] do |c|
 
   c.desc 'Only names of policies without description'
   c.switch [:short, :s]
   c.default_value true
 
-  c.action do |global,options,args|
+  c.action do |global, options, args|
 
-    print case 
+    print case
 
           when options[:short]
-            $policies.map { |x| {x[:name] => [x[:policy], x[:severity]]} }
+            $policies.map { |x| { x[:name] => [x[:style], x[:severity]] } }
 
           else
             $policies.map { |x|
-        { 
+        {
           name: x[:name],
-          description: x[:description],
-          policy: x[:policy],
+          synopsis: x[:synopsis],
+          style: x[:style],
           severity: x[:severity],
         }
       }
 
     end.to_yaml
-    
+
   end
 end

@@ -3,7 +3,7 @@ desc 'Run banalize on a single file or multiple files'
 
 arg_name 'dir', :multiple
 command [:directory, :dir] do |c|
-  
+
   c.desc "Show all results, by default only failures shown (only for long format)"
   c.switch [:a,:all]
 
@@ -22,7 +22,7 @@ command [:directory, :dir] do |c|
   c.switch [:errors, :err, :e]
 
   c.action do |global, options, args|
-    args.each { |dir| 
+    args.each { |dir|
       dir = File.expand_path dir
       files = Dir.glob("#{dir}/#{ options[:r] ? '**/' : ''}#{options[:wildcard]}").select { |x| File.file? x}
       files.each { |file| $res[file] = Banalize.run(file, $search) }

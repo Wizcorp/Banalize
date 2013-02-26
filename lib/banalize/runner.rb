@@ -1,6 +1,6 @@
 # @markup markdown
 module Banalize
-  
+
   ##
   # Run policy check and return result of it.
   #
@@ -18,9 +18,9 @@ module Banalize
     run_list = Policy.search search
 
     if run_list.empty?
-      raise Banalize::Runner::Error, "No policy satisfying criteria: #{search.inspect}"     
+      raise Banalize::Runner::Error, "No policy satisfying criteria: #{search.inspect}"
     end
-    
+
     res = { }
     run_list.each do |policy|
       res[policy[:name]] = Banalize::Runner.new(bash, policy).result
@@ -59,25 +59,25 @@ module Banalize
 
       if @policy.has_key? :klass
         ruby
-      else 
+      else
         shell
       end
     end
 
     attr_accessor :policy, :bash, :result
-    
+
     ##
     # Execute ruby check
     #
     def ruby
       object = policy[:klass].constantize.new(bash)
       res = object.run
-      @result = { 
+      @result = {
         :status => res ? true : false,
         :messages => Errors.to_s(object.errors.messages)
       }
     end
-    
+
     ##
     # Execute shell check
     #
@@ -99,7 +99,4 @@ module Banalize
 #     end
 
   end
-
-
-
 end

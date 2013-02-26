@@ -16,9 +16,9 @@ module Banalize
     #
     def self.files
       all  = Dir.glob("#{File.dirname(File.dirname(__FILE__))}/policies/*")
-      ruby = all.dup.keep_if { |x| x=~ /\.rb$/}
+      ruby = all.dup.keep_if { |x| x=~ /\.rb$/ }
 
-      @@files ||= { 
+      @@files ||= {
         all:    all,
         ruby:   ruby,
         other:  (all - ruby)
@@ -32,9 +32,9 @@ module Banalize
     # For Ruby policies it requries each file and then calls #config
     # method for it.
     def self.policies
-      
+
       files[:ruby].each { |f| require f }
-      
+
       @policies ||= (files[:other].map { |f| shell_config f }) +
                      Banalize.policies.map(&:config)
     end
@@ -45,12 +45,12 @@ module Banalize
     # @param [String] bash PATH to bash policy file
     #
     def self.shell_config bash
-      hash = YAML.load( %x{ #{bash} config }).merge({ 
+      hash = YAML.load(%x{ #{bash} config }).merge({
                                                       path: bash,
                                                       name: File.basename(bash).to_sym
                                                     })
 
-      Policy::DEFAULT.merge Hash[hash.map{ |k,v| [k.to_sym, v] }]
+      Policy::DEFAULT.merge Hash[hash.map { |k, v| [k.to_sym, v] }]
     end
   end
 end

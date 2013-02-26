@@ -1,4 +1,6 @@
 module Banalize
+  ##
+  # Errors class provides stograge of error messages while running policy checks. 
   class Errors
 
     def initialize klass

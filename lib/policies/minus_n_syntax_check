@@ -7,8 +7,8 @@ case $ARG in
         cat <<EOF
 ---
 severity: 1
-description: Bash syntax check 
-help: |
+synopsis: Bash syntax check 
+description: |
   This policy runs syntax check using 'bash -n' option.
 
 EOF

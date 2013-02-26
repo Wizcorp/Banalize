@@ -20,7 +20,7 @@ Each policy is implemented as Ruby or other programming/scripting language file 
 
 ### Severity
 
-### Policy group
+### Policy style
 
 Conventions
 ===========
@@ -42,10 +42,10 @@ Policies
 All policies have these attributes:
 
 - name
+- synopsis
 - description
 - severity
 - style
-- help
 
 Depending on the type of policy some of the attributes are required, some optional or can be set to reasonable default.
 
@@ -89,13 +89,14 @@ Policy should conform to few rules:
    - additional (optional) attributes are defined as DSL methods calls inside block given to `banalizer` method
    - run method is defined in the same block
 1. DSL methods names correspond to policy attributes :
+   - policy_name ( to avoid clashes with Ruby standard `name` method)
+   - synopsis
    - description
-   - help
    - style
    - severity
-   - policy_name ( to avoid clashes with Ruby standard `name` method)
-1. `run` method should:
-   - return value evaluated into true or false
+1. `run` method :
+   - need to return result of a check as something that can be evaluated into true or false
+   - optionally can pass along error messages from the check, using `errors.add` DLS method to populate errors object (instance of {Banalize::Errors} class
 
 #### Example 
 
@@ -104,7 +105,7 @@ This is full working example of Ruby DSL policy:
 ````ruby
 banalizer :shebang_format do
   
-  help        'Format of shebang should be #!/usr/bin/env bash'
+  synopsis    'Format of shebang should be #!/usr/bin/env bash'
   severity    5
 
   def run

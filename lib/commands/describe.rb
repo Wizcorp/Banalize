@@ -4,14 +4,14 @@ command [:describe,:desc] do |c|
 
 
   c.desc 'Print help for the specified policy'
-  c.command :policy do |p|
+  c.command [:policy, :pol, :p] do |p|
     p.desc 'Policy name'
     p.arg_name 'policy_name'
-    p.flag [:policy, :p]
+    # p.flag [:policy, :p]
 
     p.action do |global_options,options,args|
       print "Name: #{options[:policy]}\n\n"
-      print Banalize::Policy.help(options[:policy].to_sym) + "\n\n"
+      print Banalize::Policy.description(args.first.to_sym) + "\n\n"
     end
 
   end
@@ -21,7 +21,7 @@ command [:describe,:desc] do |c|
   # Policies
   #
   c.desc 'List and describe available policy groups'
-  c.command :policies do |p|
+  c.command [:styles, :style] do |p|
     p.action do
       puts <<-EOP
 Theme        Description
@@ -44,13 +44,13 @@ EOP
   # Severity
   #
   c.desc 'Print out names of severity levels and their numeric value'
-  c.command :severity do |a|
+  c.command [:severity, :sev] do |a|
     a.action do 
       puts "Name                Value"
       puts "------              ------"
       print Banalize::Policy::Severity.to_s
 
-      puts "\n\nDefault policy: " << Banalize::Policy::Severity.default.to_s
+      puts "\n\nDefault severity: " << Banalize::Policy::Severity.default.to_s
     end
   end
 

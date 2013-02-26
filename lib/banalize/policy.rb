@@ -8,7 +8,7 @@ module Banalize
     ##
     # Default settings for policies
     #
-    DEFAULT = { 
+    DEFAULT = {
       style: :core,
       severity: Severity.default,
       description: 'No description'
@@ -16,7 +16,7 @@ module Banalize
 
     def initialize policy
 
-      @config = 
+      @config =
         Files.policies.find { |x| x[:name] == policy.to_sym } ||
         raise(RuntimeError, "Policy ''#{policy}' not found")
 
@@ -24,7 +24,7 @@ module Banalize
 
     attr_reader :config
 
-    # Find policy or list of policies by search criteria. 
+    # Find policy or list of policies by search criteria.
     #
     # Search can be policy name (Symbol or String), Hash with
     # :policy and/or :severity keys or nil.
@@ -41,17 +41,17 @@ module Banalize
     # @param [String, Symbol, Hash] policy Name of a policy to check
     #     against or hash having :severity and/or :policy keys.
     #
-    # @return [Hash] 
+    # @return [Hash]
     #
     def self.search search=nil
       case search
 
       when nil # If nothing given return all
         Files.policies
-        
+
       when Symbol, String
-        [ Files.policies.find { |x| x[:name] == search.to_sym } ]
-        
+        [Files.policies.find { |x| x[:name] == search.to_sym }]
+
       when Hash
         res = Files.policies
         #
@@ -61,14 +61,15 @@ module Banalize
 
           res = if search[:style].include?(:core)
                   res           # `core` - includes everything
-                else 
-                  res.select{ |x| search[:style].include? x[:style] }
+                else
+                  res.select { |x| search[:style].include? x[:style] }
                 end
         end
         #
         # Find policies with severity this or higher
         #
-        res = res.select{ |x| x[:severity] >= search[:severity] } if search.has_key? :severity
+        res = res.select { |x| x[:severity] >= search[:severity] } if
+          search.has_key? :severity
 
         res
 

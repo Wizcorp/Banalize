@@ -1,6 +1,6 @@
 banalizer :shebang_format do
   
-  help 'Format of shebang should be #!/usr/bin/env bash'
+  description 'Format of shebang should be #!/usr/bin/env bash'
 
   def run
     unless lines.first =~ %r{^\#!/usr/bin/env\s+bash}

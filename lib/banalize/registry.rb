@@ -10,20 +10,21 @@ module Banalize
   class Registry
 
     # Define new policy from loading Ruby file with policy.
-    # 
+    #
     # ## Example
     #
-    #         # First argument to the `describe` method call defines
-    #         # policy name and description. So both `description` and
-    #         # `policy_name` methods are optional in the block.
+    #         # First argument to the `banalizer` method call defines
+    #         # policy name and short description (AKA synopsis).
+    #         # Both `description` and `policy_name` methods are
+    #         # optional in the block.
     #
-    #         describe "Check that format of shebang is #!/usr/bin/env bash" do
-    #        
+    #         banalizer "Check that format of shebang is #!/usr/bin/env bash" do
+    #
     #           severity    5 # Default is 1
     #
-    #           description "Can provide alternative description here"
-    #           
-    #           policy 'bug'
+    #           synopsis "Can provide alternative description here"
+    #
+    #           style 'bug'
     #
     #           policy_name "Don't need to specify policy name,it is defined from argument to `describe` method"
     #
@@ -35,26 +36,26 @@ module Banalize
     #           # Run method must return something that evaluates into
     #           # `true` (policy check successful) or `false`.
     #           #
-    #           def run 
+    #           def run
     #             lines.first =~ %r{^\#!/usr/bin/env\s+bash}
     #           end
     #         end
     #
-    # @param [String] myname description of the policy
+    # @param [String] myname name for the policy
     # @block [Block]
     def self.register  myname, &block
 
       klass  = myname.to_s.gsub(/\W/, '_').camelize
 
       c = Object.const_set klass, Class.new(self , &block)
-      c.description myname
+      c.synopsis myname
       c
     end
 
     ##
     # Creates new instance of policy check.
     #
-    # @param [String] bash UNIX PATH to Bash script 
+    # @param [String] bash UNIX PATH to Bash script
     #
     def initialize bash
       raise RuntimeError, "File does not exist: #{bash}" unless File.exists? bash
@@ -62,7 +63,7 @@ module Banalize
       @bash = bash
       @errors = Errors.new self
     end
-    
+
     attr_accessor :errors
 
     ##
@@ -75,19 +76,20 @@ module Banalize
 
 
     ##
-    # Descripton of the policy. Description comes from the parameter
-    # to self.define method, but can be overwwritten by calling
-    # description methid in the block for define method.
+    # Short summary of the policy. Synopsis comes from the name of the
+    # policy which is first parameter to the `banalizer` method, but
+    # can be overwwritten by calling systemu DSL method in the block
+    # for the `banalizer` method.
     #
-    def self.description desc=nil
-      @description ||= desc.to_s.humanize
+    def self.synopsis desc=nil
+      @synopsis ||= desc.to_s.humanize
     end
 
-    def self.help hlp=nil
+    def self.description hlp=nil
       if hlp
-        @help = hlp
+        @description = hlp
       else
-        @help ||= "No help available for #{self.name}"
+        @description ||= "No description available for #{self.name}"
       end
     end
 
@@ -97,7 +99,7 @@ module Banalize
     def self.style p=Policy::DEFAULT[:style]
       @policy ||= p
     end
-    
+
     ##
     # Use lowest severity by default
     #
@@ -106,7 +108,7 @@ module Banalize
     end
 
     ##
-    # Name of this policy. 
+    # Name of this policy.
     #
     # Note: `policy_name` corresponds to `name` in configuration of
     # non-ruby policies. Since `name` is method in ruby, use diffent
@@ -124,16 +126,16 @@ module Banalize
     # configuration.
     #
     def self.config
-      { 
+      {
         name:        policy_name,
+        synopsis:    synopsis,
         style:       style,
         severity:    severity,
         description: description,
-        klass:       name,
-        help:        help
+        klass:       name
       }
     end
-      
+
 
 
   end
