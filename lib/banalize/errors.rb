@@ -15,11 +15,18 @@ module Banalize
     end
     
     ##
+    # Retrun true if there are no errors
+    def empty?
+      @messages.empty?
+    end
+
+    ##
     # Retrun true if there are any errors
     #
     def any?
-      ! @messages.empty?
+      ! empty?
     end
+
 
     ##
     # Convert Array of Hashes of error messages into readable form

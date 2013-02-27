@@ -8,7 +8,7 @@ module Banalize
   # default values for each of the DSL methods and registers new
   # policy in the list of policies.
   #
-  class Registry
+  class Registry < Parser
 
     # Define new policy from loading Ruby file with policy.
     #
@@ -58,11 +58,12 @@ module Banalize
     #
     # @param [String] bash UNIX PATH to Bash script
     #
-    def initialize bash
-      raise RuntimeError, "File does not exist: #{bash}" unless File.exists? bash
-      @lines = File.readlines bash
-      @bash = bash
+    def initialize path
+      raise RuntimeError, "File does not exist: #{path}" unless File.exists? path
+      @lines = File.readlines path
+      @path = path
       @errors = Errors.new self
+      super path
     end
 
     attr_accessor :errors
@@ -73,7 +74,7 @@ module Banalize
       raise ArgumentError, "You must override #run method in class ''#{self.class.policy_name}'"
     end
 
-    attr_accessor :lines, :bash
+    attr_accessor :lines, :path
 
     ##
     # Name of this policy.

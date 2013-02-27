@@ -5,7 +5,7 @@ module Banalize
     class Error < BanalizeError; end
   end
 
-  class Registry
+  class Registry < Parser
     class Error              < BanalizeError; end
     class RuntimeError       < BanalizeError; end
     class ArgumentError      < BanalizeError; end

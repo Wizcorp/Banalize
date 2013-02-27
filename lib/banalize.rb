@@ -4,9 +4,12 @@ require 'gli'
 require 'active_support/inflector'
 
 require 'banalize/version'
+
+require 'banalize/parser'
 require 'banalize/exception'
-require 'banalize/errors'
 require 'banalize/registry'
+
+require 'banalize/errors'
 require 'banalize/policy/severity'
 require 'banalize/policy'
 require 'banalize/files'
