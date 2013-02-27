@@ -1,10 +1,12 @@
 $: << File.dirname(__FILE__)
 
 require 'gli'
+require 'mash'
 require 'active_support/inflector'
 
 require 'banalize/version'
 
+require 'banalize/parser/numbered'
 require 'banalize/parser'
 require 'banalize/exception'
 require 'banalize/registry'

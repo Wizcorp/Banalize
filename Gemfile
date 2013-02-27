@@ -3,6 +3,7 @@ gemspec
 
 gem 'active_support'
 gem 'gli'
+gem 'mash'
 gem 'debugger'
 
 gem 'rspec-core'

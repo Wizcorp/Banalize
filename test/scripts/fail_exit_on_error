@@ -1,0 +1,8 @@
+#!/usr/bin/env bash +e
+
+ls /etc/tmp ; set +e
+
+
+echo "Hello"
+
+set +e

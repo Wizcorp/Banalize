@@ -36,6 +36,7 @@ GEM
       json (>= 1.7.6)
     gli (2.5.4)
     json (1.7.6)
+    mash (0.1.1)
     rake (10.0.3)
     rdoc (3.12.1)
       json (~> 1.4)
@@ -53,6 +54,7 @@ DEPENDENCIES
   banalize!
   debugger
   gli
+  mash
   rake
   rdoc
   rspec-core

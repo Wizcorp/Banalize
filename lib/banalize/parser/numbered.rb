@@ -1,5 +1,4 @@
 module Banalize
-
   class Numbered < ::Mash
 
     ##
@@ -46,28 +45,5 @@ module Banalize
       self[number] = line.chomp
     end
 
-  end
-
-
-  class Parser
-
-    def initialize path
-      @shebang = Numbered.new
-      @comments = Numbered.new 
-      @code = Numbered.new
-
-      @shebang.add lines.shift if lines.first =~ /^#!/
-
-      lines.each_index do |idx|
-        if lines[idx] =~ /^\s*\#/
-          @comments.add lines[idx], idx
-        else
-          @code.add lines[idx], idx
-        end
-      end
-    end
-
-
-    attr_accessor :shebang, :comments, :code
   end
 end
