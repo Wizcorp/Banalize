@@ -2,6 +2,7 @@
 
 ls /etc/tmp ; set +e
 
+# set +e
 
 echo "Hello"
 
