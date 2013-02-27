@@ -16,7 +16,14 @@ module Banalize
     end
 
     ##
-    # Should always contain last result of grep
+    # Comma separater string with line numbers of @search
+    #
+    def lines
+      search.keys.join ', '
+    end
+
+    ##
+    # Should always contain last result of search operation: grep etc.
     #
     attr_accessor :search
 

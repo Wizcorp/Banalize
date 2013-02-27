@@ -28,9 +28,9 @@ EOF
     # Prohibit using set +e option
     #
     errors.add "Setting +e option in shebang: #{shebang}" if (shebang.has? /\+e/)
+
     if code.has? /set\s+\+e/
-      errors.add "Use of +e to unset -e option prohibited"
-      errors.add "Bad lines are: #{code.search.keys}"
+      errors.add "Use of +e to unset -e option. Lines: #{code.lines}"
     end
 
 #     if lines.first =~ %r{^\#!} && lines.first =~ /\s*+e/
