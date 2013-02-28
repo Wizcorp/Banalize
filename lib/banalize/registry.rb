@@ -8,6 +8,26 @@ module Banalize
   # default values for each of the DSL methods and registers new
   # policy in the list of policies.
   #
+  # Instance attributes
+  # -----------
+  # Class sets following attribute accessor methods:
+  #
+  # - {#lines}
+  # - {#path} 
+  # - {#errors}
+  #
+  # Other attributes are inherited from parent Parser class.
+  #
+  # Class methods
+  # ----------------------
+  # Class methods define DSL for Banalizer. These are:
+  #
+  # - {register}
+  # - {policy}
+  # - {synopsis}
+  # - {description}
+  # - {style}
+  # - {config}
   class Registry < Parser
 
     # Define new policy from loading Ruby file with policy.
@@ -53,6 +73,13 @@ module Banalize
       c
     end
 
+    # TODO: how to load parsers ????
+
+    @@parsers = []
+    def self.parser name
+      @@parsers << name
+    end
+
     ##
     # Creates new instance of policy check.
     #
@@ -66,6 +93,7 @@ module Banalize
       super path
     end
 
+    # Instance of Errors class to hold all error messages from tests
     attr_accessor :errors
 
     ##
@@ -74,7 +102,11 @@ module Banalize
       raise ArgumentError, "You must override #run method in class ''#{self.class.policy_name}'"
     end
 
-    attr_accessor :lines, :path
+    # Lines of the tested bash file, split by \n's
+    attr_accessor :lines
+
+    # UNIX path to the tested file
+    attr_accessor :path
 
     ##
     # Name of this policy.
