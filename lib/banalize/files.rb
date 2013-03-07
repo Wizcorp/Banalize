@@ -4,7 +4,7 @@ module Banalize
   require 'singleton'
 
   ##
-  # Class for handling policies files
+  # Class for handling policies files: reading and loading.
   #
   class Files
 
@@ -15,7 +15,7 @@ module Banalize
     # Get list of all policy files installed in banalize.
     #
     def self.files
-      all  = Dir.glob("#{File.dirname(File.dirname(__FILE__))}/policies/*")
+      all  = Dir.glob("#{File.dirname(File.dirname(__FILE__))}/policies/*").grep(%r{/[^\.]})
       ruby = all.dup.keep_if { |x| x=~ /\.rb$/ }
 
       @@files ||= {

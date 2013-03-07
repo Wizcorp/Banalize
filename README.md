@@ -7,6 +7,9 @@ Banalize - static code analyzer for Bash
 
 ![banalize](images/banalize.png)
 
+Version {include:file:version.txt}
+-----------
+
 Description
 ===========
 

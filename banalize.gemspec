@@ -1,8 +1,7 @@
 # Ensure we require the local version and not one we might have installed already
-require File.join([File.dirname(__FILE__),'lib','banalize','version.rb'])
 spec = Gem::Specification.new do |s| 
   s.name = 'banalize'
-  s.version = Banalize::VERSION
+  s.version = File.read('version.txt').chomp.strip
   s.author = 'Dmytro Kovalov'
   s.email = 'dmytro.kovalov@gmail.com'
   s.homepage = 'http://wizcorp.jp'

@@ -4,19 +4,6 @@ require 'gli'
 require 'mash'
 require 'active_support/inflector'
 
-require 'banalize/version'
-
-require 'banalize/parser/numbered'
-require 'banalize/parser'
-require 'banalize/exception'
-require 'banalize/registry'
-
-require 'banalize/errors'
-require 'banalize/policy/severity'
-require 'banalize/policy'
-require 'banalize/files'
-require 'banalize/runner'
-
 ##
 # This is shamelessly stolen form Rspec::DSL. Inject method `policy`
 # into the top level namespace, so the we can use in policy definition
@@ -25,6 +12,10 @@ require 'banalize/runner'
 # Registerd policies are listed in `@@policies` array.
 #
 module Banalize
+  
+  ROOT = File.dirname(File.dirname(__FILE__))
+  VERSION = File.read(ROOT+'/version.txt').chomp.strip
+  
   module DSL
     @@policies = []
     def banalizer my_name, &block
@@ -40,3 +31,16 @@ module Banalize
 end
 
 include Banalize::DSL
+
+
+require 'banalize/parser/numbered'
+require 'banalize/parser'
+require 'banalize/exception'
+require 'banalize/registry'
+
+require 'banalize/errors'
+require 'banalize/policy/severity'
+require 'banalize/policy'
+require 'banalize/files'
+require 'banalize/runner'
+

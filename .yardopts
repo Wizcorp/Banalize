@@ -4,3 +4,4 @@ lib/**/*.rb
 --asset images:images
 -
 README.md
+PARSER.md

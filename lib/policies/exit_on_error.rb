@@ -5,7 +5,7 @@ banalizer :exit_on_error do
   description <<EOF
 Using this option forces bash script to exit on first error.
   
-MAN BASH:
+man bash:
 
          -e      Exit immediately if a simple command (see SHELL GRAMMAR above)
                  exits with a non-zero status.  The shell does not exit if  the
@@ -33,19 +33,12 @@ EOF
       errors.add "Use of +e to unset -e option. Lines: #{code.lines}"
     end
 
-#     if lines.first =~ %r{^\#!} && lines.first =~ /\s*+e/
-#       errors.add "Using option +e to unset -e option"
-#       ret &&= false
-#     end
-      
-#     end
     
-    
-#     unless lines.grep(/^[^\#]*set\s+\-e/) && lines.grep(/^[^\#]*set\s+\-o\s+errexit/) && lines.first =~ /\s*-e/
-#       errors.add "Didn't see set -e option nowhere in script"
-#       ret &&= false
-#     end
-
+    if ( code.dont_have?(/set\s+-e/) || 
+         code.dont_have?(/set\s+-o\s+errexit/)) &&
+        shebang.dont_have?(/\s-e/)
+      errors.add "Can not find option -e or -o errexit anywhere in the script"
+    end
     return errors.empty?
   end
 
