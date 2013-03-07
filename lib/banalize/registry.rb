@@ -73,6 +73,13 @@ module Banalize
       c
     end
 
+    # TODO: how to load parsers ????
+
+    @@parsers = []
+    def self.parser name
+      @@parsers << name
+    end
+
     ##
     # Creates new instance of policy check.
     #

@@ -1,7 +1,9 @@
 banalizer :shebang_format do
   
   description 'Format of shebang should be #!/usr/bin/env bash'
-  
+
+  parser :bash
+
   def run
     unless shebang.has?(%r{\#!/usr/bin/env\s+bash})
       errors.add "First line is not in the format #!/usr/bin/env bash", 1
