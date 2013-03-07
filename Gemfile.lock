@@ -36,6 +36,7 @@ GEM
       json (>= 1.7.6)
     gli (2.5.4)
     json (1.7.6)
+    log_switch (0.4.0)
     mash (0.1.1)
     rake (10.0.3)
     rdoc (3.12.1)
@@ -44,6 +45,12 @@ GEM
     rspec-expectations (2.12.1)
       diff-lcs (~> 1.1.3)
     rspec-mocks (2.12.1)
+    tailor (1.1.5)
+      log_switch (>= 0.3.0)
+      term-ansicolor (>= 1.0.5)
+      text-table (>= 1.2.2)
+    term-ansicolor (1.0.7)
+    text-table (1.2.2)
 
 PLATFORMS
   ruby
@@ -60,3 +67,4 @@ DEPENDENCIES
   rspec-core
   rspec-expectations
   rspec-mocks
+  tailor
