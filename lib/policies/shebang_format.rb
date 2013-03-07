@@ -6,8 +6,8 @@ banalizer :shebang_format do
 
   def run
     unless shebang.has?(%r{\#!/usr/bin/env\s+bash})
-      errors.add "Expected first line to be #!/usr/bin/env bash", 1
-      errors.add "Instead shebang line is #{shebang.to_s}", 1
+      errors.add "Expected first line to be '#!/usr/bin/env bash'"
+      errors.add "    Shebang line is '#{shebang.to_s}'"
     end
     return errors.empty?
   end

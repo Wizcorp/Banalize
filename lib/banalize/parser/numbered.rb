@@ -73,8 +73,7 @@ module Banalize
     #     {Numbered} containing only lines matching the search.
     #
     def grep pattern
-      @search = self.select { |idx,line|  line =~ pattern }
-      self.class.new(@search)
+      @search = self.class.new(self.select { |idx,line|  line =~ pattern })
     end
 
     ##

@@ -10,7 +10,7 @@ Class Parser
 Bash basic parser defines following methods:
 
 - {Banalize::Parser#shebang} - first line of the script if it's in `#!` format or nil
-- {Banalize::Parser#comments} - all block comments of the file, including shebang line
+- {Banalize::Parser#comments} - all block comments of the file, excluding shebang line
 - {Banalize::Parser.code} - all non-comments of the script, excluding shebang line
 
 

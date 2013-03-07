@@ -10,10 +10,15 @@ module Banalize
       @shebang.add lines.shift if lines.first =~ /^#!/
 
       lines.each_index do |idx|
+
+        next if lines[idx] =~ /^\s*$/
+
+        lineno = idx + 1 + (@shebang ? 1 : 0) # Compensate for base-0 and shebang line
+
         if lines[idx] =~ /^\s*\#/
-          @comments.add lines[idx], idx
+          @comments.add lines[idx], lineno
         else
-          @code.add lines[idx], idx
+          @code.add lines[idx], lineno
         end
       end
     end
