@@ -1,5 +1,7 @@
 [![Wizcorp](images/wizcorp-logo.png)](http://wizcorp.jp)
 
+**Note** See formatted documentation at http://wizcorp.github.com/Banalize
+
 Name
 ===========
 
