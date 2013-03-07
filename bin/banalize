@@ -121,7 +121,7 @@ end
 ##
 # Make ouput text indented and apply colors to it if this is required
 # 
-# @param [Hash] policy check result hash
+# @param [Hash] hash check result hash
 # @param [String] indent Default indent 4 spaces for each level
 #
 def beatify hash, indent='    '

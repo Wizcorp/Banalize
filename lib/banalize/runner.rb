@@ -1,4 +1,3 @@
-# @markup markdown
 module Banalize
 
   ##
@@ -6,7 +5,7 @@ module Banalize
   #
   # @param [String] bash Bash file for analisys
   #
-  # @param [String, Hash] policy Name of a policy to check against or
+  # @param [String, Hash] search Name of a policy to check against or
   #     hash having :severity and/or :policy keys
   #
   # @see Policy.search

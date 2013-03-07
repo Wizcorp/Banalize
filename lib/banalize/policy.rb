@@ -38,7 +38,7 @@ module Banalize
     #   or includes :core, all policies returned.
     #
     #
-    # @param [String, Symbol, Hash] policy Name of a policy to check
+    # @param [String, Symbol, Hash] search Name of a policy to check
     #     against or hash having :severity and/or :policy keys.
     #
     # @return [Hash]

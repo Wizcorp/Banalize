@@ -63,7 +63,7 @@ module Banalize
     #         end
     #
     # @param [String] myname name for the policy
-    # @block [Block]
+    # @param [Block] block
     def self.register  myname, &block
 
       klass  = myname.to_s.gsub(/\W/, '_').camelize
@@ -83,7 +83,7 @@ module Banalize
     ##
     # Creates new instance of policy check.
     #
-    # @param [String] bash UNIX PATH to Bash script
+    # @param [String] path UNIX PATH to Bash script
     #
     def initialize path
       raise RuntimeError, "File does not exist: #{path}" unless File.exists? path

@@ -11,7 +11,7 @@ Bash basic parser defines following methods:
 
 - {Banalize::Parser#shebang} - first line of the script if it's in `#!` format or nil
 - {Banalize::Parser#comments} - all block comments of the file, excluding shebang line
-- {Banalize::Parser.code} - all non-comments of the script, excluding shebang line
+- {Banalize::Parser#code} - all non-comments of the script, excluding shebang line
 
 
 All data returned by parser methods are instances of {Banalize::Numbered} class, i.e. they are lines of code with corresponing line number in the script file.
