@@ -1,20 +1,26 @@
 desc 'List available policies'
 
-arg_name ''
-command :list do |c|
-  c.desc 'Describe a switch to list'
-  c.switch :s
+command [:list, :ls] do |c|
 
-  c.desc 'Describe a flag to list'
-  c.default_value 'default'
-  c.flag :f
-  c.action do |global_options,options,args|
+  c.desc 'Only names of policies without description'
+  c.switch [:short, :s]
+  c.default_value true
 
-    # Your command logic here
-     
-    # If you have any errors, just raise them
-    # raise "that command made no sense"
+  c.action do |global, options, args|
 
-    puts "list command ran"
+    print case
+
+          when options[:short]
+            $policies.map { |x| { x[:policy] => [x[:style], x[:severity]] } }
+
+          else
+            $policies.map { |x|
+        {
+          x[:policy] => [x[:synopsis], x[:style], x[:severity]],
+        }
+      }
+
+    end.to_yaml
+
   end
 end

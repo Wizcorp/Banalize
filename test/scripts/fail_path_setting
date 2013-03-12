@@ -1,0 +1,5 @@
+#!/usr/bin/env bash -e
+
+PATH=/usr/bin:$PATH
+
+ls
