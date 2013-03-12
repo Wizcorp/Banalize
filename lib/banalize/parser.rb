@@ -29,7 +29,7 @@ module Banalize
     attr_accessor :shebang
 
     ##
-    # Contains all block comments of the file, including shebang line
+    # Contains all block comments of the file, excluding shebang line
     #
     # Only hash-comments are suported at this time. Comments in the
     # style of here-documents are not.
