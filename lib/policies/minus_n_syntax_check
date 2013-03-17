@@ -1,0 +1,24 @@
+#!/bin/bash -e -u
+
+ARG=${1:-unset}
+
+case $ARG in 
+    config)
+        cat <<EOF
+---
+severity: 5
+synopsis: Bash syntax check 
+description: |
+  This policy runs syntax check using 'bash -n' option.
+
+EOF
+        exit 0;;
+esac
+
+
+[ -z "$ARG" ] && { echo "File name must be provided"; exit 64; }
+[ -f "$ARG" ] || { echo "File must exist"; exit 64; }
+
+
+\bash -n $ARG 2>&1
+exit $?

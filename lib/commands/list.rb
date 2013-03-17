@@ -1,20 +1,22 @@
 desc 'List available policies'
 
-arg_name ''
-command :list do |c|
-  c.desc 'Describe a switch to list'
-  c.switch :s
+command [:list, :ls] do |c|
 
-  c.desc 'Describe a flag to list'
-  c.default_value 'default'
-  c.flag :f
-  c.action do |global_options,options,args|
+  c.desc 'Only names of policies without description'
+  c.switch [:short, :s]
+  c.default_value true
 
-    # Your command logic here
-     
-    # If you have any errors, just raise them
-    # raise "that command made no sense"
+  c.action do |global, options, args|
 
-    puts "list command ran"
+    
+    printf "\n%40s   %s\n\n", "Policy name".color(:bold), "Synopsis, style, severity".color(:bold)
+
+    $policies.each do |x|
+      if options[:short]
+        printf "%40s : %s, %s\n", x[:policy].to_s.color(:yellow), x[:style], x[:severity]
+      else
+        printf "%40s : %s [%s, %s]\n", x[:policy].to_s.color(:yellow), x[:synopsis], x[:style], x[:severity]
+      end
+    end
   end
 end
