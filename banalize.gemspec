@@ -9,7 +9,8 @@ spec = Gem::Specification.new do |s|
   s.summary = 'Static syntax analyzer for Bash'
   s.description = "Run policies tests on bash scripts and libraries with specified policies and severity"
 
-  s.files = ( %w{ bin/banalize } + 
+  s.files = ( %w{ bin/banalize version.txt} + 
+              Dir.glob("*.md") +
               Dir.glob("./lib/**/*.rb") + 
               Dir.glob("./lib/policies/**/*")
              ).uniq
