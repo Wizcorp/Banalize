@@ -7,8 +7,6 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    active_support (3.0.0)
-      activesupport (= 3.0.0)
     activesupport (3.0.0)
     aruba (0.5.1)
       childprocess (~> 0.3.6)
@@ -56,7 +54,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active_support
+  activesupport
   aruba
   banalize!
   debugger

@@ -1,4 +1,4 @@
-banalizer :should_explicitly_define_path_variable do
+banalizer :explicitly_define_path_variable do
   
   style :security
   severity :gentle

@@ -8,19 +8,15 @@ command [:list, :ls] do |c|
 
   c.action do |global, options, args|
 
-    print case
+    
+    printf "\n%40s   %s\n\n", "Policy name".color(:bold), "Synopsis, style, severity".color(:bold)
 
-          when options[:short]
-            $policies.map { |x| { x[:policy] => [x[:style], x[:severity]] } }
-
-          else
-            $policies.map { |x|
-        {
-          x[:policy] => [x[:synopsis], x[:style], x[:severity]],
-        }
-      }
-
-    end.to_yaml
-
+    $policies.each do |x|
+      if options[:short]
+        printf "%40s : %s, %s\n", x[:policy].to_s.color(:yellow), x[:style], x[:severity]
+      else
+        printf "%40s : %s [%s, %s]\n", x[:policy].to_s.color(:yellow), x[:synopsis], x[:style], x[:severity]
+      end
+    end
   end
 end

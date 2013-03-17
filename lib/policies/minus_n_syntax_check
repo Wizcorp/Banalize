@@ -6,7 +6,7 @@ case $ARG in
     config)
         cat <<EOF
 ---
-severity: 1
+severity: 5
 synopsis: Bash syntax check 
 description: |
   This policy runs syntax check using 'bash -n' option.
