@@ -45,10 +45,15 @@ module Banalize
     # @param [String] bash PATH to bash policy file
     #
     def self.shell_config bash
-      hash = YAML.load(%x{ #{bash} config }).merge({
-                                                      path: bash,
-                                                      policy: File.basename(bash).to_sym
-                                                    })
+      yaml = %x{ #{bash} config 2>&1 }
+      abort "Can not execute policy file #{bash}: \n    ERROR #{yaml} " unless $?.exitstatus == 0
+      hash = YAML.load(yaml) rescue  "Can not load YAML #{yaml}"
+
+      abort "Loaded policy metdata is not Hash: #{hash.to_s}" unless hash.is_a? Hash
+      hash.merge!({
+                    path: bash,
+                    policy: File.basename(bash).to_sym
+                  })
 
       Policy::DEFAULT.merge Hash[hash.map { |k, v| [k.to_sym, v] }]
     end
