@@ -4,6 +4,11 @@ require 'gli'
 require 'mash'
 require 'active_support/inflector'
 
+# Order is not important, load all of them
+Dir.glob("#{File.dirname(__FILE__)}/{core_extensions,helpers}/*.rb").each do |r|
+  require r
+end
+
 ##
 # This is shamelessly stolen form Rspec::DSL. Inject method `policy`
 # into the top level namespace, so the we can use in policy definition
@@ -31,7 +36,6 @@ module Banalize
 end
 
 include Banalize::DSL
-
 
 require 'banalize/parser/numbered'
 require 'banalize/parser'
