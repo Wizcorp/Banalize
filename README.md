@@ -5,7 +5,7 @@
 Name
 ===========
 
-Banalize - static code analyzer for Bash
+Banalize - static code analyzer for Bash. Analyze and standard your bash scripts!
 
 ![banalize](images/banalize.png)
 
