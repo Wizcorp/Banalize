@@ -4,7 +4,7 @@ gemspec
 gem 'activesupport'
 gem 'gli'
 gem 'mash'
-gem 'debugger'
+#gem 'debugger'
 gem 'tailor'
 
 gem 'rspec-core'

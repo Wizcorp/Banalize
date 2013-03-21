@@ -2,7 +2,6 @@ module Banalize
 
   require 'active_support/inflector'
   require 'singleton'
-  require 'debugger'
   ##
   # Class defining use of Banalize policies DSL. Sets some sane
   # default values for each of the DSL methods and registers new
