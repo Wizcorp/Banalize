@@ -1,5 +1,4 @@
-desc 'Run banalize in derectory with bash files'
-desc 'Run banalize on a single file or multiple files'
+desc 'Banalize file(s) from single or multiple directories. Can use wildcards and mix files/directories.'
 
 arg_name 'dir', :multiple
 command [:directory, :dir] do |c|
@@ -13,6 +12,8 @@ command [:directory, :dir] do |c|
   c.desc "Recursive scan directories for files"
   c.switch [:recursive, :recur, :r]
 
+  c.switch [:allow_files, :f], :desc => "Allow use of file paths together with directory paths"
+
   c.desc "Wildcard for file lists"
   c.default_value "*"
   c.flag [:wildcard, :w]
@@ -22,11 +23,16 @@ command [:directory, :dir] do |c|
   c.switch [:errors, :err, :e]
 
   c.action do |global, options, args|
+    files = []
     args.each { |dir|
       dir = File.expand_path dir
-      files = Dir.glob("#{dir}/#{ options[:r] ? '**/' : ''}#{options[:wildcard]}").select { |x| File.file? x}
-      files.each { |file| $res[file] = Banalize.run(file, $search) }
+      if options[:allow_files] && File.file?(dir)
+        files << dir
+      else
+        files += Dir.glob("#{dir}/#{ options[:r] ? '**/' : ''}#{options[:wildcard]}").select { |x| File.file? x}
+      end
     }
+    files.each { |file| $res[file] = Banalize.run(file, $search) }
   end
 end
 
