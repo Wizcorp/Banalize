@@ -17,10 +17,10 @@ end
 # Registerd policies are listed in `@@policies` array.
 #
 module Banalize
-  
-  ROOT = File.dirname(File.dirname(__FILE__))
-  VERSION = File.read(ROOT+'/version.txt').chomp.strip
-  
+  ROOT      = File.dirname(File.dirname(__FILE__))
+  VERSION   = File.read(ROOT+'/version.txt').chomp.strip
+  STYLES    = "#{ENV['HOME']}/.banalize/style" # Defauls style file
+
   module DSL
     @@policies = []
     def banalizer my_name, &block

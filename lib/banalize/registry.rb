@@ -70,6 +70,7 @@ module Banalize
 
       c = Object.const_set klass, Class.new(self , &block)
       c.synopsis myname
+      c.default({})
       c
     end
 
@@ -91,7 +92,10 @@ module Banalize
       @path = path
       @errors = Errors.new self
 
-      @default = self.class.default # Make 
+      # Make class level default variable accessible as instance level
+      # variable and accessor
+
+      @default = self.class.default.merge($styles[self.class.config[:policy]] || {})
 
       super path
     end
@@ -125,7 +129,8 @@ module Banalize
     end
 
     ##
-    # Set defaults for the policy. Defaults are hash with values used in {#run} method. When defining defaults, defaine them as:
+    # Set defaults for the policy. Defaults are hash with values used
+    # in {#run} method. When defining defaults, define them as:
     #
     # ```
     #   default :max => 20
@@ -134,7 +139,7 @@ module Banalize
     # During run defaults accessible as default[:max]
     #
     def self.default hash=nil
-      @default ||= hash
+      @default ||= hash 
     end
 
 
