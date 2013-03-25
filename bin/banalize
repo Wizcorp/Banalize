@@ -5,6 +5,7 @@ require 'banalize'
 include         GLI::App
 commands_from   "commands"
 version         Banalize::VERSION
+config_file     "#{ENV['HOME']}/.banalize/config"
 program_desc    <<-EOF 
 
 Banalize is Bash files static code analyzer. It runs each policy

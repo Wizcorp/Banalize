@@ -25,6 +25,7 @@ module Banalize
   # - {policy}
   # - {synopsis}
   # - {description}
+  # - {default}
   # - {style}
   # - {config}
   class Registry < Parser
@@ -89,8 +90,13 @@ module Banalize
       @lines = File.readlines path
       @path = path
       @errors = Errors.new self
+
+      @default = self.class.default # Make 
+
       super path
     end
+
+    attr_accessor :default
 
     # Instance of Errors class to hold all error messages from tests
     attr_accessor :errors
@@ -116,6 +122,19 @@ module Banalize
       else
         @policy ||= self.name.underscore.to_sym
       end
+    end
+
+    ##
+    # Set defaults for the policy. Defaults are hash with values used in {#run} method. When defining defaults, defaine them as:
+    #
+    # ```
+    #   default :max => 20
+    # ```
+    #
+    # During run defaults accessible as default[:max]
+    #
+    def self.default hash=nil
+      @default ||= hash
     end
 
 
@@ -163,7 +182,8 @@ module Banalize
         style:       style,
         severity:    severity,
         description: description,
-        klass:       name
+        klass:       name,
+        default:     default
       }
     end
 

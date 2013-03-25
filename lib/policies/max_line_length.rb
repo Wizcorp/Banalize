@@ -3,7 +3,9 @@ banalizer :max_line_length do
   synopsis 'The line length must not exceed 88 characters'
   severity :brutal
   style    :cosmetic
-  
+  default  :max => 88
+
+ 
   description <<EOF
 
 Bash Style Guide and Coding Standard
@@ -27,7 +29,7 @@ EOF
 
     lines.each_index do |idx|
       len = lines[idx].length
-      errors.add "Line # #{idx + offset} is #{len} characters long, expected to be 88 char. max." if len > 88
+      errors.add "Line # #{idx + offset} is #{len} characters long, expected to be #{default[:max]} char. max." if len > default[:max]
     end
     
     return errors.empty?
