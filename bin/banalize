@@ -112,7 +112,9 @@ post do |global,command,options,args|
 end
 
 on_error do |exception|
-  exit_now! exception.message
+  #help_now!('bla') # if 
+  exit_now! exception.message unless exception.is_a? GLI::BadCommandLine
+  true
 end
 
 exit run(ARGV) && $status == 0
