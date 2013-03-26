@@ -1,7 +1,7 @@
 banalizer File.basename(__FILE__, '.rb').to_sym do
 
   synopsis 'Code lines should not have spaces or tabs at the end' 
-  severity :harsh
+  severity :brutal
   style    :cosmetic
 
   def run
