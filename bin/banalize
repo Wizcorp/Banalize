@@ -22,7 +22,7 @@ flag   [:group,    :g],    :desc => 'Use only policies included in specified gro
 flag   [:severity, :s],    :desc => 'Use only policies of specified severity and above'
 flag   [:policy,   :p],    :desc => 'Apply single policy only (by name)'
 flag   [:style,    :S],
-        :desc => 'Use custom style file instead of standard one ~/.banalize/style',
+        :desc => 'Use custom style file instead of default one.',
         :default_value => Banalize::STYLES
 switch [:color,    :c],    :desc => "Use colored output"
 

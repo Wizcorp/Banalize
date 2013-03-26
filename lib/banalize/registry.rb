@@ -71,7 +71,15 @@ module Banalize
       c = Object.const_set klass, Class.new(self , &block)
       c.synopsis myname
       c.default({})
-      c
+
+      # TODO: override these with Styles file
+      begin
+        c.description $styles[myname][:description] 
+        c.severity    $styles[myname][:severity] 
+      rescue NoMethodError => e
+      end
+      
+      return c
     end
 
     # TODO: how to load parsers ????
@@ -138,6 +146,8 @@ module Banalize
     #
     # During run defaults accessible as default[:max]
     #
+    # Defaults can be overwriten by personal style configuration file. See {file:CONFIGURATION.md} for details.
+    #
     def self.default hash=nil
       @default ||= hash 
     end
@@ -172,13 +182,18 @@ module Banalize
     # Use lowest severity by default
     #
     def self.severity sev=Policy::DEFAULT[:severity]
-      @severity ||= Banalize::Policy::Severity.to_i(sev)
+      @severity = Banalize::Policy::Severity.to_i(sev) if sev
     end
 
 
     ##
-    # Same as config parameter of other binary checks: return
-    # configuration.
+    # 
+    # Return configuration for the policy.
+    #
+    # Same as config parameter of 'other' checks.
+    #
+    # @return [Hash] Hash containing all configured attributes of the
+    #     policy check.
     #
     def self.config
       {

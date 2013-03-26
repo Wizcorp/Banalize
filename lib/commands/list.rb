@@ -18,5 +18,8 @@ command [:list, :ls] do |c|
         printf "%40s : %s [%s, %s]\n", x[:policy].to_s.color(:yellow), x[:synopsis], x[:style], x[:severity]
       end
     end
+    require 'pp'
+#     pp $policies
+#     pp Banalize::Files.policies
   end
 end

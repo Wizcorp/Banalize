@@ -1,0 +1,20 @@
+---
+# This is example file of the personal style configuration file. Copy
+# this file in ~/.banalize/style and edit to your needs.  
+#
+# All values defined as `default :key => value` in the policy file can
+# be overriden there. Additionally description and severity attributes
+# can be overridden here.
+#
+# Every default are overriden as given in the example below:
+# `default[:max]` and `description` are overridden for the policy
+# `max_line_length`.
+#
+:max_line_length:
+  :max: 105
+  :description: |
+
+    Github pull request and online code viewer is about 108 characters
+    wide.  To be able to browse  code on github without need to scroll
+    left-right limit  line length to  105 characters, with  some extra
+    characters Git adds for diffs (`+ `).
