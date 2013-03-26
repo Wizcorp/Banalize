@@ -96,7 +96,7 @@ module Banalize
     #
     def initialize path
       raise RuntimeError, "File does not exist: #{path}" unless File.exists? path
-      @lines = File.readlines path
+      @lines = IO.read(path).force_encoding("utf-8").split($/)
       @path = path
       @errors = Errors.new self
 
