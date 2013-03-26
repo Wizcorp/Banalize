@@ -111,7 +111,10 @@ end
 on_error do |exception|
   # Error logic here
   # return false to skip default error handling
-  true
+  puts exception.message
+  #puts caller
+  #puts exception.backtrace
+  exit_now!
 end
 
 exit run(ARGV) && $status == 0
