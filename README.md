@@ -63,9 +63,8 @@ Conventions
 Policies
 -----------
 
-- All policies (policy files) installed in `./lib/policies` directory. 
+- All policies (policy files) installed in `./lib/policies` and users home `~/.banalize/policies` directories. 
 
-  Note: There could be other (additionally) policy directories added in the future, like for example `~/.banalizer` or similar
 - There are two classes of policies recognized by Banalizer: Ruby and _'other'_
 - Ruby policy files detected by `.rb` extension. Files without `.rb` extension are considered to be 'others'
 - Policy name is detected from
@@ -132,20 +131,21 @@ Policy should conform to few rules:
    - severity
 1. `run` method :
    - need to return result of a check as something that can be evaluated into true or false
-   - optionally can pass along error messages from the check, using `errors.add` DLS method to populate errors object (instance of {Banalize::Errors} class
+   - optionally can pass along error messages from the check, using `errors.add` DSL method to populate errors object (instance of {Banalize::Errors} class
+1. Additionally Ruby policies have DSL method `default`. It sets default values for variables, that can be overridden by personal style configuration file ( See {file:CONFIGURATION.md}).
 
-#### Example 
+#### Examples
 
 This is full working example of Ruby DSL policy:
 
-````ruby
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ruby
 banalizer :shebang_format do
   
   synopsis    'Format of shebang should be #!/usr/bin/env bash'
   severity    5
 
   def run
-    unless lines.first =~ %r{^\#!/usr/bin/env\s+bash}
+    unless shebang.has?(%r{\#!/usr/bin/env\s+bash})
 
       errors.add "First line is not in the format #!/usr/bin/env bash", 1
       return false
@@ -153,7 +153,16 @@ banalizer :shebang_format do
   end
 
 end
-````
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you want to use filename of Ruby policy as its name, do this:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ruby
+banalizer File.basename(__FILE__, '.rb').to_sym do
+
+end
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 
 <!--  LocalWords:  banalize
  -->

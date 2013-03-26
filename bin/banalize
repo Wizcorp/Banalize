@@ -112,7 +112,6 @@ post do |global,command,options,args|
 end
 
 on_error do |exception|
-  #help_now!('bla') # if 
   exit_now! exception.message unless exception.is_a? GLI::BadCommandLine
   true
 end
