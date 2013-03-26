@@ -7,7 +7,9 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (3.0.0)
+    activesupport (3.2.13)
+      i18n (= 0.6.1)
+      multi_json (~> 1.0)
     aruba (0.5.1)
       childprocess (~> 0.3.6)
       cucumber (>= 1.1.1)
@@ -25,9 +27,11 @@ GEM
     gherkin (2.11.6)
       json (>= 1.7.6)
     gli (2.5.4)
+    i18n (0.6.1)
     json (1.7.6)
     log_switch (0.4.0)
     mash (0.1.1)
+    multi_json (1.7.2)
     rake (10.0.3)
     rdoc (3.12.1)
       json (~> 1.4)
@@ -46,7 +50,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activesupport
+  activesupport (~> 3.2.13)
   aruba
   banalize!
   gli

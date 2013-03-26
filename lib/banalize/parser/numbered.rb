@@ -39,7 +39,14 @@ module Banalize
     # Comma separated string with line numbers of {#search}
     #
     def lines
-      search.keys.join ', '
+      line = search.keys.join ', '
+      if Banalize::TRUNCATE
+        line.truncate(
+                      Banalize::TRUNCATE,
+                      separator: ' ', 
+                      omission: "... (total #{search.keys.length})" 
+                      )
+      end
     end
 
     ##

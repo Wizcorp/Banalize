@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 gemspec
 
-gem 'activesupport'
+gem 'activesupport', '~> 3.2.13'
 gem 'gli'
 gem 'mash'
 #gem 'debugger'
