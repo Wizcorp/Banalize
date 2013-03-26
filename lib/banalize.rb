@@ -20,7 +20,17 @@ end
 module Banalize
   ROOT      = File.dirname(File.dirname(__FILE__))
   VERSION   = File.read(ROOT+'/version.txt').chomp.strip
-  STYLES    = "#{ENV['HOME']}/.banalize/style" # Defauls style file
+
+  # Local user directory with banalize config and policies
+  
+  dot_banalize = "#{Dir.home}/.banalize"
+
+  USER = {
+    dot_banalize: dot_banalize,
+    config:       "#{dot_banalize}/config", # Default user config file
+    styles:       "#{dot_banalize}/style",  # Default style file
+    policies:     "#{dot_banalize}/policies"
+  }
 
   # Truncate long error lines
   TRUNCATE  = ENV["BANALIZE_TRUNCATE_LINES"] == 'false' ? nil : 60

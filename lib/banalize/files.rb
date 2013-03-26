@@ -14,8 +14,21 @@ module Banalize
     ##
     # Get list of all policy files installed in banalize.
     #
+    #  Policies can come from Banalize distribution in
+    #  `./lib/policies` directory or suppplied by user from
+    #  `~/.banalize/policies` directory. This allows exteding Banalize
+    #  by creating own policies without need to repackage gem.
+    # 
+    # @return [Hash] Sets class level variable `@@files` with list of
+    #     policies. All policies are groupped in 3 arrays:
+    #     `@@files[:all]`, `@@files[:ruby]`, `@@files[:other]`
+    #
     def self.files
-      all  = Dir.glob("#{File.dirname(File.dirname(__FILE__))}/policies/*").grep(%r{/[^\.]})
+      all  = Dir.glob("#{File.dirname(File.dirname(__FILE__))}/policies/*")
+      all += Dir.glob("#{Banalize::USER[:policies]}/*") if Dir.exists? Banalize::USER[:policies]
+
+      all = all.grep(%r{/[^\.]})
+
       ruby = all.dup.keep_if { |x| x=~ /\.rb$/ }
 
       @@files ||= {
