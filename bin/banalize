@@ -91,9 +91,12 @@ post do |global,command,options,args|
           failure[k] = options[:errors] ? v[:messages]  : nil
         end
 
-        out[file] = { "Fail" => failure }
+        out[file] = { "Fail" => failure } unless failure.empty?
 
-        out[file].merge!({ "Success" => res.keys.select { |k| res[k][:status] } }) if options[:all]
+        if options[:all]
+          out[file] ||= {} 
+          out[file].merge!({ "Success" => res.keys.select { |k| res[k][:status] } }) 
+        end
 
         $total  += res.count
         $status += failure.count
@@ -109,12 +112,7 @@ post do |global,command,options,args|
 end
 
 on_error do |exception|
-  # Error logic here
-  # return false to skip default error handling
-  puts exception.message
-  #puts caller
-  #puts exception.backtrace
-  exit_now!
+  exit_now! exception.message
 end
 
 exit run(ARGV) && $status == 0

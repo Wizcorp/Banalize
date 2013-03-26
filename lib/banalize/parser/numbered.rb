@@ -62,7 +62,7 @@ module Banalize
     alias :inspect :to_s
     
     ##
-    # Grep lines of the Numbered object (i.e. velues of the hash) and
+    # Grep lines of the Numbered object (i.e. values of the hash) and
     # return all lines together with numbers that match
     #
     # @param [Regexp] pattern Search Regexp pattern for lines. It
