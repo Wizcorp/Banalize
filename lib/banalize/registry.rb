@@ -69,13 +69,15 @@ module Banalize
       klass  = myname.to_s.gsub(/\W/, '_').camelize
 
       c = Object.const_set klass, Class.new(self , &block)
+
       c.synopsis myname
       c.default({})
+      c.severity Policy::DEFAULT[:severity] unless c.severity # Set default severity if it's not defined in block
 
       # Override these with Styles file
       begin
         c.description $styles[myname][:description] 
-        c.severity    $styles[myname][:severity] 
+        c.severity    $styles[myname][:severity]
       rescue NoMethodError => e
       end
       
@@ -181,8 +183,12 @@ module Banalize
     ##
     # Use lowest severity by default
     #
-    def self.severity sev=Policy::DEFAULT[:severity]
-      @severity = Banalize::Policy::Severity.to_i(sev) if sev
+    def self.severity sev=nil
+      if sev
+        @severity = Banalize::Policy::Severity.to_i(sev)
+      else
+        @severity ||= Banalize::Policy::Severity.to_i(sev)
+      end
     end
 
 
