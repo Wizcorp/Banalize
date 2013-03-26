@@ -14,7 +14,12 @@
   :max: 105
   :description: |
 
+    Github code browser screen width
+    =================================
+
+    Max line width: 105 chars.
+
     Github pull request and online code viewer is about 108 characters
     wide.  To be able to browse  code on github without need to scroll
-    left-right limit  line length to  105 characters, with  some extra
-    characters Git adds for diffs (`+ `).
+    left-right,  limit line  length to  105 characters,  to accomodate
+    some extra characters Git adds for diffs (`+ `).

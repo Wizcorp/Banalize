@@ -72,7 +72,7 @@ module Banalize
       c.synopsis myname
       c.default({})
 
-      # TODO: override these with Styles file
+      # Override these with Styles file
       begin
         c.description $styles[myname][:description] 
         c.severity    $styles[myname][:severity] 
