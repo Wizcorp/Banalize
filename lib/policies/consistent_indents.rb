@@ -1,7 +1,7 @@
 banalizer File.basename(__FILE__, '.rb').to_sym do
 
   synopsis 'All lines must be indented consistenly' 
-  severity :brutal
+  severity :harsh
   style    :cosmetic
 
   description <<EOF
