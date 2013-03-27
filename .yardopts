@@ -6,3 +6,5 @@ lib/**/*.rb
 README.md
 PARSER.md
 docs/CONFIGURATION.md
+History.md
+version.txt
