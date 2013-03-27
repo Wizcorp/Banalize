@@ -4,8 +4,23 @@ module Banalize
   # Class numbered implements simple model of numbered lines data
   # structure. It's Mash (think Hash). 
   #
-  # Each pair is line_number => row. Line numbers are *not*
-  # necessarily sequential.
+  # Each pair is { line_number => row }. Line numbers are *not*
+  # necessarily sequential, i.e. line numbers in {Numbered} instance
+  # corresponds to those of actuall analyzed script. 
+  #
+  # Base of numbers is 1. Examples:
+  #
+  # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ruby
+  # p @shebang # { 1 => "#!/bin/bash" }
+  #
+  # p @code
+  # # { 
+  # #   2 => 'set -e',
+  # #   3 => 'set -u'
+  # # }
+  #
+  # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  #
   class Numbered < ::Mash
 
     def initialize *p
@@ -48,6 +63,8 @@ module Banalize
                       )
       end
     end
+    
+    alias :numbers :lines
 
     ##
     # Search attribute always contains last result of search (grep)
@@ -89,13 +106,50 @@ module Banalize
     # *Attention*: since {Numbered} is a hash, adding line with the
     # number that already exists will overwrite existing one.
     #
+    # @param [String,Numbered] line Line or Numbered object to add
+    #
+    # @param [Finxum] number Line number in the analized script. If
+    #     First param is {Numbered} instance, then this argument is
+    #     not used.
+    #
     # ## Example
     #
-    # ```
-    #       @shebang.add lines.shift if lines.first =~ /^#!/
-    # ```
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ruby
+    #     @shebang.add lines.shift if lines.first =~ /^#!/
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #
     def add line, number=0
-      self[number] = line.chomp
+      case line
+      when String
+        self[number] = line.chomp
+      when Numbered
+        self.merge! line
+      end
+    end
+
+    ##
+    # Delete numbered line by its number
+    #
+    # Delete line from {Numbered} and return it as
+    #     single element {Numbered} object with line number.
+    #
+    # @param [Fixnum,Array[Fixnum],Numbered] lines Lines to delete from Numbered instance. 
+    #
+    # @return [Hash] Deleted lines as instance of {Numbered}
+    #
+    def delete lines
+      ret = self.class.new
+
+      case lines
+      when Fixnum
+        ret.add super(lines), lines
+      when Array
+        lines.each { |line| ret.add super(line), line }
+      when Numbered
+        ret.add self.delete lines.keys
+      end
+
+      ret
     end
 
   end
