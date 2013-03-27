@@ -52,7 +52,7 @@ module Banalize
         [Files.policies.find { |x| x[:policy] == search.to_sym }]
 
       when Regexp
-        [Files.policies.find { |x| x[:policy] =~ search }]
+        Files.policies.find_all { |x| x[:policy] =~ search }
 
       when Hash
         res = Files.policies
