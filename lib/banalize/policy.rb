@@ -26,19 +26,18 @@ module Banalize
 
     # Find policy or list of policies by search criteria.
     #
-    # Search can be policy name (Symbol or String), Hash with
-    # :policy and/or :severity keys or nil.
+    # Can perform policy search by:
     #
-    # - `nil` -  no filtering. Simply list of all policies returned.
+    # - policy name (Symbol, String or Regegp)
+    # - or Hash with :policy and/or :severity keys or nil.
+    #   - `nil` -  no filtering. Simply list of all policies returned.
+    #   - `:severity` searched for policies with severity value same as
+    #       search or higher.
+    #   - `:style` - can be Symbol or Array of symbols. If it's :core
+    #       or includes :core, all policies returned.
     #
-    # - `:severity` searched for policies with severity value same as
-    #   search or higher.
     #
-    # - `:style` - can be Symbol or Array of symbols. If it's :core
-    #   or includes :core, all policies returned.
-    #
-    #
-    # @param [String, Symbol, Hash] search Name of a policy to check
+    # @param [String, Symbol, Hash, Regexp, nil] search Name of a policy to check
     #     against or hash having :severity and/or :policy keys.
     #
     # @return [Hash]
@@ -51,6 +50,9 @@ module Banalize
 
       when Symbol, String
         [Files.policies.find { |x| x[:policy] == search.to_sym }]
+
+      when Regexp
+        [Files.policies.find { |x| x[:policy] =~ search }]
 
       when Hash
         res = Files.policies
