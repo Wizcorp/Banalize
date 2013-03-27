@@ -9,9 +9,15 @@ banalizer File.basename(__FILE__, '.rb').to_sym do
   default percent: 30
 
   def run
-    pct = ((comments.size.to_f / code.size) * 100).to_i
 
-    errors.add "Code commented on #{pct}%" if pct < default[:percent]
+    if code.size == 0
+      errors.add "Code size is 0"
+
+    else
+      pct = ((comments.size.to_f / code.size) * 100).to_i
+      errors.add "Code commented on #{pct}%" if pct < default[:percent]
+    end
+
     errors.empty?
   end
 
