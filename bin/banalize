@@ -112,7 +112,9 @@ post do |global,command,options,args|
 end
 
 on_error do |exception|
-  exit_now! exception.message unless exception.is_a? GLI::BadCommandLine
+  unless ENV['GLI_DEBUG'] == 'true'
+    exit_now! exception.message unless exception.is_a? GLI::BadCommandLine
+  end
   true
 end
 
