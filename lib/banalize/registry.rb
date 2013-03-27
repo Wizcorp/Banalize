@@ -68,7 +68,7 @@ module Banalize
       c = Object.const_set klass, Class.new(self , &block)
 
       c.synopsis myname
-      c.default({})
+      c.default({})             # make sure defaults are initialized
       c.severity Policy::DEFAULT[:severity] unless c.severity # Set default severity if it's not defined in block
 
       # Override these with Styles file

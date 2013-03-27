@@ -23,3 +23,9 @@
     wide.  To be able to browse  code on github without need to scroll
     left-right,  limit line  length to  105 characters,  to accomodate
     some extra characters Git adds for diffs (`+ `).
+
+#
+# Policy can be disabled
+#
+:disabled_policy:
+  :active: false

@@ -70,7 +70,10 @@ module Banalize
     #
     def ruby
       object = policy[:klass].constantize.new(bash)
-      res = object.run
+
+      # Policy executed by default unless it explicitly deactivated
+      res = object.default[:active] == false ? true : object.run 
+
       @result = {
         :status => res ? true : false,
         :messages => Errors.to_s(object.errors.messages)

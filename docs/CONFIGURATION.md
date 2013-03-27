@@ -16,11 +16,23 @@ Defaults defined in policy recipes using `default`method  (see {Banalize::Regist
 
 Default locatio for the style file is `~/.banalize/style`. It's YAML formatted file. Example is available in Banalize project config directory. Please see for details.
 
+### Disable policy
+
+Any policy can be disabled by setting `active` flag to `false` in personal style file, as in:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~yaml
+
+:disabled_policy:
+  :active: false
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 ## Custom policies
 
 User can add own policies outside of Banalize gem. Additionally to policies included with gem Banalize will search for policy files in `~/.banalize/policies/`. 
 
 If you want to creagte own policies, simply drop policy file in the directory.
+
 
 # Environment variables
 
