@@ -105,7 +105,13 @@ module Banalize
       # Make class level default variable accessible as instance level
       # variable and accessor
 
-      @default = self.class.default.merge($styles[self.class.config[:policy]] || {})
+      @default = self.class.default.merge(
+                                          begin
+                                            $styles[self.class.config[:policy]] 
+                                          rescue NoMethodError
+                                            {}
+                                          end
+                                          )
 
       super path
     end
