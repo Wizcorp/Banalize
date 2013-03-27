@@ -1,27 +1,51 @@
 module Banalize
+  
+  require_relative 'parser/pod_comments'
 
+  # Instance attributes
+  # -----------
+  # Class sets following attribute accessor methods:
+  #
+  # - {#lines}
+  # - {#path} 
+  # - {#shebang}
+  # - {#comments}
+  # - {#code}
+  
   class Parser
-
+    
+    include Banalize::Parser::PodStyleComments
+    
     def initialize path
-      @shebang = Numbered.new
+      @lines    = IO.read(path).force_encoding("utf-8").split($/)
+      @shebang  = Numbered.new
       @comments = Numbered.new 
-      @code = Numbered.new
+      @code     = Numbered.new
 
-      @shebang.add lines.shift if lines.first =~ /^#!/
+      @shebang.add @lines.shift if @lines.first =~ /^#!/
 
-      lines.each_index do |idx|
+      @lines.each_index do |idx|
 
-        next if lines[idx] =~ /^\s*$/
+        next if @lines[idx] =~ /^\s*$/
 
         lineno = idx + 1 + (@shebang ? 1 : 0) # Compensate for base-0 and shebang line
 
-        if lines[idx] =~ /^\s*\#/
-          @comments.add lines[idx], lineno
+        if @lines[idx] =~ /^\s*\#/
+          @comments.add @lines[idx], lineno
         else
-          @code.add lines[idx], lineno
+          @code.add @lines[idx], lineno
         end
       end
+      pod_comments
+
     end
+
+    # Lines of the tested bash file, split by \n's
+    attr_accessor :lines
+
+    # UNIX path to the tested file
+    attr_accessor :path
+
 
     ##
     # Shebang contains first line of the script if it's in `#!`

@@ -9,11 +9,8 @@ module Banalize
   #
   # Instance attributes
   # -----------
-  # Class sets following attribute accessor methods:
-  #
-  # - {#lines}
-  # - {#path} 
   # - {#errors}
+  # - {#default}
   #
   # Other attributes are inherited from parent Parser class.
   #
@@ -96,26 +93,26 @@ module Banalize
     #
     # @param [String] path UNIX PATH to Bash script
     #
-    def initialize path
-      raise RuntimeError, "File does not exist: #{path}" unless File.exists? path
-      @lines = IO.read(path).force_encoding("utf-8").split($/)
-      @path = path
+    def initialize bash
+      raise RuntimeError, "File does not exist: #{bash}" unless File.exists? bash
+
+      @path = bash
       @errors = Errors.new self
 
       # Make class level default variable accessible as instance level
       # variable and accessor
 
-      @default = self.class.default.merge(
-                                          begin
-                                            $styles[self.class.config[:policy]] 
-                                          rescue NoMethodError
-                                            {}
-                                          end
-                                          )
+      super @path
+      @default = self.class.default.merge( $styles[self.class.config[:policy]] || {} )
 
-      super path
     end
 
+    ##
+    # Instance level accessor for the defaults 
+    #
+    # Instance defaults hold same data as in class level default
+    # method. Instance level data are merged on initializing with
+    # personal styles data.
     attr_accessor :default
 
     # Instance of Errors class to hold all error messages from tests
@@ -127,11 +124,6 @@ module Banalize
       raise ArgumentError, "You must override #run method in class ''#{self.class.policy_name}'"
     end
 
-    # Lines of the tested bash file, split by \n's
-    attr_accessor :lines
-
-    # UNIX path to the tested file
-    attr_accessor :path
 
     ##
     # Name of this policy.
