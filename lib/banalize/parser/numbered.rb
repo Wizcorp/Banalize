@@ -84,7 +84,38 @@ module Banalize
     end
     
     alias :inspect :to_s
-    
+
+
+    ##
+    # Return all lines with numbers between from and to
+    #
+    # @param [Finxum] from Starting line
+    # @param [Finxum] to   Ending line
+    #
+    # @return [Numbered] Instance of Numbered with all lines beween
+    #     specified numbers. Numbers can be not sequntial.
+    #
+    def slice from, to
+      from, to = from.to_i, to.to_i
+      ret = self.class.new self.select { |k,v|  k.to_i.between?(from,to) }
+    end
+
+    ##
+    # Sort by the order of lines numbers
+    #
+    # @return [Array] Sorted array of 2-elements arrays:
+    #
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ruby
+    # >> a.comments.sort {  |a,b| a.first.to_i <=> b.first.to_i }
+    # => [["2", " Use perldoc functions to see documentation for this file."], 
+    #    ["4", ":<<\"=cut\ 
+    # ...
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    #
+    def sort
+      self.sort { |a,b| a.first.to_i <=> b.first.to_i }
+    end
+
     ##
     # Grep lines of the Numbered object (i.e. values of the hash) and
     # return all lines together with numbers that match
@@ -121,7 +152,7 @@ module Banalize
     def add line, number=0
       case line
       when String
-        self[number] = line.chomp
+        self[number.to_i] = line.chomp
       when Numbered
         self.merge! line
       end

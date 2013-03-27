@@ -91,7 +91,7 @@ module Banalize
     ##
     # Creates new instance of policy check.
     #
-    # @param [String] path UNIX PATH to Bash script
+    # @param [String] bash UNIX PATH to Bash script
     #
     def initialize bash
       raise RuntimeError, "File does not exist: #{bash}" unless File.exists? bash
