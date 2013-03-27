@@ -5,14 +5,21 @@ command [:describe,:desc] do |c|
 
   c.desc 'Print help for the specified policy'
   c.command [:policy, :pol, :p] do |p|
-    p.desc 'Policy name'
-    p.arg_name 'policy_name'
+
+    def yellow
+      printf "%s\n", ('~' * 80).color(:yellow)
+    end
 
     p.action do |global_options, options, args|
-      raise "Need a policy name to see description" if args.empty?
-      p = args.first.to_sym
-      print "\n#{p}: #{Banalize::Policy.synopsis(p)}\n\n"
-      print Banalize::Policy.description(p) + "\n\n"
+      $policies.each do |pol|
+
+        yellow
+        printf "%s :  %s\n", pol[:policy].to_s.color(:bold), pol[:synopsis].color(:green)
+        yellow
+
+        puts pol[:description]
+        puts
+      end
     end
 
   end
