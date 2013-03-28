@@ -41,11 +41,7 @@ module Banalize
       end
       pod_comments
       shell_variables
-
-      p variables
     end
-
-      # attr_accessor :variables
 
     # Lines of the tested bash file, split by \n's
     attr_accessor :lines
