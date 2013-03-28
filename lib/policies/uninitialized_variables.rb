@@ -1,6 +1,6 @@
 banalizer File.basename(__FILE__, '.rb').to_sym do
 
-  synopsis '' 
+  synopsis 'Variables should be explicitly initialized'
   severity :gentle
   style    :security
 
