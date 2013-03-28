@@ -18,7 +18,8 @@ module Banalize
         vars.map! { |x| x.gsub(/[${}]/,'') }
         vars.reject! { |x| x =~ /^\d$/}
 
-        @variables = vars.uniq! || []
+        @variables = vars || []
+        @variables.uniq!
       end
 
       # All variables used in shell script
