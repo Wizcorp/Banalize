@@ -30,7 +30,8 @@ DESC
     #
     # Search result
     # ----------------------
-    # code.lines
+    # code.search - all lines found by last search
+    # code.lines  - line numbers of the above
     
     errors.add "Code size is 0" if code.size == 0
 
