@@ -2,12 +2,10 @@ desc 'Run banalize on a single file or multiple files'
 
 arg_name 'filename', :multiple
 command [:file, :fl] do |c|
-  
-  c.desc "Show all results, by default only failures shown (only for long format)"
-  c.switch [:a,:all]
 
-  c.desc "Short dotted output format"
-  c.switch [:s, :short, :dots]
+
+  c.switch [:a,:all],   desc: "Show all results, not only failures (for long format)"
+  c.switch [:dots, :d], desc: "Short dotted output format"
 
   c.desc "With 'no-' do not show errors, only name of failed check"
   c.default_value true
