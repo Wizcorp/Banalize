@@ -14,6 +14,8 @@ module Banalize
   #
   def self.run bash, search
 
+    $current = bash
+
     run_list = Policy.search search
 
     if run_list.empty?
