@@ -15,7 +15,7 @@ banalizer File.basename(__FILE__, '.rb').to_sym do
 
     else
       pct = ((comments.size.to_f / code.size) * 100).to_i
-      errors.add "Code commented on #{pct}%" if pct < default[:percent]
+      errors.add "Code comment coverage #{pct}%" if pct < default[:percent]
     end
 
     errors.empty?
