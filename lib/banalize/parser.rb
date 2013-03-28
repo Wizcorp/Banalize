@@ -1,6 +1,7 @@
 module Banalize
   
   require_relative 'parser/pod_comments'
+  require_relative 'parser/variables'
 
   # Instance attributes
   # -----------
@@ -14,14 +15,16 @@ module Banalize
   
   class Parser
     
-    include Banalize::Parser::PodStyleComments
+    include PodStyleComments
+    include ShellVariables
     
     def initialize path
-      @lines    = IO.read(path).force_encoding("utf-8").split($/)
-      @shebang  = Numbered.new
-      @comments = Numbered.new 
-      @code     = Numbered.new
-
+      @lines     = IO.read(path).force_encoding("utf-8").split($/)
+      @shebang   = Numbered.new
+      @comments  = Numbered.new 
+      @code      = Numbered.new
+      @variables = []
+      
       @shebang.add @lines.shift if @lines.first =~ /^#!/
 
       @lines.each_index do |idx|
@@ -37,8 +40,12 @@ module Banalize
         end
       end
       pod_comments
+      shell_variables
 
+      p variables
     end
+
+      # attr_accessor :variables
 
     # Lines of the tested bash file, split by \n's
     attr_accessor :lines
