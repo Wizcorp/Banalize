@@ -78,7 +78,7 @@ module Banalize
       else
         raise ArgumentError, "Unknown search criteria: #{search.inspect}"
 
-      end.compact
+      end.compact.sort { |a,b| a[:policy] <=> b[:policy] } # By default sort by  policy name
     end
 
     ##
