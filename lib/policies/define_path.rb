@@ -5,13 +5,14 @@ banalizer :explicitly_define_path_variable do
 
   description <<-EOF
 
-PATH varaible should be defined explicitly in the script. It should *only* list absolute path names and does not have $PATH variable. 
+PATH varaible  should be defined  explicitly in the script.  It should
+*only* list absolute path names and does not have $PATH variable.
 
-Quote from http://hub.opensolaris.org/bin/view/Community+Group+on/shellstyle#HPathnames
+Ref.: http://hub.opensolaris.org/bin/view/Community+Group+on/shellstyle#HPathnames
 
-It is always a good idea to be careful about $PATH settings and
-pathnames when writing shell scripts. This allows them to function
-correctly even when the user invoking your script has some strange
+It  is always  a good  idea  to be  careful about  $PATH settings  and
+pathnames  when writing shell  scripts. This  allows them  to function
+correctly even  when the  user invoking your  script has  some strange
 $PATH set in their environment.
 
  There are two acceptable ways to do this:
@@ -27,12 +28,10 @@ PATH=/usr/bin; export PATH
 chown root bar
 chgrp sys bar
 
-DO NOT use a mixture of (1) and (2) in the same script. Pick one method and use it consistently.
-
+DO NOT  use a  mixture of  (1) and (2)  in the  same script.  Pick one
+method and use it consistently.
 
 EOF
-
-  
 
   parser :bash
 
