@@ -31,8 +31,6 @@ of documentation for them.
 Ref: http://wiki.bash-hackers.org/scripting/style#variable_initialization
 
 DESC
-  
-  default some_default: 30
 
   def run
 
