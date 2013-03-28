@@ -1,3 +1,16 @@
+## v.0.0.3
+
+* Thu Mar 28 2013 -- Dmytro Kovalov
+
+  - Filtering files by extension list: comma separated
+  - Add default sorting to policy search
+  - Policy to check braces ${a} around variables
+    with test  for it
+  - Add template for ruby policy in the docs directory
+  - Policy to check uninitialized variables
+  - Currently processed bash: Add error reporting on exit of currently processed bash file.
+  - ShellVariables module for parser
+    Find all shell variables in script into array and accessor `variables`
 
 ## v.0.0.2
 
