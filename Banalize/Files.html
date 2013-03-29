@@ -6,7 +6,7 @@
 <title>
   Class: Banalize::Files
   
-    &mdash; Documentation by YARD 0.8.3
+    &mdash; Documentation by YARD 0.8.5.2
   
 </title>
 
@@ -131,7 +131,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#files-class_method" title="files (class method)">+ (Object) <strong>files</strong> </a>
+      <a href="#files-class_method" title="files (class method)">+ (Hash) <strong>files</strong> </a>
     
 
     
@@ -211,7 +211,7 @@ policy.</p>
       <div class="method_details first">
   <h3 class="signature first" id="files-class_method">
   
-    + (<tt>Object</tt>) <strong>files</strong> 
+    + (<tt>Hash</tt>) <strong>files</strong> 
   
 
   
@@ -221,11 +221,35 @@ policy.</p>
   <div class="discussion">
     <p>Get list of all policy files installed in banalize.</p>
 
+<p>Policies can come from Banalize distribution in
+ <code>./lib/policies</code> directory or suppplied by user from
+ <code>~/.banalize/policies</code> directory. This allows exteding Banalize
+ by creating own policies without need to repackage gem.</p>
+
 
   </div>
 </div>
 <div class="tags">
   
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Sets class level variable <code>@@files</code> with list of
+policies. All policies are groupped in 3 arrays:
+<code>@@files[:all]</code>, <code>@@files[:ruby]</code>, <code>@@files[:other]</code></p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -233,22 +257,30 @@ policy.</p>
       <pre class="lines">
 
 
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26</pre>
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/banalize/files.rb', line 17</span>
+      <pre class="code"><span class="info file"># File 'lib/banalize/files.rb', line 26</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_files'>files</span>
-  <span class='id identifier rubyid_all'>all</span>  <span class='op'>=</span> <span class='const'>Dir</span><span class='period'>.</span><span class='id identifier rubyid_glob'>glob</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_dirname'>dirname</span><span class='lparen'>(</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_dirname'>dirname</span><span class='lparen'>(</span><span class='kw'>__FILE__</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='rbrace'>}</span><span class='tstring_content'>/policies/*</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_grep'>grep</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>%r{</span><span class='tstring_content'>/[^\.]</span><span class='regexp_end'>}</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_all'>all</span>  <span class='op'>=</span> <span class='const'>Dir</span><span class='period'>.</span><span class='id identifier rubyid_glob'>glob</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_dirname'>dirname</span><span class='lparen'>(</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_dirname'>dirname</span><span class='lparen'>(</span><span class='kw'>__FILE__</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>/policies/*</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_all'>all</span> <span class='op'>+=</span> <span class='const'>Dir</span><span class='period'>.</span><span class='id identifier rubyid_glob'>glob</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>Banalize</span><span class='op'>::</span><span class='const'>USER</span><span class='lbracket'>[</span><span class='symbol'>:policies</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'>/*</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='const'>Dir</span><span class='period'>.</span><span class='id identifier rubyid_exists?'>exists?</span> <span class='const'>Banalize</span><span class='op'>::</span><span class='const'>USER</span><span class='lbracket'>[</span><span class='symbol'>:policies</span><span class='rbracket'>]</span>
+
+  <span class='id identifier rubyid_all'>all</span> <span class='op'>=</span> <span class='id identifier rubyid_all'>all</span><span class='period'>.</span><span class='id identifier rubyid_grep'>grep</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>%r{</span><span class='tstring_content'>/[^\.]</span><span class='regexp_end'>}</span></span><span class='rparen'>)</span>
+
   <span class='id identifier rubyid_ruby'>ruby</span> <span class='op'>=</span> <span class='id identifier rubyid_all'>all</span><span class='period'>.</span><span class='id identifier rubyid_dup'>dup</span><span class='period'>.</span><span class='id identifier rubyid_keep_if'>keep_if</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_x'>x</span><span class='op'>|</span> <span class='id identifier rubyid_x'>x</span><span class='op'>=~</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\.rb$</span><span class='regexp_end'>/</span></span> <span class='rbrace'>}</span>
 
   <span class='cvar'>@@files</span> <span class='op'>||=</span> <span class='lbrace'>{</span>
@@ -291,16 +323,16 @@ method for it.</p>
       <pre class="lines">
 
 
-34
-35
-36
-37
-38
-39
-40</pre>
+47
+48
+49
+50
+51
+52
+53</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/banalize/files.rb', line 34</span>
+      <pre class="code"><span class="info file"># File 'lib/banalize/files.rb', line 47</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_policies'>policies</span>
 
@@ -358,23 +390,33 @@ method for it.</p>
       <pre class="lines">
 
 
-47
-48
-49
-50
-51
-52
-53
-54</pre>
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/banalize/files.rb', line 47</span>
+      <pre class="code"><span class="info file"># File 'lib/banalize/files.rb', line 60</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_shell_config'>shell_config</span> <span class='id identifier rubyid_bash'>bash</span>
-  <span class='id identifier rubyid_hash'>hash</span> <span class='op'>=</span> <span class='const'>YAML</span><span class='period'>.</span><span class='id identifier rubyid_load'>load</span><span class='lparen'>(</span><span class='backtick'>%x{</span><span class='tstring_content'> </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_bash'>bash</span><span class='rbrace'>}</span><span class='tstring_content'> config </span><span class='tstring_end'>}</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='lbrace'>{</span>
-                                                  <span class='label'>path:</span> <span class='id identifier rubyid_bash'>bash</span><span class='comma'>,</span>
-                                                  <span class='label'>policy:</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_basename'>basename</span><span class='lparen'>(</span><span class='id identifier rubyid_bash'>bash</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
-                                                <span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_yaml'>yaml</span> <span class='op'>=</span> <span class='backtick'>%x{</span><span class='tstring_content'> </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_bash'>bash</span><span class='embexpr_end'>}</span><span class='tstring_content'> config 2&gt;&amp;1 </span><span class='tstring_end'>}</span></span>
+  <span class='id identifier rubyid_abort'>abort</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Can not execute policy file </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_bash'>bash</span><span class='embexpr_end'>}</span><span class='tstring_content'>: \n    ERROR </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_yaml'>yaml</span><span class='embexpr_end'>}</span><span class='tstring_content'> </span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='gvar'>$?</span><span class='period'>.</span><span class='id identifier rubyid_exitstatus'>exitstatus</span> <span class='op'>==</span> <span class='int'>0</span>
+  <span class='id identifier rubyid_hash'>hash</span> <span class='op'>=</span> <span class='const'>YAML</span><span class='period'>.</span><span class='id identifier rubyid_load'>load</span><span class='lparen'>(</span><span class='id identifier rubyid_yaml'>yaml</span><span class='rparen'>)</span> <span class='kw'>rescue</span>  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Can not load YAML </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_yaml'>yaml</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+
+  <span class='id identifier rubyid_abort'>abort</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Loaded policy metdata is not Hash: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_hash'>hash</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_hash'>hash</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span> <span class='const'>Hash</span>
+  <span class='id identifier rubyid_hash'>hash</span><span class='period'>.</span><span class='id identifier rubyid_merge!'>merge!</span><span class='lparen'>(</span><span class='lbrace'>{</span>
+                <span class='label'>path:</span> <span class='id identifier rubyid_bash'>bash</span><span class='comma'>,</span>
+                <span class='label'>policy:</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_basename'>basename</span><span class='lparen'>(</span><span class='id identifier rubyid_bash'>bash</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
+              <span class='rbrace'>}</span><span class='rparen'>)</span>
 
   <span class='const'>Policy</span><span class='op'>::</span><span class='const'>DEFAULT</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span> <span class='const'>Hash</span><span class='lbracket'>[</span><span class='id identifier rubyid_hash'>hash</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_k'>k</span><span class='comma'>,</span> <span class='id identifier rubyid_v'>v</span><span class='op'>|</span> <span class='lbracket'>[</span><span class='id identifier rubyid_k'>k</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span><span class='comma'>,</span> <span class='id identifier rubyid_v'>v</span><span class='rbracket'>]</span> <span class='rbrace'>}</span><span class='rbracket'>]</span>
 <span class='kw'>end</span></pre>
@@ -388,9 +430,9 @@ method for it.</p>
 </div>
 
     <div id="footer">
-  Generated on Thu Mar  7 16:13:08 2013 by
+  Generated on Fri Mar 29 14:22:19 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.3 (ruby-1.9.3).
+  0.8.5.2 (ruby-2.0.0).
 </div>
 
   </body>

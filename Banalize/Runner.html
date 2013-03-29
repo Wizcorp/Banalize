@@ -6,7 +6,7 @@
 <title>
   Class: Banalize::Runner
   
-    &mdash; Documentation by YARD 0.8.3
+    &mdash; Documentation by YARD 0.8.5.2
   
 </title>
 
@@ -373,18 +373,18 @@ it. Result of the check is returned in @result attribute.</p>
       <pre class="lines">
 
 
-56
-57
 58
 59
 60
 61
 62
 63
-64</pre>
+64
+65
+66</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/banalize/runner.rb', line 56</span>
+      <pre class="code"><span class="info file"># File 'lib/banalize/runner.rb', line 58</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span> <span class='id identifier rubyid_bash'>bash</span><span class='comma'>,</span><span class='id identifier rubyid_policy'>policy</span>
   <span class='ivar'>@bash</span><span class='comma'>,</span> <span class='ivar'>@policy</span><span class='comma'>,</span> <span class='ivar'>@result</span> <span class='op'>=</span> <span class='id identifier rubyid_bash'>bash</span><span class='comma'>,</span> <span class='id identifier rubyid_policy'>policy</span><span class='comma'>,</span> <span class='kw'>nil</span>
@@ -432,12 +432,12 @@ it. Result of the check is returned in @result attribute.</p>
       <pre class="lines">
 
 
-66
-67
-68</pre>
+68
+69
+70</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/banalize/runner.rb', line 66</span>
+      <pre class="code"><span class="info file"># File 'lib/banalize/runner.rb', line 68</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bash'>bash</span>
   <span class='ivar'>@bash</span>
@@ -474,12 +474,12 @@ it. Result of the check is returned in @result attribute.</p>
       <pre class="lines">
 
 
-66
-67
-68</pre>
+68
+69
+70</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/banalize/runner.rb', line 66</span>
+      <pre class="code"><span class="info file"># File 'lib/banalize/runner.rb', line 68</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_policy'>policy</span>
   <span class='ivar'>@policy</span>
@@ -516,12 +516,12 @@ it. Result of the check is returned in @result attribute.</p>
       <pre class="lines">
 
 
-66
-67
-68</pre>
+68
+69
+70</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/banalize/runner.rb', line 66</span>
+      <pre class="code"><span class="info file"># File 'lib/banalize/runner.rb', line 68</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_result'>result</span>
   <span class='ivar'>@result</span>
@@ -563,21 +563,27 @@ it. Result of the check is returned in @result attribute.</p>
       <pre class="lines">
 
 
-71
-72
 73
 74
 75
 76
 77
-78</pre>
+78
+79
+80
+81
+82
+83</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/banalize/runner.rb', line 71</span>
+      <pre class="code"><span class="info file"># File 'lib/banalize/runner.rb', line 73</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_ruby'>ruby</span>
   <span class='id identifier rubyid_object'>object</span> <span class='op'>=</span> <span class='id identifier rubyid_policy'>policy</span><span class='lbracket'>[</span><span class='symbol'>:klass</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_constantize'>constantize</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_bash'>bash</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_res'>res</span> <span class='op'>=</span> <span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_run'>run</span>
+
+  <span class='comment'># Policy executed by default unless it explicitly deactivated
+</span>  <span class='id identifier rubyid_res'>res</span> <span class='op'>=</span> <span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_default'>default</span><span class='lbracket'>[</span><span class='symbol'>:active</span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='kw'>false</span> <span class='op'>?</span> <span class='kw'>true</span> <span class='op'>:</span> <span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_run'>run</span> 
+
   <span class='ivar'>@result</span> <span class='op'>=</span> <span class='lbrace'>{</span>
     <span class='symbol'>:status</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_res'>res</span> <span class='op'>?</span> <span class='kw'>true</span> <span class='op'>:</span> <span class='kw'>false</span><span class='comma'>,</span>
     <span class='symbol'>:messages</span> <span class='op'>=&gt;</span> <span class='const'>Errors</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_messages'>messages</span><span class='rparen'>)</span>
@@ -613,19 +619,19 @@ it. Result of the check is returned in @result attribute.</p>
       <pre class="lines">
 
 
-83
-84
-85
-86
-87
 88
-89</pre>
+89
+90
+91
+92
+93
+94</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/banalize/runner.rb', line 83</span>
+      <pre class="code"><span class="info file"># File 'lib/banalize/runner.rb', line 88</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_shell'>shell</span>
-  <span class='id identifier rubyid_err'>err</span> <span class='op'>=</span> <span class='backtick'>%x{</span><span class='tstring_content'> </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_policy'>policy</span><span class='lbracket'>[</span><span class='symbol'>:path</span><span class='rbracket'>]</span><span class='rbrace'>}</span><span class='tstring_content'> </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_bash'>bash</span><span class='rbrace'>}</span><span class='tstring_content'> </span><span class='tstring_end'>}</span></span>
+  <span class='id identifier rubyid_err'>err</span> <span class='op'>=</span> <span class='backtick'>%x{</span><span class='tstring_content'> </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_policy'>policy</span><span class='lbracket'>[</span><span class='symbol'>:path</span><span class='rbracket'>]</span><span class='embexpr_end'>}</span><span class='tstring_content'> </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_bash'>bash</span><span class='embexpr_end'>}</span><span class='tstring_content'> </span><span class='tstring_end'>}</span></span>
   <span class='ivar'>@result</span> <span class='op'>=</span> <span class='lbrace'>{</span>
     <span class='symbol'>:status</span> <span class='op'>=&gt;</span> <span class='lparen'>(</span><span class='gvar'>$?</span><span class='period'>.</span><span class='id identifier rubyid_exitstatus'>exitstatus</span> <span class='op'>==</span> <span class='int'>0</span><span class='rparen'>)</span><span class='comma'>,</span>
     <span class='symbol'>:messages</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_err'>err</span>
@@ -641,9 +647,9 @@ it. Result of the check is returned in @result attribute.</p>
 </div>
 
     <div id="footer">
-  Generated on Thu Mar  7 16:13:08 2013 by
+  Generated on Fri Mar 29 14:22:19 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.3 (ruby-1.9.3).
+  0.8.5.2 (ruby-2.0.0).
 </div>
 
   </body>

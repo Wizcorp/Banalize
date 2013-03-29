@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>
+  File: Banalizer configuration
+  
+    &mdash; Documentation by YARD 0.8.5.2
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '';
+  framesUrl = "frames.html#!" + escape(window.location.href);
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
+  
+    <a href="_index.html">Index</a> &raquo; 
+    <span class="title">File: Banalizer configuration</span>
+  
+
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+      Class List
+    </a>
+  
+    <a class="full_list_link" id="method_list_link"
+        href="method_list.html">
+      Method List
+    </a>
+  
+    <a class="full_list_link" id="file_list_link"
+        href="file_list.html">
+      File List
+    </a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+
+    <iframe id="search_frame"></iframe>
+
+    <div id="content"><div id='filecontents'><p><img src="images/banalize_small.png" alt="banalize"></p>
+
+<h1>Per user configuration</h1>
+
+<h2>Command line options</h2>
+
+<p>All command line options for Banalizer can be set as defaults in <code>~/.banalizer/config</code> file. <code>config</code> file is in YAML format. </p>
+
+<p>See <a href="https://github.com/davetron5000/gli/wiki/Config">GLI configuration</a> for details.</p>
+
+<h2>Policies defaults</h2>
+
+<p>Defaults defined in policy recipes using <code>default</code>method  (see <span class='object_link'><a href="Banalize/Registry.html#default-class_method" title="Banalize::Registry.default (method)">Banalize::Registry.default</a></span>) can be overwritten by per-user or per-project custom styles file. </p>
+
+<p>Default locatio for the style file is <code>~/.banalize/style</code>. It&#39;s YAML formatted file. Example is available in Banalize project config directory. Please see for details.</p>
+
+<h3>Disable policy</h3>
+
+<p>Any policy can be disabled by setting <code>active</code> flag to <code>false</code> in personal style file, as in:</p>
+
+<pre class="code yaml"><code class="yaml">
+:disabled_policy:
+  :active: false
+
+</code></pre>
+
+<h2>Custom policies</h2>
+
+<p>User can add own policies outside of Banalize gem. Additionally to policies included with gem Banalize will search for policy files in <code>~/.banalize/policies/</code>. </p>
+
+<p>If you want to creagte own policies, simply drop policy file in the directory.</p>
+
+<h1>Environment variables</h1>
+
+<ul>
+<li><p><code>BANALIZE_TRUNCATE_LINES</code></p>
+
+<p>Set this to &#39;false&#39; to avoid long lines truncated. Otherwise lines with long lists of failed lines are truncated as:</p>
+
+<pre class="code ruby"><code class="ruby">    <span class='id identifier rubyid_consistent_indents'>consistent_indents</span>
+    <span class='comment'>## Code indented inconsistently: TABS and SPACES mixed
+</span>    <span class='comment'>##     TAB indented: 490, 491
+</span>    <span class='comment'>##     SPC indented: 35, 37, 39, 41, 42, 43, 45, 47, 49, 51, 52,... (total 233)
+</span></code></pre></li>
+<li><p><code>GLI_DEBUG</code></p>
+
+<p>To see full trace of errors in GLI set this to &#39;true&#39;</p></li>
+</ul>
+</div></div>
+
+    <div id="footer">
+  Generated on Fri Mar 29 14:22:19 2013 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.8.5.2 (ruby-2.0.0).
+</div>
+
+  </body>
+</html>

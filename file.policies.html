@@ -1,0 +1,418 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>
+  File: List of available policies
+  
+    &mdash; Documentation by YARD 0.8.5.2
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '';
+  framesUrl = "frames.html#!" + escape(window.location.href);
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
+  
+    <a href="_index.html">Index</a> &raquo; 
+    <span class="title">File: List of available policies</span>
+  
+
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+      Class List
+    </a>
+  
+    <a class="full_list_link" id="method_list_link"
+        href="method_list.html">
+      Method List
+    </a>
+  
+    <a class="full_list_link" id="file_list_link"
+        href="file_list.html">
+      File List
+    </a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+
+    <iframe id="search_frame"></iframe>
+
+    <div id="content"><div id='filecontents'><h1>Braces For Variables</h1>
+
+<p><em>Always use braces to isolate variables $a</em></p>
+
+<ul>
+<li>Policy name: braces_for_variables</li>
+<li>Severity:    4</li>
+<li>Style:       bugs</li>
+<li>Defaults:    N/A</li>
+</ul>
+
+<pre class="code ruby"><code class="ruby">
+Use braces around variables
+---------------------------
+
+To prevent wrong expansion of variables always use braces around
+variables. I.e.
+
+Good: ${VARIABLE}
+Bad:  $VARIABLE
+
+foo=sun
+echo $fooshine     # $fooshine is undefined
+echo ${foo}shine   # displays the word &quot;sunshine&quot;
+
+
+
+</code></pre>
+
+<hr>
+
+<h1>Comment Coverage</h1>
+
+<p><em>Script file should be commented. check percentage of code vs commetns</em></p>
+
+<ul>
+<li>Policy name: comment_coverage</li>
+<li>Severity:    1</li>
+<li>Style:       cosmetic</li>
+<li>Defaults:<br>
+
+<ul>
+<li>percent : 30</li>
+</ul></li>
+</ul>
+
+<pre class="code ruby"><code class="ruby">No description available for CommentCoverage
+
+</code></pre>
+
+<hr>
+
+<h1>Consistent Indents</h1>
+
+<p><em>All lines must be indented consistenly</em></p>
+
+<ul>
+<li>Policy name: consistent_indents</li>
+<li>Severity:    3</li>
+<li>Style:       cosmetic</li>
+<li>Defaults:    N/A</li>
+</ul>
+
+<pre class="code ruby"><code class="ruby">
+When indenting the code all leading line indents should use the same
+character: either all spaces or all tabs, but not mixed.
+
+
+
+</code></pre>
+
+<hr>
+
+<h1>Exit On Error</h1>
+
+<p><em>Script should be run with -e option or <code>set -o errexit</code></em></p>
+
+<ul>
+<li>Policy name: exit_on_error</li>
+<li>Severity:    5</li>
+<li>Style:       core</li>
+<li>Defaults:    N/A</li>
+</ul>
+
+<pre class="code ruby"><code class="ruby">Using this option forces bash script to exit on first error.
+
+man bash:
+
+         -e      Exit immediately if a simple command (see SHELL GRAMMAR above)
+                 exits with a non-zero status.  The shell does not exit if  the
+                 command  that  fails  is  part of the command list immediately
+                 following a while or until keyword, part of the test in an  if
+                 statement, part of a &amp;&amp; or || list, or if the command&#39;s return
+                 value is being inverted via !.  A trap on ERR, if set, is exe-
+                 cuted before the shell exits.
+
+
+`set -o errexit` is the same as `set -e`.
+
+
+
+</code></pre>
+
+<hr>
+
+<h1>Explicitly Define Path Variable</h1>
+
+<p><em>Explicitly define path variable</em></p>
+
+<ul>
+<li>Policy name: explicitly_define_path_variable</li>
+<li>Severity:    5</li>
+<li>Style:       security</li>
+<li>Defaults:    N/A</li>
+</ul>
+
+<pre class="code ruby"><code class="ruby">
+PATH varaible  should be defined  explicitly in the script.  It should
+*only* list absolute path names and does not have $PATH variable.
+
+Ref.: http://hub.opensolaris.org/bin/view/Community+Group+on/shellstyle#HPathnames
+
+It  is always  a good  idea  to be  careful about  $PATH settings  and
+pathnames  when writing shell  scripts. This  allows them  to function
+correctly even  when the  user invoking your  script has  some strange
+$PATH set in their environment.
+
+ There are two acceptable ways to do this:
+
+ (1) make *all* command references in your script use explicit pathnames:
+
+/usr/bin/chown root bar
+/usr/bin/chgrp sys bar
+ or (2) explicitly reset $PATH in your script:
+
+PATH=/usr/bin; export PATH
+
+chown root bar
+chgrp sys bar
+
+DO NOT  use a  mixture of  (1) and (2)  in the  same script.  Pick one
+method and use it consistently.
+
+
+
+</code></pre>
+
+<hr>
+
+<h1>Indentation Style</h1>
+
+<p><em>All lines must be indented accordingly to defined style</em></p>
+
+<ul>
+<li>Policy name: indentation_style</li>
+<li>Severity:    3</li>
+<li>Style:       cosmetic</li>
+<li>Defaults:<br>
+
+<ul>
+<li>style : spaces</li>
+</ul></li>
+</ul>
+
+<pre class="code ruby"><code class="ruby">
+When indenting the code, all  leading line indents should use the same
+character: either all SPACES or all TABS, specified by the indentation
+style.
+
+Indenation style can be set in personal style file. Set it to :tabs or
+:spaces. See CONFIGURATION.md for details.
+
+
+
+</code></pre>
+
+<hr>
+
+<h1>Max Line Length</h1>
+
+<p><em>The line length must not exceed max number of characters</em></p>
+
+<ul>
+<li>Policy name: max_line_length</li>
+<li>Severity:    1</li>
+<li>Style:       cosmetic</li>
+<li>Defaults:<br>
+
+<ul>
+<li>max : 88</li>
+</ul></li>
+</ul>
+
+<pre class="code ruby"><code class="ruby">
+Github code browser screen width
+=================================
+
+Max line width: 105 chars.
+
+Github pull request and online code viewer is about 108 characters
+wide.  To be able to browse  code on github without need to scroll
+left-right,  limit line  length to  105 characters,  to accomodate
+some extra characters Git adds for diffs (`+ `).
+
+
+</code></pre>
+
+<hr>
+
+<h1>Minus N Syntax Check</h1>
+
+<p><em>Bash syntax check</em></p>
+
+<ul>
+<li>Policy name: minus_n_syntax_check</li>
+<li>Severity:    5</li>
+<li>Style:       core</li>
+<li>Defaults:    N/A</li>
+</ul>
+
+<pre class="code ruby"><code class="ruby">This policy runs syntax check using &#39;bash -n&#39; option.
+
+
+</code></pre>
+
+<hr>
+
+<h1>Shebang Format</h1>
+
+<p><em>Shebang format</em></p>
+
+<ul>
+<li>Policy name: shebang_format</li>
+<li>Severity:    5</li>
+<li>Style:       core</li>
+<li>Defaults:    N/A</li>
+</ul>
+
+<pre class="code ruby"><code class="ruby"><span class='const'>Format</span> <span class='id identifier rubyid_of'>of</span> <span class='id identifier rubyid_shebang'>shebang</span> <span class='id identifier rubyid_should'>should</span> <span class='id identifier rubyid_be'>be</span> <span class='comment'>#!/usr/bin/env bash
+</span>
+</code></pre>
+
+<hr>
+
+<h1>Should Use Set Nounset</h1>
+
+<p><em>Always use &#39;set -u&#39; or &#39;set -o nounset&#39; in scripts</em></p>
+
+<ul>
+<li>Policy name: should_use_set_nounset</li>
+<li>Severity:    5</li>
+<li>Style:       bug</li>
+<li>Defaults:    N/A</li>
+</ul>
+
+<pre class="code ruby"><code class="ruby">
+Quote from: http://www.davidpashley.com/articles/writing-robust-shell-scripts.html
+
+Use set -u
+===========
+
+    How often have you written a script that broke because a variable
+    wasn&#39;t set? I know I have, many times.
+
+chroot=$1
+...
+rm -rf $chroot/usr/share/doc 
+
+    If you ran the script above and accidentally forgot to give a
+    parameter, you would have just deleted all of your system
+    documentation rather than making a smaller chroot. So what can you
+    do about it? Fortunately bash provides you with set -u, which will
+    exit your script if you try to use an uninitialised variable. You
+    can also use the slightly more readable set -o nounset.
+
+% bash /tmp/shrink-chroot.sh
+$chroot=
+david% bash -u /tmp/shrink-chroot.sh
+/tmp/shrink-chroot.sh: line 3: $1: unbound variable
+david% 
+
+
+
+</code></pre>
+
+<hr>
+
+<h1>Trailing Spaces</h1>
+
+<p><em>Code lines should not have spaces or tabs at the end</em></p>
+
+<ul>
+<li>Policy name: trailing_spaces</li>
+<li>Severity:    1</li>
+<li>Style:       cosmetic</li>
+<li>Defaults:    N/A</li>
+</ul>
+
+<pre class="code ruby"><code class="ruby">No description available for TrailingSpaces
+
+</code></pre>
+
+<hr>
+
+<h1>Uninitialized Variables</h1>
+
+<p><em>Variables should be explicitly initialized</em></p>
+
+<ul>
+<li>Policy name: uninitialized_variables</li>
+<li>Severity:    5</li>
+<li>Style:       security</li>
+<li>Defaults:    N/A</li>
+</ul>
+
+<pre class="code ruby"><code class="ruby">
+Variable initialization
+------------------------
+
+As in C, it&#39;s always a good idea to initialize your variables, though,
+the  shell  will  initialize  fresh variables  itself  (better:  Unset
+variables   will  generally   behave  like   variables   containing  a
+nullstring).
+
+It&#39;s  no problem  to pass  a variable  you use  as environment  to the
+script. If you blindly assume that all variables you use are empty for
+the first time, somebody can inject a variable content by just passing
+it in the environment.
+
+The solution is simple and effective: Initialize them
+
+my_input=&quot;&quot;
+my_array=()
+my_number=0
+
+If you do that  for every variable you use, then you  also have a kind
+of documentation for them.
+
+Ref: http://wiki.bash-hackers.org/scripting/style#variable_initialization
+
+
+
+</code></pre>
+
+<hr>
+</div></div>
+
+    <div id="footer">
+  Generated on Fri Mar 29 14:22:19 2013 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.8.5.2 (ruby-2.0.0).
+</div>
+
+  </body>
+</html>
