@@ -1,10 +1,14 @@
+* Fri Mar 29 2013 -- Dmytro Kovalov
+
+  - Generate Markdown documentation from policy descriptions
+
 ## v.0.0.3
 
 * Thu Mar 28 2013 -- Dmytro Kovalov
 
   - Filtering files by extension list: comma separated
   - Add default sorting to policy search
-  - Policy to check braces ${a} around variables
+  - Policy to check braces $a around variables
     with test  for it
   - Add template for ruby policy in the docs directory
   - Policy to check uninitialized variables

@@ -6,20 +6,15 @@ command [:describe,:desc] do |c|
   c.desc 'Print help for the specified policy'
   c.command [:policy, :pol, :p] do |p|
 
-    def yellow
-      printf "%s\n", ('~' * 80).color(:yellow)
-    end
 
+    p.switch [:markdown, :m], desc: "Print description in markdown format"
+
+    
     p.action do |global_options, options, args|
-      $policies.each do |pol|
-
-        yellow
-        printf "%s :  %s\n", pol[:policy].to_s.color(:bold), pol[:synopsis].color(:green)
-        yellow
-
-        puts pol[:description]
-        puts
-      end
+      Banalize::Describe.send( 
+                              options[:markdown] ? :markdown : :screen, 
+                              $policies
+                              )
     end
 
   end

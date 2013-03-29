@@ -6,6 +6,8 @@ gem 'gli'
 gem 'mash'
 #gem 'debugger'
 gem 'tailor'
+gem 'yard'
+gem 'redcarpet'
 
 gem 'rspec-core'
 gem 'rspec-mocks'
