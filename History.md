@@ -1,3 +1,5 @@
+## v.0.0.4
+
 * Fri Mar 29 2013 -- Dmytro Kovalov
 
   - Generate Markdown documentation from policy descriptions
