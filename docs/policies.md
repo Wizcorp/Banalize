@@ -14,6 +14,8 @@
 * Style:       bugs
 * Defaults:    N/A
 
+**Description**
+
 ````
 
 Use braces around variables
@@ -44,8 +46,10 @@ echo ${foo}shine   # displays the word "sunshine"
 * Severity:    1
 * Style:       cosmetic
 * Defaults:    
-  * percent : 30
+  * percent: 30
 
+
+**Description**
 
 ````
 No description available for CommentCoverage
@@ -63,6 +67,8 @@ No description available for CommentCoverage
 * Severity:    3
 * Style:       cosmetic
 * Defaults:    N/A
+
+**Description**
 
 ````
 
@@ -84,6 +90,8 @@ character: either all spaces or all tabs, but not mixed.
 * Severity:    5
 * Style:       core
 * Defaults:    N/A
+
+**Description**
 
 ````
 Using this option forces bash script to exit on first error.
@@ -116,6 +124,8 @@ man bash:
 * Severity:    5
 * Style:       security
 * Defaults:    N/A
+
+**Description**
 
 ````
 
@@ -160,8 +170,10 @@ method and use it consistently.
 * Severity:    3
 * Style:       cosmetic
 * Defaults:    
-  * style : spaces
+  * style: spaces
 
+
+**Description**
 
 ````
 
@@ -187,8 +199,10 @@ Indenation style can be set in personal style file. Set it to :tabs or
 * Severity:    1
 * Style:       cosmetic
 * Defaults:    
-  * max : 88
+  * max: 88
 
+
+**Description**
 
 ````
 
@@ -217,6 +231,8 @@ some extra characters Git adds for diffs (`+ `).
 * Style:       core
 * Defaults:    N/A
 
+**Description**
+
 ````
 This policy runs syntax check using 'bash -n' option.
 
@@ -235,6 +251,8 @@ This policy runs syntax check using 'bash -n' option.
 * Style:       core
 * Defaults:    N/A
 
+**Description**
+
 ````
 Format of shebang should be #!/usr/bin/env bash
 
@@ -251,6 +269,8 @@ Format of shebang should be #!/usr/bin/env bash
 * Severity:    5
 * Style:       bug
 * Defaults:    N/A
+
+**Description**
 
 ````
 
@@ -295,6 +315,8 @@ david%
 * Style:       cosmetic
 * Defaults:    N/A
 
+**Description**
+
 ````
 No description available for TrailingSpaces
 
@@ -311,6 +333,8 @@ No description available for TrailingSpaces
 * Severity:    5
 * Style:       security
 * Defaults:    N/A
+
+**Description**
 
 ````
 

@@ -1,6 +1,4 @@
 
-
-
 file "docs/policies.md"
 
 task "docs/policies.md" => Dir.glob('lib/**/*') do
