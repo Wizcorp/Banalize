@@ -1,0 +1,126 @@
+#!/usr/bin/env ruby
+
+require 'banalize'
+
+include         GLI::App
+commands_from   "commands"
+version         Banalize::VERSION
+config_file     Banalize::USER[:config]
+program_desc    <<-EOF 
+
+Banalize is Bash files static code analyzer. It runs each policy
+corresponding to the required level of test severity and policies. 
+
+Policies are Ruby or other programming languages (Bash, perl)
+executable scripts located in `lib/policies` directories.
+
+EOF
+
+
+
+flag   [:group,    :g],    :desc => 'Use only policies included in specified group'
+flag   [:severity, :s],    :desc => 'Use only policies of specified severity and above'
+flag   [:policy,   :p],    :desc => 'Select policies by name (single) or regexp, include in slashes: /indent/'
+flag   [:style,    :S],    :desc => 'Use custom style file instead of default one.',
+                           :default_value => Banalize::USER[:styles]
+
+switch [:color,    :c],    :desc => "Use colored output"
+
+pre do |global,command,options,args|
+
+  $color = true if global[:color]
+
+  #
+  # Load styles file. Styles override defaults defined in policies.
+  #
+  $styles = if global[:style] != Banalize::USER[:styles] || 
+                File.exist?(File.expand_path(Banalize::USER[:styles]))
+              begin
+                YAML.load_file global[:style]
+              rescue Banalize::BanalizeError => e
+                abort "#{e.class} error: Can not load styles file #{e.message}"
+              end
+
+            end
+
+  search = { }
+
+  if global[:policy]
+    search = global[:policy]
+  else
+    search.merge!({ :policy   => global[:group]         }) if global[:group]
+    search.merge!({ :severity => global[:severity].to_i }) if global[:severity]
+  end
+
+
+  search = Regexp.new(search[1..-2]) if search =~ /^\/.*\/$/
+  $search   = search
+  $policies = Banalize::Policy.search search 
+
+  # - results of checks
+  # - count of failed checks
+  # - total count of checks
+  # - current - name of the currently processed bash file
+  $res, $status, $total, $current = { }, 0, 0, ''
+  true
+end
+
+post do |global,command,options,args|
+  #
+  # output results of the check
+  #
+  unless $res.empty?
+
+    if options[:dots]
+      dots = ''
+      $res.each do |file,res|
+        $total += res.count
+        res.each do |k,v|
+          dots << (v[:status] ? '.' : "F".color(:red))
+          $status += 1 unless v[:status]
+        end
+      end
+      puts dots
+
+    else
+      out = { }
+      $res.each do |file,res|
+
+        failure = res.select { |k,v| !v[:status] }
+
+        # Ignore all other keys, only bring messages up. If no errors
+        # switch is set. only list empty policy names
+        failure.map do |k,v|
+          failure[k] = options[:errors] ? v[:messages]  : nil
+        end
+
+        out[file] = { "Fail" => failure } unless failure.empty?
+
+        if options[:all]
+          out[file] ||= {} 
+          out[file].merge!({ "Success" => res.keys.select { |k| res[k][:status] } }) 
+        end
+
+        $total  += res.count
+        $status += failure.count
+      end
+
+      print ::Banalize.beautify(out)
+    end
+    
+    puts "\n#{$res.count} files, #{$total.to_s} checks, #{$status.to_s} failed"
+  end
+
+  $status
+end
+
+on_error do |exception|
+  unless ENV['GLI_DEBUG'] == 'true'
+    puts "Current bash file #{$current}"
+    exit_now! exception.message unless exception.is_a? GLI::BadCommandLine
+  end
+  true
+end
+
+exit run(ARGV) && $status == 0
+
