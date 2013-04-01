@@ -61,7 +61,11 @@
 
     <iframe id="search_frame"></iframe>
 
-    <div id="content"><div id='filecontents'><h1>Braces For Variables</h1>
+    <div id="content"><div id='filecontents'><h1>Banalizer</h1>
+
+<p><img src="images/banalize_small.png" alt="banalize"></p>
+
+<h2>Braces For Variables</h2>
 
 <p><em>Always use braces to isolate variables $a</em></p>
 
@@ -71,6 +75,8 @@
 <li>Style:       bugs</li>
 <li>Defaults:    N/A</li>
 </ul>
+
+<p><strong>Description</strong></p>
 
 <pre class="code ruby"><code class="ruby">
 Use braces around variables
@@ -92,7 +98,7 @@ echo ${foo}shine   # displays the word &quot;sunshine&quot;
 
 <hr>
 
-<h1>Comment Coverage</h1>
+<h2>Comment Coverage</h2>
 
 <p><em>Script file should be commented. check percentage of code vs commetns</em></p>
 
@@ -103,9 +109,11 @@ echo ${foo}shine   # displays the word &quot;sunshine&quot;
 <li>Defaults:<br>
 
 <ul>
-<li>percent : 30</li>
+<li>percent: 30</li>
 </ul></li>
 </ul>
+
+<p><strong>Description</strong></p>
 
 <pre class="code ruby"><code class="ruby">No description available for CommentCoverage
 
@@ -113,7 +121,7 @@ echo ${foo}shine   # displays the word &quot;sunshine&quot;
 
 <hr>
 
-<h1>Consistent Indents</h1>
+<h2>Consistent Indents</h2>
 
 <p><em>All lines must be indented consistenly</em></p>
 
@@ -123,6 +131,8 @@ echo ${foo}shine   # displays the word &quot;sunshine&quot;
 <li>Style:       cosmetic</li>
 <li>Defaults:    N/A</li>
 </ul>
+
+<p><strong>Description</strong></p>
 
 <pre class="code ruby"><code class="ruby">
 When indenting the code all leading line indents should use the same
@@ -134,7 +144,7 @@ character: either all spaces or all tabs, but not mixed.
 
 <hr>
 
-<h1>Exit On Error</h1>
+<h2>Exit On Error</h2>
 
 <p><em>Script should be run with -e option or <code>set -o errexit</code></em></p>
 
@@ -144,6 +154,8 @@ character: either all spaces or all tabs, but not mixed.
 <li>Style:       core</li>
 <li>Defaults:    N/A</li>
 </ul>
+
+<p><strong>Description</strong></p>
 
 <pre class="code ruby"><code class="ruby">Using this option forces bash script to exit on first error.
 
@@ -166,7 +178,7 @@ man bash:
 
 <hr>
 
-<h1>Explicitly Define Path Variable</h1>
+<h2>Explicitly Define Path Variable</h2>
 
 <p><em>Explicitly define path variable</em></p>
 
@@ -176,6 +188,8 @@ man bash:
 <li>Style:       security</li>
 <li>Defaults:    N/A</li>
 </ul>
+
+<p><strong>Description</strong></p>
 
 <pre class="code ruby"><code class="ruby">
 PATH varaible  should be defined  explicitly in the script.  It should
@@ -210,7 +224,7 @@ method and use it consistently.
 
 <hr>
 
-<h1>Indentation Style</h1>
+<h2>Indentation Style</h2>
 
 <p><em>All lines must be indented accordingly to defined style</em></p>
 
@@ -221,9 +235,11 @@ method and use it consistently.
 <li>Defaults:<br>
 
 <ul>
-<li>style : spaces</li>
+<li>style: spaces</li>
 </ul></li>
 </ul>
+
+<p><strong>Description</strong></p>
 
 <pre class="code ruby"><code class="ruby">
 When indenting the code, all  leading line indents should use the same
@@ -239,7 +255,7 @@ Indenation style can be set in personal style file. Set it to :tabs or
 
 <hr>
 
-<h1>Max Line Length</h1>
+<h2>Max Line Length</h2>
 
 <p><em>The line length must not exceed max number of characters</em></p>
 
@@ -250,9 +266,11 @@ Indenation style can be set in personal style file. Set it to :tabs or
 <li>Defaults:<br>
 
 <ul>
-<li>max : 88</li>
+<li>max: 88</li>
 </ul></li>
 </ul>
+
+<p><strong>Description</strong></p>
 
 <pre class="code ruby"><code class="ruby">
 Github code browser screen width
@@ -270,7 +288,7 @@ some extra characters Git adds for diffs (`+ `).
 
 <hr>
 
-<h1>Minus N Syntax Check</h1>
+<h2>Minus N Syntax Check</h2>
 
 <p><em>Bash syntax check</em></p>
 
@@ -281,6 +299,8 @@ some extra characters Git adds for diffs (`+ `).
 <li>Defaults:    N/A</li>
 </ul>
 
+<p><strong>Description</strong></p>
+
 <pre class="code ruby"><code class="ruby">This policy runs syntax check using &#39;bash -n&#39; option.
 
 
@@ -288,7 +308,7 @@ some extra characters Git adds for diffs (`+ `).
 
 <hr>
 
-<h1>Shebang Format</h1>
+<h2>Shebang Format</h2>
 
 <p><em>Shebang format</em></p>
 
@@ -299,13 +319,15 @@ some extra characters Git adds for diffs (`+ `).
 <li>Defaults:    N/A</li>
 </ul>
 
+<p><strong>Description</strong></p>
+
 <pre class="code ruby"><code class="ruby"><span class='const'>Format</span> <span class='id identifier rubyid_of'>of</span> <span class='id identifier rubyid_shebang'>shebang</span> <span class='id identifier rubyid_should'>should</span> <span class='id identifier rubyid_be'>be</span> <span class='comment'>#!/usr/bin/env bash
 </span>
 </code></pre>
 
 <hr>
 
-<h1>Should Use Set Nounset</h1>
+<h2>Should Use Set Nounset</h2>
 
 <p><em>Always use &#39;set -u&#39; or &#39;set -o nounset&#39; in scripts</em></p>
 
@@ -315,6 +337,8 @@ some extra characters Git adds for diffs (`+ `).
 <li>Style:       bug</li>
 <li>Defaults:    N/A</li>
 </ul>
+
+<p><strong>Description</strong></p>
 
 <pre class="code ruby"><code class="ruby">
 Quote from: http://www.davidpashley.com/articles/writing-robust-shell-scripts.html
@@ -348,7 +372,7 @@ david%
 
 <hr>
 
-<h1>Trailing Spaces</h1>
+<h2>Trailing Spaces</h2>
 
 <p><em>Code lines should not have spaces or tabs at the end</em></p>
 
@@ -359,13 +383,15 @@ david%
 <li>Defaults:    N/A</li>
 </ul>
 
+<p><strong>Description</strong></p>
+
 <pre class="code ruby"><code class="ruby">No description available for TrailingSpaces
 
 </code></pre>
 
 <hr>
 
-<h1>Uninitialized Variables</h1>
+<h2>Uninitialized Variables</h2>
 
 <p><em>Variables should be explicitly initialized</em></p>
 
@@ -375,6 +401,8 @@ david%
 <li>Style:       security</li>
 <li>Defaults:    N/A</li>
 </ul>
+
+<p><strong>Description</strong></p>
 
 <pre class="code ruby"><code class="ruby">
 Variable initialization
@@ -409,7 +437,7 @@ Ref: http://wiki.bash-hackers.org/scripting/style#variable_initialization
 </div></div>
 
     <div id="footer">
-  Generated on Fri Mar 29 14:27:27 2013 by
+  Generated on Mon Apr  1 11:08:11 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.5.2 (ruby-2.0.0).
 </div>
