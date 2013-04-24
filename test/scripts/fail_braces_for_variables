@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+myName=foo
+
+print ${myName}
+print $myName
+

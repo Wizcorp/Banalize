@@ -1,0 +1,11 @@
+bin/*
+lib/**/*.rb
+--markup markdown
+--asset images:images
+-
+README.md
+PARSER.md
+docs/CONFIGURATION.md
+docs/policies.md
+History.md
+version.txt
