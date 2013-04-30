@@ -1,4 +1,4 @@
-# @title List of available policies 
+# @title List of available policies
 
 # Banalizer
 

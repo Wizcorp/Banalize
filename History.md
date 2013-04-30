@@ -1,3 +1,8 @@
+## v.0.0.5
+* Tue Apr 30 2013 -- Dmytro Kovalov
+
+  - bugfix. Add required gems to gemspec file
+  
 ## v.0.0.4
 
 * Fri Mar 29 2013 -- Dmytro Kovalov

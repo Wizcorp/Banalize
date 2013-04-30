@@ -21,8 +21,18 @@ spec = Gem::Specification.new do |s|
   s.rdoc_options << '--title' << 'Banalize' << '--main' << 'README.md' << '-ri'
   s.bindir = 'bin'
   s.executables << 'banalize'
+
+  s.add_dependency('mash')
+  s.add_dependency('gli','2.5.4')
+  s.add_dependency('activesupport','~>3.2.13')
+
   s.add_development_dependency('rake')
   s.add_development_dependency('rdoc')
   s.add_development_dependency('aruba')
-  s.add_runtime_dependency('gli','2.5.4')
+  s.add_development_dependency('redcarpet')
+  s.add_development_dependency('rspec-core')
+  s.add_development_dependency('rspec-mocks')
+  s.add_development_dependency('rspec-expectations')
+  s.add_development_dependency('yard')
+
 end

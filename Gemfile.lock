@@ -1,8 +1,10 @@
 PATH
   remote: .
   specs:
-    banalize (0.0.3)
+    banalize (0.0.5)
+      activesupport (~> 3.2.13)
       gli (= 2.5.4)
+      mash
 
 GEM
   remote: https://rubygems.org/
