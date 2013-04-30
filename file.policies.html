@@ -2,7 +2,7 @@
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII" />
 <title>
   File: List of available policies
   
@@ -165,7 +165,7 @@ man bash:
                  exits with a non-zero status.  The shell does not exit if  the
                  command  that  fails  is  part of the command list immediately
                  following a while or until keyword, part of the test in an  if
-                 statement, part of a &amp;&amp; or || list, or if the command&#39;s return
+                 statement, part of a &amp;&amp; or || list, or if the command's return
                  value is being inverted via !.  A trap on ERR, if set, is exe-
                  cuted before the shell exits.
 
@@ -301,7 +301,7 @@ some extra characters Git adds for diffs (`+ `).
 
 <p><strong>Description</strong></p>
 
-<pre class="code ruby"><code class="ruby">This policy runs syntax check using &#39;bash -n&#39; option.
+<pre class="code ruby"><code class="ruby">This policy runs syntax check using 'bash -n' option.
 
 
 </code></pre>
@@ -347,7 +347,7 @@ Use set -u
 ===========
 
     How often have you written a script that broke because a variable
-    wasn&#39;t set? I know I have, many times.
+    wasn't set? I know I have, many times.
 
 chroot=$1
 ...
@@ -408,12 +408,12 @@ david%
 Variable initialization
 ------------------------
 
-As in C, it&#39;s always a good idea to initialize your variables, though,
+As in C, it's always a good idea to initialize your variables, though,
 the  shell  will  initialize  fresh variables  itself  (better:  Unset
 variables   will  generally   behave  like   variables   containing  a
 nullstring).
 
-It&#39;s  no problem  to pass  a variable  you use  as environment  to the
+It's  no problem  to pass  a variable  you use  as environment  to the
 script. If you blindly assume that all variables you use are empty for
 the first time, somebody can inject a variable content by just passing
 it in the environment.
@@ -437,9 +437,9 @@ Ref: http://wiki.bash-hackers.org/scripting/style#variable_initialization
 </div></div>
 
     <div id="footer">
-  Generated on Mon Apr  1 11:08:11 2013 by
+  Generated on Tue Apr 30 17:26:24 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.5.2 (ruby-2.0.0).
+  0.8.5.2 (ruby-1.9.3).
 </div>
 
   </body>
