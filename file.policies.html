@@ -144,40 +144,6 @@ character: either all spaces or all tabs, but not mixed.
 
 <hr>
 
-<h2>Exit On Error</h2>
-
-<p><em>Script should be run with -e option or <code>set -o errexit</code></em></p>
-
-<ul>
-<li>Policy name: exit_on_error</li>
-<li>Severity:    5</li>
-<li>Style:       core</li>
-<li>Defaults:    N/A</li>
-</ul>
-
-<p><strong>Description</strong></p>
-
-<pre class="code ruby"><code class="ruby">Using this option forces bash script to exit on first error.
-
-man bash:
-
-         -e      Exit immediately if a simple command (see SHELL GRAMMAR above)
-                 exits with a non-zero status.  The shell does not exit if  the
-                 command  that  fails  is  part of the command list immediately
-                 following a while or until keyword, part of the test in an  if
-                 statement, part of a &amp;&amp; or || list, or if the command's return
-                 value is being inverted via !.  A trap on ERR, if set, is exe-
-                 cuted before the shell exits.
-
-
-`set -o errexit` is the same as `set -e`.
-
-
-
-</code></pre>
-
-<hr>
-
 <h2>Explicitly Define Path Variable</h2>
 
 <p><em>Explicitly define path variable</em></p>
@@ -327,51 +293,6 @@ some extra characters Git adds for diffs (`+ `).
 
 <hr>
 
-<h2>Should Use Set Nounset</h2>
-
-<p><em>Always use &#39;set -u&#39; or &#39;set -o nounset&#39; in scripts</em></p>
-
-<ul>
-<li>Policy name: should_use_set_nounset</li>
-<li>Severity:    5</li>
-<li>Style:       bug</li>
-<li>Defaults:    N/A</li>
-</ul>
-
-<p><strong>Description</strong></p>
-
-<pre class="code ruby"><code class="ruby">
-Quote from: http://www.davidpashley.com/articles/writing-robust-shell-scripts.html
-
-Use set -u
-===========
-
-    How often have you written a script that broke because a variable
-    wasn't set? I know I have, many times.
-
-chroot=$1
-...
-rm -rf $chroot/usr/share/doc 
-
-    If you ran the script above and accidentally forgot to give a
-    parameter, you would have just deleted all of your system
-    documentation rather than making a smaller chroot. So what can you
-    do about it? Fortunately bash provides you with set -u, which will
-    exit your script if you try to use an uninitialised variable. You
-    can also use the slightly more readable set -o nounset.
-
-% bash /tmp/shrink-chroot.sh
-$chroot=
-david% bash -u /tmp/shrink-chroot.sh
-/tmp/shrink-chroot.sh: line 3: $1: unbound variable
-david% 
-
-
-
-</code></pre>
-
-<hr>
-
 <h2>Trailing Spaces</h2>
 
 <p><em>Code lines should not have spaces or tabs at the end</em></p>
@@ -434,10 +355,89 @@ Ref: http://wiki.bash-hackers.org/scripting/style#variable_initialization
 </code></pre>
 
 <hr>
+
+<h2>Use Set Errexit</h2>
+
+<p><em>Script should be run with -e option or <code>set -o errexit</code></em></p>
+
+<ul>
+<li>Policy name: use_set_errexit</li>
+<li>Severity:    5</li>
+<li>Style:       core</li>
+<li>Defaults:    N/A</li>
+</ul>
+
+<p><strong>Description</strong></p>
+
+<pre class="code ruby"><code class="ruby">Using this option forces bash script to exit on first error.
+
+man bash:
+
+         -e      Exit immediately if a simple command (see SHELL GRAMMAR above)
+                 exits with a non-zero status.  The shell does not exit if  the
+                 command  that  fails  is  part of the command list immediately
+                 following a while or until keyword, part of the test in an  if
+                 statement, part of a &amp;&amp; or || list, or if the command's return
+                 value is being inverted via !.  A trap on ERR, if set, is exe-
+                 cuted before the shell exits.
+
+
+`set -o errexit` is the same as `set -e`.
+
+
+
+</code></pre>
+
+<hr>
+
+<h2>Use Set Nounset</h2>
+
+<p><em>Always use &#39;set -u&#39; or &#39;set -o nounset&#39; in scripts</em></p>
+
+<ul>
+<li>Policy name: use_set_nounset</li>
+<li>Severity:    5</li>
+<li>Style:       bug</li>
+<li>Defaults:    N/A</li>
+</ul>
+
+<p><strong>Description</strong></p>
+
+<pre class="code ruby"><code class="ruby">
+Quote from: http://www.davidpashley.com/articles/writing-robust-shell-scripts.html
+
+Use set -u
+===========
+
+    How often have you written a script that broke because a variable
+    wasn't set? I know I have, many times.
+
+chroot=$1
+...
+rm -rf $chroot/usr/share/doc 
+
+    If you ran the script above and accidentally forgot to give a
+    parameter, you would have just deleted all of your system
+    documentation rather than making a smaller chroot. So what can you
+    do about it? Fortunately bash provides you with set -u, which will
+    exit your script if you try to use an uninitialised variable. You
+    can also use the slightly more readable set -o nounset.
+
+% bash /tmp/shrink-chroot.sh
+$chroot=
+david% bash -u /tmp/shrink-chroot.sh
+/tmp/shrink-chroot.sh: line 3: $1: unbound variable
+david% 
+
+
+
+</code></pre>
+
+<hr>
 </div></div>
 
     <div id="footer">
-  Generated on Tue Apr 30 17:26:24 2013 by
+  Generated on Wed May  1 11:48:33 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.5.2 (ruby-1.9.3).
 </div>
